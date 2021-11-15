@@ -85,3 +85,13 @@ body {
 
     color: #303030;
 }
+
+footer {
+    position: absolute;
+    width: 1920px;
+    height: 217px;
+    left: 0px;
+    top: 863px;
+
+    background: #7FB7D7;
+}

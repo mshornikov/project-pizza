@@ -1,17 +1,12 @@
-import logging, sys, aiogram
+import logging
 
 from aiogram import Bot
 from aiogram.dispatcher import Dispatcher
-from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, ParseMode, Message
+from aiogram.types import  ReplyKeyboardMarkup, KeyboardButton, ParseMode, Message
 from aiogram.utils import executor
 from aiogram.utils.markdown import italic , text, bold
 
 from config import TOKEN
-
-#константы не факт что будут существовать
-flag_menu = False
-commands=['start', 'help', 'menu', 'menuall', 'menuPizza', 'joke', 'login']
-commands_rus=['старт', 'помощь', 'меню', 'все меню', 'меню пиццы', 'шутка', 'зайти']
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
@@ -27,9 +22,6 @@ greet = ReplyKeyboardMarkup(resize_keyboard=True).add(button_help).add(button_me
 greet_menu = ReplyKeyboardMarkup(resize_keyboard=True).add(button_help).add(button_menu).add(button_menu_all).add(button_menu_pizza)
 
 logging.basicConfig(filename="log_error_telegram.log", filemode='a', level=logging.ERROR, format = "%(asctime)s - %(levelname)s - %(funcName)s: %(lineno)d - %(message)s")
-#answer - просто ответ
-#reply - ответ 
-#send_message - ответ по id?
 
 @dp.message_handler()
 async def process_start_command(message: Message):
@@ -77,6 +69,3 @@ async def process_start_command(message: Message):
 
 if __name__ == '__main__':
     executor.start_polling(dp)
-
-
-

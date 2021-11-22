@@ -1,0 +1,16 @@
+{% extends "data/base_structure.html" %}
+
+
+{% block categories%}
+    {% for cat in productCategory%}
+        <a href="#">{{cat}}</a>
+    {% endfor %}
+{% endblock %}
+
+{% block content %} 
+    {% for item in items %}
+        <h3>{{item.productName}}</h3>
+        <p>{{item.productDescription}}</p>
+        <hr>
+    {% endfor %}
+{% endblock %}

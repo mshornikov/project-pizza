@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'common/css/style.css'%}" type='text/css'>
+
+    <title>{{title}}</title>
+</head>
+<body>
+    
+    <header class="header">
+      <div class="container">
+        <div class="header__inner">
+          <div class="navigation">
+            <div class="company_name">
+              .project_pizza
+            </div>
+            <div class="navbar">
+              {% for navigationPoint in siteNavigation%}
+              <a href="#" class="link">{{navigationPoint}}</a>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="user">
+            
+              <a href="#" class="basket_link">Корзина</a>
+            
+            <div class="user_l">
+              <img src="{% static 'common/images/user_logo.jpg'%}" alt="" class="user_logo">
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {% block stocks %}
+    {% endblock %}
+
+    {% block categories %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}    
+
+    <footer class='footer'>
+
+      <div class="container">
+
+        <div class="footer_inner">
+          <div class="information">
+            .project_pizza © 2021
+          </div>
+          <div class="communication">
+            <div class="number">
+              8-905-499-32-32 <br> Звонок бесплатный
+            </div>
+            <div class="social_clubs">
+              VK  YouTube  Instagram
+            </div>
+            <div class="company_email">
+              pr.pizza@dev.com
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+</body>
+</html>

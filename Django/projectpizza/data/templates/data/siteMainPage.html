@@ -1,17 +1,20 @@
 {% extends "data/base_structure.html" %}
 
+
+
 {% block include %}
 {% endblock %}
 
-{% block categories%}
+{% block categories %} 
     {% for cat in productCategory%}
-        <a href="#">{{cat}}</a>
+        <a href='#'>{{cat}}</a>
     {% endfor %}
 {% endblock %}
 
 {% block content %} 
+    <hr>
     {% for item in items %}
-        <h3>{{item.productName}}</h3>
+        <a href="{{ item.get_absolute_url }}">{{item.productName}}</a>
         <p>{{item.productDescription}}</p>
         <hr>
     {% endfor %}

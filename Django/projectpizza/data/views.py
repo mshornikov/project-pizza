@@ -1,3 +1,4 @@
+from django.http import request
 from django.http.response import HttpResponse
 from django.shortcuts import render
 
@@ -6,13 +7,14 @@ from django.shortcuts import render
 from .models import *
 
 siteNavigation = [
-    "О нас",
-    "Акции",
-    "Карта",
-    "Еще",
-    "Чтото",
+    {'title': "О нас", 'url_name' : 'aboutPage'},
+    {'title': "Акции", 'url_name' : 'stocksPage'},
+    {'title': "Контакты", 'url_name' : 'communicationPage'},
+    #{'title': "Карта", 'url_name' : 'mapin'},
+    #{'title': "Чтото", 'url_name' : 'smt'}
 ]
 productCategory = [
+    "All",
     "Pizza",
     "Rolls",
     "Drinks",
@@ -21,14 +23,44 @@ productCategory = [
 
 
 
+
 def mainPage(request):
     products = Product.objects.all()
-    print(products)
-    
-    return render(request, 'data/siteMainPage.html', {
-        # передача данных по имени, на основании которых строится представление на сайте
+    context = {
         'title':'.projectPizza',
         'siteNavigation':siteNavigation,
         'productCategory':productCategory,
         'items':products
-    })
+    }
+
+    return render(request, 'data/siteMainPage.html', context=context)
+
+def about(request):
+    context = {
+        'title':'О .projectPizza',
+        'siteNavigation':siteNavigation,
+    }
+    return render(request, 'data/siteAboutPage.html', context=context) 
+
+def stocks(request):
+    context = {
+        'title': 'Акции от .projectPizza',
+        'siteNavigation':siteNavigation
+    }
+    return render(request, 'data/siteStocksPage.html', context=context)
+
+def communications(request):
+    context = {
+        'title': 'Контакты от .projectPizza',
+        'siteNavigation':siteNavigation
+    }
+    return render(request, 'data/siteCommunicationPage.html', context=context)
+
+def showProduct(request, productID):
+    test = Product.objects.get(id = 1)
+    print(test)
+    context = {
+        'siteNavigation':siteNavigation, 
+        'test': test,
+    }
+    return render(request, 'data/siteProductPage.html', context=context)  

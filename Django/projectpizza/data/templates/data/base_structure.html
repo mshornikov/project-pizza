@@ -19,8 +19,9 @@
               .project_pizza
             </div>
             <div class="navbar">
-              {% for navigationPoint in siteNavigation%}
-              <a href="#" class="link">{{navigationPoint}}</a>
+              <a href="{% url 'mainPage' %}">На главную</a>
+              {% for navigationPoint in siteNavigation %}
+              <a href="{% url navigationPoint.url_name %}" class="link">{{navigationPoint.title}}</a>
               {% endfor %}
             </div>
           </div>

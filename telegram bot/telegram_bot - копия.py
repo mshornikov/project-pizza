@@ -136,6 +136,8 @@ async def process_start_command(message: Message, state: FSMContext):
         await state.set_state(TestStates.all()[1])
         await message.answer(string, reply_markup = ReplyKeyboardRemove())
 #эх отдельное состояние надо прописать
+#првоерка связи
+
     elif message.text == "exit" and state == TestStates.all()[0]:
         state = dp.current_state()
         string = "Выполяняем выход..."

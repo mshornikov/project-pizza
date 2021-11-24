@@ -7,7 +7,6 @@ from aiogram.utils import executor
 from aiogram.types import ReplyKeyboardRemove #кнопки
 
 from aiogram.types import ParseMode, Message #обработка сообщения
-from aiogram.utils.markdown import italic , text, bold #текст
 
 from aiogram.contrib.fsm_storage.memory import MemoryStorage #состояния
 
@@ -15,6 +14,8 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage #состояния
 from config import TOKEN
 from states import TestStates
 from buttons import greet, greet_menu, greet_post_login
+from stringPizza import success_str_log, fail_str_log, password_str, help_string, login_string
+from stringPizza import start1, start2, start3, miss
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -40,18 +41,16 @@ async def first_test_state_case_met(message: Message):
                 await bot.delete_message(message_id = i, chat_id = msg_us_id)
             except:
                 continue 
-            string = "Отлично!"
-            await message.answer(string, reply_markup = greet_post_login)
+            await message.answer(success_str_log, reply_markup = greet_post_login)
             await state.set_state(TestStates.all()[0])
             break
 
         else:   
-            await message.answer("Что-то пошло не так! Попробуйте снова",  reply_markup = greet)
+            await message.answer(fail_str_log,  reply_markup = greet)
             await state.reset_state()
 
     else:
-        string = "Отлично!"
-        await message.answer(string, reply_markup = greet_post_login)
+        await message.answer(success_str_log, reply_markup = greet_post_login)
         await state.set_state(TestStates.all()[0])
 
 @dp.message_handler(state=TestStates.TEST_STATE_LOGIN)
@@ -72,20 +71,18 @@ async def first_test_state_case_met(message: Message):
                 await bot.delete_message(message_id = i, chat_id = msg_us_id)
             except:
                 continue
- 
-            string = "Теперь введите пароль"
+
             await state.set_state(TestStates.all()[2])
-            await message.answer(string)
+            await message.answer(password_str)
             break
 
         else: 
-            await message.answer("Что-то пошло не так! Попробуйте снова",  reply_markup = greet)
+            await message.answer(fail_str_log,  reply_markup = greet)
             await state.reset_state()
             
     else:
-        string = "Теперь введите пароль"
         await state.set_state(TestStates.all()[2])
-        await message.answer(string)
+        await message.answer(password_str)
 
 @dp.message_handler(state='*')
 async def process_start_command(message: Message, state: FSMContext):
@@ -101,16 +98,12 @@ async def process_start_command(message: Message, state: FSMContext):
         f.write(log_msg)
 
     if message.text == 'начать':
-        await message.answer("Привет! Я бот *nameCompany*!! С помощью меня вы можете ознакомиться с нашим ассортиментом и, если вы уже зарегистрировались у нас, посмотреть свои еженедельные скидки и заказы))")
-        await message.answer("Для помощи можете вызвать команду \"помощь\"")
-        await message.answer("Для вызова меню \"меню\"",  reply_markup = greet_now)
+        await message.answer(start1)
+        await message.answer(start2)
+        await message.answer(start3,  reply_markup = greet_now)
 
     elif message.text == 'помощь':
-        string = text("Рад что ты спросил))"+"\n" + bold("\"помощь\"") + " с ней ты уже познакомился, это помощь)" + "\n") 
-        string = string + bold("\"меню\"") + ", показывает меню... У нас все очень вкусно, скорее попробуй"+ "\n"
-        string = string + bold("\"анекдот\"")  + ", секретная команда, никому про нее не рассказывай.."+ "\n"
-        string = string  + bold("\"login\"") + ". Он поможет тебе зайти в твой аккаунт. Удивительно. Ты же его завел?0.о"
-        await message.answer(string,  reply_markup = greet_now, parse_mode=ParseMode.MARKDOWN)
+        await message.answer(help_string,  reply_markup = greet_now, parse_mode=ParseMode.MARKDOWN)
     #эх отдельное состояние надо прописать
     elif message.text == "меню":
         string = "*Заглушка (здесь должна использоваться бд)*" + "\n"
@@ -132,9 +125,8 @@ async def process_start_command(message: Message, state: FSMContext):
     elif message.text == 'login' and state != TestStates.all()[0]:
         dic_id[message.from_user.id] = message.message_id+1
         state = dp.current_state()
-        string = "Теперь введите логин"
         await state.set_state(TestStates.all()[1])
-        await message.answer(string, reply_markup = ReplyKeyboardRemove())
+        await message.answer(login_string, reply_markup = ReplyKeyboardRemove())
 #эх отдельное состояние надо прописать
 #првоерка связи
 
@@ -155,8 +147,7 @@ async def process_start_command(message: Message, state: FSMContext):
         await message.answer(string, reply_markup = greet_post_login)
 
     else:  
-        string = "Я вас не понимаю, к сожалению"
-        await message.answer(string,  reply_markup = greet)
+        await message.answer(miss,  reply_markup = greet)
 
 if __name__ == '__main__':
     executor.start_polling(dp)

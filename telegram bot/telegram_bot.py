@@ -13,8 +13,8 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage #состояния
 #файловый импорт
 from config import TOKEN
 from states import TestStates
-from buttons import greet, greet_menu, greet_post_login
-from stringPizza import success_str_log, fail_str_log, password_str, help_string, login_string
+from buttons import greet, greet_menu, greet_post_login, greet_acc
+from stringPizza import success_str_log, fail_str_log, password_str, help_string, login_string, acc_string
 from stringPizza import start1, start2, start3, miss
 
 bot = Bot(token=TOKEN)
@@ -24,7 +24,7 @@ dic_id = dict()
 logging.basicConfig(filename="log_error_telegram.log", filemode='a', level=logging.ERROR, format = "%(asctime)s - %(levelname)s - %(funcName)s: %(lineno)d - %(message)s")
 
 @dp.message_handler(state=TestStates.TEST_STATE_PASSWORD)
-async def first_test_state_case_met(message: Message):
+async def state_password(message: Message):
     state = dp.current_state()
     msg_us_id = message.from_user.id
     msg_id = message.message_id
@@ -42,7 +42,7 @@ async def first_test_state_case_met(message: Message):
             except:
                 continue 
             await message.answer(success_str_log, reply_markup = greet_post_login)
-            await state.set_state(TestStates.all()[0])
+            await state.set_state(TestStates.all()[1])
             break
 
         else:   
@@ -51,10 +51,10 @@ async def first_test_state_case_met(message: Message):
 
     else:
         await message.answer(success_str_log, reply_markup = greet_post_login)
-        await state.set_state(TestStates.all()[0])
+        await state.set_state(TestStates.all()[1])
 
 @dp.message_handler(state=TestStates.TEST_STATE_LOGIN)
-async def first_test_state_case_met(message: Message):
+async def state_login(message: Message):
     state = dp.current_state()
     msg_us_id = message.from_user.id
     msg_id = message.message_id
@@ -72,7 +72,7 @@ async def first_test_state_case_met(message: Message):
             except:
                 continue
 
-            await state.set_state(TestStates.all()[2])
+            await state.set_state(TestStates.all()[3])
             await message.answer(password_str)
             break
 
@@ -81,13 +81,36 @@ async def first_test_state_case_met(message: Message):
             await state.reset_state()
             
     else:
-        await state.set_state(TestStates.all()[2])
+        await state.set_state(TestStates.all()[3])
         await message.answer(password_str)
 
+
+@dp.message_handler(state=TestStates.TEST_STATE_ACC)
+async def state_acc(message: Message):
+    state = dp.current_state()
+ 
+    if message.text == "exit":
+        state = dp.current_state()
+        string = "Успешно выполнен выход из аккаунта"
+        await state.reset_state()
+        await message.answer(string, reply_markup = greet)
+
+    elif message.text == 'помощь':
+        await state.set_state(TestStates.all()[1])
+        await message.answer(help_string,  reply_markup = greet_post_login, parse_mode=ParseMode.MARKDOWN)
+
+    elif message.text == 'заказы':
+        string = "*Заглушка*"
+        await message.answer(string, reply_markup = greet_acc)
+
+    elif message.text == 'акции':
+        string = "*Заглушка*"
+        await message.answer(string, reply_markup = greet_acc)
+
 @dp.message_handler(state='*')
-async def process_start_command(message: Message, state: FSMContext):
+async def main(message: Message, state: FSMContext):
     state = await state.get_state()
-    if TestStates.all()[0] == state:
+    if TestStates.all()[1] == state:
         greet_now = greet_post_login
     else:
         greet_now = greet
@@ -122,30 +145,17 @@ async def process_start_command(message: Message, state: FSMContext):
         await message.answer(string,  reply_markup = greet_now)
         #здесь надо сделать обращение к базе данных, а не вот это вот
 
-    elif message.text == 'login' and state != TestStates.all()[0]:
+    elif message.text == 'login' and state != TestStates.all()[1]:
         dic_id[message.from_user.id] = message.message_id+1
         state = dp.current_state()
-        await state.set_state(TestStates.all()[1])
+        await state.set_state(TestStates.all()[2])
         await message.answer(login_string, reply_markup = ReplyKeyboardRemove())
-#эх отдельное состояние надо прописать
-#првоерка связи
 
-    elif message.text == "exit" and state == TestStates.all()[0]:
+    elif  message.text == 'аккаунт' and state == TestStates.all()[1]:
         state = dp.current_state()
-        string = "Выполяняем выход..."
-        await state.reset_state()
-        await message.answer(string, reply_markup = greet)
-
-    elif message.text == 'заказы' and state == TestStates.all()[0]:
-        state = dp.current_state()
-        string = "*Заглушка*"
-        await message.answer(string, reply_markup = greet_post_login)
-
-    elif message.text == 'акции' and state == TestStates.all()[0]:
-        state = dp.current_state()
-        string = "*Заглушка*"
-        await message.answer(string, reply_markup = greet_post_login)
-
+        await state.set_state(TestStates.all()[0])
+        await message.answer(acc_string, reply_markup = greet_acc, parse_mode=ParseMode.MARKDOWN)
+        
     else:  
         await message.answer(miss,  reply_markup = greet)
 

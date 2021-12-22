@@ -1,0 +1,11 @@
+{% extends 'main/baseStructure.html'%}
+
+
+{% block content %}
+{% for pr in productList %}
+<a href="/" class='productItem'>{{pr.name}}</a>
+<p class='description'>{{pr.discription}}</p>
+<hr>
+{% endfor %}
+
+{% endblock %}

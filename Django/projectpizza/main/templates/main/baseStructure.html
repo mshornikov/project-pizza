@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'main/css/style.css'%}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <!-- Include OTHER -->
+    {% block include %}
+    {% endblock %}
+    <!-- END Include OTHER -->
+    <title>{{ title }}</title>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <!-- Ограничитель -->
+    <div class="container">
+        <div class="header__inner">
+            <!-- Лого + навигатор -->
+            <div class="left_side">
+                <!-- лого -->
+                <div class="logo">
+                    Картинка
+                </div>
+                <!-- навигатор -->
+                <div class="navbar">
+                    {% for point in menu %}
+                    <a href="{% url point.url %}" class='navPoint'>{{ point.title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Корзина + Кабинет -->
+            <div class="right_side">
+                <div class="basket_button">
+                    <a href="{% url 'basket' %}">Корзина</a>
+                </div>
+                    <!-- кабинет -->
+                <div class="profile">
+                    <a href="/profile">Аватар</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<!-- END Header -->
+
+
+
+
+<!-- Page Content -->
+<div class="container">
+    {% block content %}
+
+    {% endblock %}
+</div>
+<!-- END PageContent -->
+
+
+
+
+<!-- Footer -->
+<div class="footer">
+    <!--  Ограничитель -->
+    <div class="container">
+        <div class="footer__inner">
+            <!--  -->
+            <div class="footer_left">
+                <div class="about">
+                    <a href="/">О нас</a>
+                </div>
+                <div class="contacts">
+                    <a href="/">Контакты</a>
+                </div>
+                <div class="facts">
+                    <a href="/">Факт дня</a>
+                </div>
+            </div>
+            <!--  -->
+            <div class="footer_rigth">
+                <!-- Связь -->
+                <div class="phone">
+                    +784654654654
+                </div>
+                <div class="email">
+                    pr.pz@dev.il
+                </div>
+                <div class="social">
+                    VK YOTUBE INST
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Footer -->
+</body>
+</html>

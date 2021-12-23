@@ -8,7 +8,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название')
     discription = models.CharField(max_length=255, verbose_name='Описание')
     cost = models.FloatField(verbose_name='Цена')
-    image = models.ImageField(null=True, verbose_name='Фото')
+    image = models.ImageField(upload_to="productImages", null=True, verbose_name='Фото')
     category = models.ForeignKey('ProductCategory', on_delete=PROTECT, null=True, verbose_name='Категория')
    
     def __str__(self):

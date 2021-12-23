@@ -17,6 +17,7 @@
 .header {
     font-size: 14px;
     margin-top: 22px;
+    
 }
 .header__inner {
     
@@ -33,10 +34,11 @@
     font-weight: bold;
     font-size: 14px;
     line-height: 17px;
+    text-decoration: none;
     /* identical to box height */
 
 
-color: #303030;
+    color: #303030;
 
 }
 
@@ -49,16 +51,16 @@ color: #303030;
     margin-right: 22px;
 }
 .navPointLeft {
-    color: black;
+    color: #303030;
     text-decoration: none;
     margin-right: 20px;
 }
 .navPointLeft:hover {
-    color: black;
-    text-decoration: underline;
+    color: #7FB7D7;
+    text-decoration: none;
 }
 .navPointLeft:active {
-    color: black;
+    color: #303030;
 }
 
     /* Header Right */
@@ -67,16 +69,16 @@ color: #303030;
     align-items: center;
 }
 .navPointRight {
-    color: black;
+    color: #303030;
     margin-right: 20px;
     text-decoration: none;
 }
 .navPointRight:hover {
-    color: black;
-    text-decoration: underline;
+    color: #7FB7D7;
+    text-decoration: none;
 }
 .navPointRight:active {
-    color:black;
+    color:#303030;
 }
 .profile_logo {
     width: 50px;
@@ -94,8 +96,6 @@ color: #303030;
     width: 100%;
     color: #ffffff;
     height: 217px;
-
-    
 }
 .footer_inner {
     display: flex;
@@ -136,17 +136,16 @@ color: #303030;
     line-height: 15px;
 }
 .footer_nav_point {
-    color: black;
+    color: #ffffff;
     margin-right: 20px;
     text-decoration: none;
     margin-bottom: 5px;
 }
 .footer_nav_point:hover {
-    color: black;
     text-decoration: underline;
 }
 .footer_nav_point:active {
-    color:black;
+    color:#303030;
 }
 .first_col {
     margin-right: 40px;
@@ -168,23 +167,25 @@ color: #303030;
     margin-bottom: 20px;
 }
 .social_link {
-    color: black;
+    color: #303030;
     margin-left: 20px;
     text-decoration: none;
 }
 .social_link:hover {
-    color: black;
-    text-decoration: underline;
+    color: #303030;
+    text-decoration: none;
 }
 .social_link:active {
-    color: black;
+    color: #303030;
 }
 .phone {
-    margin-bottom: 20px;
+    margin-bottom: 7px;
     text-align: end ;
 }
 .email {
+    color: #ffffff;
     text-align: end;
+    text-decoration: none;
 }
 
 /* Pages Content */
@@ -241,7 +242,20 @@ color: #303030;
     margin-bottom: 67px;
     margin-left: 20px;
     margin-right: 20px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.02em;
 }
+
+.request {
+    margin: 20px;
+}
+
 .work_find{
     margin: 20px;
     display: flex;
@@ -270,6 +284,7 @@ color: #303030;
     color: white;
     border-radius: 20px;
     display: block;
+    margin: 20px;
 
     font-family: Montserrat;
     font-style: normal;

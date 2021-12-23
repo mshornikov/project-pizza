@@ -2,10 +2,29 @@
 
 
 {% block content %}
-{% for pr in productList %}
-<a href="/" class='productItem'>{{pr.name}}</a>
-<p class='description'>{{pr.discription}}</p>
-<hr>
-{% endfor %}
-
+<div class="container">
+    <div class="product_scroll">
+    {% for product in productList %}
+        <div class="item_container">
+            <div class="item_image">
+                Photo
+            </div>
+            <div class="item_content">
+                <div class="item_name">
+                    {{product.name}}
+                </div>
+                <div class="item_discription">
+                    {{ product.discription}}
+                </div>
+                <div class="item_cost">
+                    Cost: {{ product.cost}}$
+                </div>
+                <div class="item_form">
+                    форма для корзины
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}

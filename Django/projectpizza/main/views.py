@@ -8,22 +8,22 @@ from .models import *
 menu = [
     {'title': "Главная", 'url': 'home'},
     {'title': "Акции", 'url':'stocks'},
-    {'title': "О нас", 'url':'about'},
     {'title': "Контакты", 'url':'contacts'},
+    {'title': "О нас", 'url':'about'},
 ]
 
 def mainPage(request):
     product = Product.objects.all()
-    cat = ProductCategory.objects.all()
+    # cat = ProductCategory.objects.all()
 
-    resultViewDict = {}
-    for i in range(1, len(cat) + 1):
-        resultViewDict[cat[i-1].name] = product.filter(category=i)
+    # resultViewDict = {}
+    # for i in range(1, len(cat) + 1):
+    #     resultViewDict[cat[i-1].name] = product.filter(category=i)
 
     context = {
         'menu':menu,
         'title':'.ProjectPizza',
-        'viewList':resultViewDict,
+        # 'viewList':resultViewDict,
     }
     return render(request, 'main/mainPage.html',context=context)
 

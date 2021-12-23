@@ -14,6 +14,7 @@ menu = [
 
 def mainPage(request):
     product = Product.objects.all()
+    print(len(product))
     # cat = ProductCategory.objects.all()
 
     # resultViewDict = {}

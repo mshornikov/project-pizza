@@ -2,29 +2,32 @@
 
 
 {% block content %}
-<div class="container">
-    <div class="product_scroll">
-    {% for product in productList %}
-        <div class="item_container">
-            <div class="item_image">
-                Photo
+{% for cat, productList in viewList.items %}
+    <div class="container">
+        <p id="{{cat}}" class="category_name">{{ cat }}</p>
+        <div class ="product_scroll">
+        {% for product in productList %}
+            <div class="item_container">
+                <div class="item_image">
+                    Photo
+                </div>
+                <div class="item_content">
+                    <div class="item_name">
+                        {{product.name}}
+                    </div>
+                    <div class="item_discription">
+                        {{ product.discription}}
+                    </div>
+                    <div class="item_cost">
+                        Cost: {{ product.cost}}$
+                    </div>
+                    <div class="item_form">
+                        форма для корзины
+                    </div>
+                </div>
             </div>
-            <div class="item_content">
-                <div class="item_name">
-                    {{product.name}}
-                </div>
-                <div class="item_discription">
-                    {{ product.discription}}
-                </div>
-                <div class="item_cost">
-                    Cost: {{ product.cost}}$
-                </div>
-                <div class="item_form">
-                    форма для корзины
-                </div>
-            </div>
+        {% endfor %}
         </div>
-    {% endfor %}
     </div>
-</div>
+{% endfor %}
 {% endblock %}

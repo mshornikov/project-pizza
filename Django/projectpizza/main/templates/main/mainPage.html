@@ -9,7 +9,9 @@
         {% for product in productList %}
             <div class="item_container">
                 <div class="item_image">
-                    Photo
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="Нет">
+                    {% endif %}
                 </div>
                 <div class="item_content">
                     <div class="item_name">

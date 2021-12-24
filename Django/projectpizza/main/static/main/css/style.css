@@ -343,3 +343,27 @@
 .map {
     margin: 40px 0;
 }
+
+/* Register */
+.profile_page_content {
+    margin-top: 40px;
+}
+.register_btn {
+    background-color: #303030;
+    color: bisque;
+    text-decoration: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+}
+.register_btn:hover {
+    background-color: burlywood;
+    color: teal;
+}
+.form_label {
+    width: 150px;
+    font-style: italic;
+    margin: 20px;
+}
+.submit_btn {
+    margin: 40px 0 0 20px;
+}

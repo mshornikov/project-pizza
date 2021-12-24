@@ -1,7 +1,9 @@
 from django.http.response import HttpResponseNotFound
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
-
+from django.views.generic import CreateView
+from .forms import RegisterUserForm
+from django.urls import reverse_lazy
 # Create your views here.
 from .models import *
 
@@ -48,12 +50,17 @@ def basketPage(request):
     return render(request, 'main/basketPage.html', context=context)
 
 def profilePage(request):
+    # форма пльзователя, либо регистрация, либо авторизация
     context = {
         'menu':menu,
         'title':'.Profile'
     }
     return render(request, 'main/profilePage.html', context=context)
 
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'main/registerPage.html'
+    success_url = reverse_lazy('home')
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound("Страница не найдена")

@@ -1,0 +1,18 @@
+{% extends 'main/baseStructure.html'%}
+
+
+{% block content %}
+
+<div class="container">
+    <!-- Форма регистрации -->
+    <form method="post">
+        {% csrf_token %}
+        {% for f in form %}
+        <p><label class='form_label' for="{{ f.id_for_label}}">{{f.label}}:</label>{{f}}</p>
+        <div class="form_error">{{f.errors}}</div>
+        {% endfor %}
+        <button type="submit" class='submit_btn'>Зарегистрировать</button>
+    </form>
+</div>
+
+{% endblock %}

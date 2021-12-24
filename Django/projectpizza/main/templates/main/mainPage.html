@@ -1,11 +1,23 @@
 {% extends 'main/baseStructure.html'%}
-
+{% load main_tags %}
 
 {% block content %}
-{% for cat, productList in viewList.items %}
+
+{% get_categories as cats %}
+
+<div class="container">
+    <div class="cat_nav_bar">
+    {% for cat in cats %}
+        <a href="#{{cat}}" class="cat_link">{{cat}}</a>
+    {% endfor %}
+    </div>  
+</div>
+
+{% for cat in cats %}
     <div class="container">
         <p id="{{cat}}" class="category_name">{{ cat }}</p>
         <div class ="product_scroll">
+        {% get_product_on_category cat as productList%}
         {% for product in productList %}
             <div class="item_container">
                 <div class="item_image">

@@ -13,18 +13,9 @@ menu = [
 ]
 
 def mainPage(request):
-    product = Product.objects.all()
-    print(len(product))
-    cat = ProductCategory.objects.all()
-
-    resultViewDict = {}
-    for i in range(1, len(cat) + 1):
-        resultViewDict[cat[i-1].name] = product.filter(category=i)
-    print(resultViewDict)
     context = {
         'menu':menu,
         'title':'.ProjectPizza',
-        'viewList':resultViewDict,
     }
     return render(request, 'main/mainPage.html',context=context)
 

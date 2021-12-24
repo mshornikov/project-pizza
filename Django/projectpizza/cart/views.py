@@ -20,15 +20,19 @@ def cart_add(request, product_id):
         cd = form.cleaned_data
         quant = cd['quantity']
         cart.add(product, quant)
-    return redirect('home')
+    if request.path.split('/')[1] == 'add':
+        return redirect('home')
+    return redirect('cart')
 
 
 def cart_remove(request, product_id):
     cart = Cart(request)
     product= get_object_or_404(Product, id=product_id)
     cart.remove(product)
-    return redirect('home')
+    return redirect('cart')
+
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, 'cart/detail.html', {'cart':cart, 'menu': menu})
+    return render(request, 'cart/detail.html', {'cart': cart, 'menu':menu})
+

@@ -403,17 +403,18 @@
 
     text-align: center;
 }
-.add_btn_cart {
+.cart_add_btn {
     margin-top: 100px;
     margin-left:40px;
     font-size: 20px;
 
     text-decoration: none;
 }
-.del_btn_cart {
+.cart_del_btn {
     margin-top: 100px;
     margin-left:40px;
     font-size: 20px;
 
     text-decoration: none;
 }
+

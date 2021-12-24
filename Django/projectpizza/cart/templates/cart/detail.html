@@ -18,25 +18,27 @@
                         <!-- Названия пунктов -->
                         <div class="item_information">
                                 <h5 class="cart_navPoint">Название</h5>
+                                <h5 class="cart_navPoint">Изменить</h5>
                                 <h5 class="cart_navPoint">Количество</h5>
                                 <h5 class="cart_navPoint">Цена</h5>
                                 <h5 class="cart_navPoint">Общая стоимость</h5>
                         </div>
                         <!-- Данные о товаре в корзине -->
                         <div class="item_data">
-                            <h5 class='position'>{{product.name}}</h5>
-                            <p class='position'>{{item.quantity}}</p>
-                            <p class='position'>{{item.price}}</p> <br>
-                            <p class='position'>{{item.total_price}}</p> 
+                            <h5 class="position">{{product.name}}</h5>
+                            <form action="{% url 'cart_add' product.id %}" method="post">
+                                {% csrf_token %}
+                                {{ item.update_quantity_form.quantity }}
+                                {{ item.update_quantity_form.update }}
+                                <input type="submit" value="Update">
+                            </form>
+                            <p class="position">{{item.quantity}}</p> <br>
+                            <p class="position">{{item.price}}</p> <br>
+                            <p class="position">{{item.total_price}}</p> 
                         </div>
                     </div>
                     <!-- Управление товаром в корзине -->
                     <div class="control_btns">
-                        <form action="{% url 'cart_add' product.id %}" method='post'>
-                            {% csrf_token %}
-                            {{cart_product_form}}
-                            <button type='sybmit' class='add_btn_main'>Добавить</button>
-                        </form>
                         <a href="{% url 'cart_remove' product.id%}" class='cart_del_btn'>Удалить</a>
                     </div>
 

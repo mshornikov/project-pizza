@@ -1,16 +1,37 @@
 {% extends '../main/baseStructure.html' %}
 
 {% block content %}
-<div class="container">
-    Ваша корзина
-    {% for item in cart %}
-    {% with product=item.product %}
-    <h5>{{product.name}}</h5>
-    <img src="{{ product.image.url }}" alt="Фото позиции">
-    <p>{{item.quantity}}</p> <br>
-    <p>{{item.price}}</p> <br>
-    <p>{{item.total_price}}</p> 
-    {% endwith %}
-    {% endfor %}
+<div class="cart">
+    <div class="container">
+        <div class="cart_inner">
+            <h5 class='cart_name'>Ваша корзина</h5>
+            {% for item in cart %}
+                <div class="cart_item">
+                    {% with product=item.product %}
+                    <img src="{{ product.image.url }}" alt="Фото позиции">
+                    <div class="single_item_view">
+                        <div class="item_information">
+                                <h5 class="cart_navPoint">Название</h5>
+                                <h5 class="cart_navPoint">Цена</h5>
+                                <h5 class="cart_navPoint">Количество</h5>
+                                <h5 class="cart_navPoint">Общая стоимость</h5>
+                        </div>
+                        <div class="item_data">
+                            <h5 class='position'>{{product.name}}</h5>
+                            <p class='position'>{{item.quantity}}</p> <br>
+                            <p class='position'>{{item.price}}</p> <br>
+                            <p class='position'>{{item.total_price}}</p> 
+                        </div>
+                    </div>
+                    <div class="control_btns">
+                        <a href="#" class="add_btn_cart">Добавить</a>  
+                        <a href="#" class="del_btn_cart">Удалить</a>   
+                    </div>
+
+                    {% endwith %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

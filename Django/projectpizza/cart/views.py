@@ -1,11 +1,15 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.http import require_POST
-
-
-# Create your views here.
 from main.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
+
+menu = [
+    {'title': "Главная", 'url': 'home'},
+    {'title': "Акции", 'url':'stocks'},
+    {'title': "Контакты", 'url':'contacts'},
+    {'title': "О нас", 'url':'about'},
+]
 
 @require_POST
 def cart_add(request, product_id):
@@ -27,4 +31,4 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, 'cart/detail.html', {'cart':cart})
+    return render(request, 'cart/detail.html', {'cart':cart, 'menu': menu})

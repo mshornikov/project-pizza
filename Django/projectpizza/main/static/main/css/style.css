@@ -348,14 +348,14 @@
 .profile_page_content {
     margin-top: 40px;
 }
-.register_btn {
+.btn {
     background-color: #303030;
     color: bisque;
     text-decoration: none;
     padding: 10px 40px;
     border-radius: 20px;
 }
-.register_btn:hover {
+.btn:hover {
     background-color: burlywood;
     color: teal;
 }

@@ -5,12 +5,15 @@
     <div class="profile_page_content">
         {% if request.user.is_authenticated %}
             <!-- Для авторизованного пользователя: -->
+            <!-- Блок данных пользователя -->
             <h5>{{user.username}}</h5>
-            <a href="{% url 'logout' %}" class="logout_btn">Выйти из профиля</a>
+            <h5>{{user.email}}</h5>
+            <a href="{% url 'logout' %}" class="btn">Выйти из профиля</a>
+            <!-- Список всех заказов аккаунта -->
         {% else %}
             <!-- Для гостя -->
-            <a href="{% url 'register' %}" class="register_btn">Регистрация</a>
-            <a href="{% url 'login' %}" class="login_btn">Авторизация</a>
+            <a href="{% url 'register' %}" class="btn">Регистрация</a>
+            <a href="{% url 'login' %}" class="btn">Авторизация</a>
         {% endif %}
     </div>
 </div>

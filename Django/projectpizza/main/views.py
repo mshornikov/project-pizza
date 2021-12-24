@@ -9,6 +9,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout, login
 # Create your views here.
 from .models import *
+from .utils import DataMixin
 
 menu = [
     {'title': "Главная", 'url': 'home'},
@@ -60,22 +61,35 @@ def profilePage(request):
     }
     return render(request, 'main/profilePage.html', context=context)
 
-class RegisterUser(CreateView):
+class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'main/registerPage.html'
     success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        menu_context = self.get_user_context(title='.Register')
+        print()
+        print(dict(list(context.items()) + list(menu_context.items())))
+        return dict(list(context.items()) + list(menu_context.items()))
 
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('profile')
 
-class LoginUser(LoginView):
+class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm
     template_name ='main/loginPage.html'
 
+    def get_context_data(self, *, ogject_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        menu_context = self.get_user_context(title='.Authorization')
+        return dict(list(context.items()) + list(menu_context.items()))
+
     def get_success_url(self):
         return reverse_lazy('profile')
+
 
 def logout_user(request):
     logout(request) 

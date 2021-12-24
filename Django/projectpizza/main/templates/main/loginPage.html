@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="container">
+    <!-- Форма авторизации -->
     <form method="post">
         {% csrf_token %}
         <div class="form-error">{{form.non_field_errors}}</div>

@@ -1,0 +1,16 @@
+{% extends '../main/baseStructure.html' %}
+
+{% block content %}
+<div class="container">
+    Ваша корзина
+    {% for item in cart %}
+    {% with product=item.product %}
+    <h5>{{product.name}}</h5>
+    <img src="{{ product.image.url }}" alt="Фото позиции">
+    <p>{{item.quantity}}</p> <br>
+    <p>{{item.price}}</p> <br>
+    <p>{{item.total_price}}</p> 
+    {% endwith %}
+    {% endfor %}
+</div>
+{% endblock %}

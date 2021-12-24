@@ -10,7 +10,7 @@ from django.contrib.auth import logout, login
 # Create your views here.
 from .models import *
 from .utils import DataMixin
-
+from cart.forms import CartAddProductForm
 menu = [
     {'title': "Главная", 'url': 'home'},
     {'title': "Акции", 'url':'stocks'},
@@ -19,9 +19,11 @@ menu = [
 ]
 
 def mainPage(request):
+    cart_product_form = CartAddProductForm()
     context = {
         'menu':menu,
         'title':'.ProjectPizza',
+        'cart_product_form':cart_product_form,
     }
     return render(request, 'main/mainPage.html',context=context)
 

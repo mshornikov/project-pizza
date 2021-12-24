@@ -1,6 +1,7 @@
 from decimal import Decimal 
 from django.conf import settings
 from main.models import Product
+
 class Cart(object):
     # создание пустой корзины, если ее нет в сессии
     # создание наполненной корзины, если в текущей сессии таковая нашлась
@@ -12,12 +13,10 @@ class Cart(object):
         self.cart = cart
 
     # Добавить в корзину
-    def add(self, product, quant = 1, update_quan=False):
+    def add(self, product, quant):
         product_id = str(product.id)
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0, 'price': str(product.cost)}
-        if update_quan:
-            self.cart[product_id]['quantity'] = quant
+            self.cart[product_id] = {'quantity': quant, 'price': product.cost}
         else:
             self.cart[product_id]['quantity'] += quant
         self.save()

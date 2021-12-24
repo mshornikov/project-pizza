@@ -69,8 +69,6 @@ class RegisterUser(DataMixin, CreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         menu_context = self.get_user_context(title='.Register')
-        print()
-        print(dict(list(context.items()) + list(menu_context.items())))
         return dict(list(context.items()) + list(menu_context.items()))
 
     def form_valid(self, form):

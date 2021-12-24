@@ -1,9 +1,11 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.http.response import HttpResponseNotFound
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.views.generic import CreateView
-from .forms import RegisterUserForm
+from .forms import LoginUserForm, RegisterUserForm
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
 # Create your views here.
 from .models import *
 
@@ -61,6 +63,13 @@ class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'main/registerPage.html'
     success_url = reverse_lazy('home')
+
+class LoginUser(LoginView):
+    form_class = LoginUserForm
+    template_name ='main/loginPage.html'
+
+    def get_success_url(self):
+        return reverse_lazy('home')
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound("Страница не найдена")

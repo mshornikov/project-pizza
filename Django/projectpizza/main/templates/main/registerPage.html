@@ -8,8 +8,10 @@
     <form method="post">
         {% csrf_token %}
         {% for f in form %}
-        <p><label class='form_label' for="{{ f.id_for_label}}">{{f.label}}:</label>{{f}}</p>
-        <div class="form_error">{{f.errors}}</div>
+        <div class="form_point">
+            <p><label class='form_label' for="{{ f.id_for_label}}">{{f.label}}:</label>{{f}}</p>
+            <div class="form_error">{{f.errors}}</div>
+        </div>
         {% endfor %}
         <button type="submit" class='submit_btn'>Зарегистрировать</button>
     </form>

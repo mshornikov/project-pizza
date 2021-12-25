@@ -7,10 +7,12 @@
         {% csrf_token %}
         <div class="form-error">{{form.non_field_errors}}</div>
         {% for f in form %}
-        <p><label for="{{ f.id_for_label }}" class="form-label">{{f.label}}:</label>{{f}}</p>
-        <div class="form-error">{{f.errors}}</div>
+        <div class="form_point">
+            <p><label for="{{ f.id_for_label }}" class="form_label">{{f.label}}:</label>{{f}}</p>
+            <div class="form-error">{{f.errors}}</div>
+        </div>
         {% endfor %}
-        <button type='submit'>Войти</button>
+        <button type='submit' class='reg_access_btn'>Войти</button>
     </form>
 </div>
 {% endblock %}

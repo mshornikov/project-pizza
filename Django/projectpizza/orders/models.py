@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 class Order(models.Model):
-    user_id = models.ForeignKey(User, on_delete=PROTECT, verbose_name='Идентификатор Пользователя', default=1)
+    user_id = models.BigIntegerField(verbose_name='Индентификатор пользователя')
     first_name = models.CharField(max_length=50, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     email = models.EmailField(verbose_name='Почта')

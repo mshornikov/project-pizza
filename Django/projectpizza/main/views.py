@@ -11,6 +11,7 @@ from django.contrib.auth import logout, login
 from .models import *
 from .utils import DataMixin
 from cart.forms import CartAddProductForm
+
 menu = [
     {'title': "Главная", 'url': 'home'},
     {'title': "Акции", 'url':'stocks'},

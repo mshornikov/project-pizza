@@ -12,14 +12,16 @@
             <h5>{{user.last_name}}</h5>
             <h5>{{user.email}}</h5>
             <div class="profile_logout"><a href="{% url 'logout' %}" class='profile_logout_btn'>Выйти из профиля</a></div>
-            <!-- Список всех заказов аккаунта -->
-            123
         </div>
+            <!-- Список всех заказов аккаунта -->
         <div class="profile_orders_history">
-            <div class="prodile_orders_title">Ваша история заказов</div>
+            <div class="profile_orders_title">Ваша история заказов</div>
             <div class="orders_list">
                 {% for order in orders %} 
-                
+                    <div class="order_item">
+                        <span class="order_id">Номер заказа: {{order.id}}</span>
+                        <span class="order_total_cost">Сумма заказа: {{order.total_cost}}$</span>
+                    </div>
                 {% endfor%}
             </div>
         </div>

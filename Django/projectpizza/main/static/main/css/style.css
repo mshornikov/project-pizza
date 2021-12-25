@@ -372,9 +372,7 @@
 }
 
 /* Register */
-.profile_page_content {
-    margin-top: 40px;
-}
+
 .rev_btn {
     margin-top:40px;
 }
@@ -488,5 +486,22 @@
 
 .order_point {
     list-style-type: none;
+}
+
+/* Profile page */
+.profile_page_content {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+}
+.profile_info {
+    margin-right:500px;
+}
+.profile_orders_title {
+    margin-bottom: 30px;
+}
+.order_id {
+    margin-right:20px;
+    width: 150px;
 }
 

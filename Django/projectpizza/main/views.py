@@ -61,9 +61,11 @@ def basketPage(request):
 
 def profilePage(request):
     # форма пльзователя, либо регистрация, либо авторизация
+    user_id_orders = Order.objects.filter(user_id=request.user.id)
     context = {
         'menu':menu,
-        'title':'.Profile'
+        'title':'.Profile',
+        'orders':user_id_orders,
     }
     return render(request, 'main/profilePage.html', context=context)
 

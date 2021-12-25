@@ -1,10 +1,12 @@
 from django.db import models
+from django.db.models.deletion import PROTECT
 from main.models import Product
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
 class Order(models.Model):
+    user_id = models.BigIntegerField(verbose_name='Индентификатор пользователя')
     first_name = models.CharField(max_length=50, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     email = models.EmailField(verbose_name='Почта')

@@ -112,7 +112,7 @@
 /* Footer */
 .footer {
     padding:20px 0 0 0;
-    height: 217px;
+    height: auto;
     width: 100%;
     background: #7FB7D7;
 
@@ -127,11 +127,8 @@
 
     /* Footer Left */
 .footer_left_side {
-    
     display: flex;
-    flex-direction: row;
-
-    
+    flex-direction: column;
 }
 
 .footer_logo1 {
@@ -145,26 +142,21 @@
 
 .footer_logo2 {
     color: #ffffff;
-    margin-top: 25px;
-
     font-weight: 800;
     font-size: 18px;
     line-height: 22px;
 }
-
-.footer_navbar {
+.cols {
     display: flex;
-    flex-direction: column;
-    
-    font-weight: 500;
-    font-size: 12px;
+    flex-direction: row;
     line-height: 15px;
+    padding-bottom: 36px;
 }
 
 .footer_nav_point {
     color: #ffffff;
     margin-right: 20px;
-
+    font-weight: 500;
     margin-bottom: 5px;
 }
 
@@ -177,24 +169,60 @@
 }
 
 .first_col {
+    display: flex;
+    flex-direction: column;
     margin-right: 40px;
+}
+
+.second_col {
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+}
+
+.copyright {
+    margin-left: 21px;
+    margin-top: 3px;
+    color: #ffffff;
+}
+
+.logos {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 20px;
 }
 
     /* Footer Right */
 .footer_right_side {
     display:flex;
     flex-direction: column;
-    margin: 20px 0 20px 0;
 
     font-weight: bold;
     font-size: 20px;
     line-height: 24px;
+    padding-top: 45px;
+    padding-bottom: 20px;
 }
 
-.socials {
+.google_play_logo {
+    width: 147px;
+    margin-left: 20px;
+}
+
+.app_store_logo {
+    width: 130px;
+    margin-left: 20px;
+}
+.stores {
     display: flex;
     justify-content: end;
     margin-bottom: 20px;
+
+}
+
+.contacts {
+    display: flex;
+    flex-direction: row;
 }
 .social_link {
     color: #ffffff;
@@ -207,14 +235,33 @@
 .social_link:active {
     color: #303030;
 }
+
+.email_phone {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+}
 .phone {
     color: #ffffff;
     margin-bottom: 7px;
-    text-align: end ;
+    text-align: end;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    }
+
+.telegram {
+    margin-top: 5px;
+    width: 50px;
 }
+
 .email {
     color: #ffffff;
     text-align: end;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    
 }
 
 /* Pages Content */

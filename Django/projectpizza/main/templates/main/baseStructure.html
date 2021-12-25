@@ -71,8 +71,8 @@
         <!-- Общее содержимое -->
         <div class="footer_inner">
             <div class="footer_left_side">
-                <div class="first_col">
-                    <div class="footer_navbar">
+                <div class="cols">
+                    <div class="first_col">
                         <p class="footer_logo1">Проект Пицца</p>
                         {% for point in menu%}
                         <a href="{% url point.url %}" class="footer_nav_point">{{point.title}}</a>
@@ -82,21 +82,30 @@
                         <a href="#" class="footer_nav_point">Контакты</a>
                         <a href="#" class="footer_nav_point">О нас</a> -->
                     </div>
-                    <p class="footer_logo2">/project_pizza</p>
-                    
+                    <div class="second_col">
+                        <p class="footer_logo1">Работа</p>
+                        <a href="#" class="footer_nav_point">Вакансии</a>
+                    </div>
                 </div>
-                <div class="second_col">
-                    <p class="footer_logo1">Работа</p>
-                    <a href="#" class="footer_nav_point">Вакансии</a>
-                    <a сlass="footer_nav_point"> © 2021 Project Pizza</a>
+                <div class="logos"> 
+                    <p class="footer_logo2">/project_pizza</p>
+                    <p class="copyright"> © 2021 Project Pizza</p>
                 </div>
             </div>
+
             <div class="footer_right_side">
-                <div class="socials">
-                    <a href="#" class="social_link">Telegram</a>
+                <div class="stores">
+                    <a href="#"> <img class="google_play_logo" src="{% static 'main/images/google_play.svg'%}" alt="Google Play"/></a>
+                    <a href="#"> <img class="app_store_logo" src="{% static 'main/images/app_store.svg'%}" alt="App Store"/></a>
                 </div>
-                <a class="phone" href="callto:+7(930)554-01-09">+7 930 554-01-09</a>
-                <a class="email" href="mailto:feedback@project_pizza.com"> feedback@project_pizza.com </a>
+                
+                <div class="contacts"> 
+                    <a href="#" class="social_link"><img class="telegram" src="{% static 'main/images/telegram.svg'%}"/></a>
+                    <div class="email_phone">
+                        <a class="phone" href="callto:+7(930)554-01-09">+7 930 554-01-09</a>
+                        <a class="email" href="mailto:feedback@project_pizza.com"> feedback@project_pizza.com </a>        
+                    </div>
+                </div>
             </div>
         </div>
     </div>

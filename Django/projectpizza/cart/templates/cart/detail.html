@@ -32,7 +32,7 @@
                         <!-- Данные о товаре в корзине -->
                         <div class="item_data">
                             <h5 class="position">{{product.name}}</h5>
-                            <form action="{% url 'cart_add' product.id %}" method="post">
+                            <form action="{% url 'cart_add' product.id %}" method="post" class="position">
                                 {% csrf_token %}
                                 {{ item.update_quantity_form.quantity }}
                                 {{ item.update_quantity_form.update }}
@@ -47,12 +47,11 @@
                     <div class="control_btns">
                         <a href="{% url 'cart_remove' product.id%}" class='cart_del_btn'>Удалить</a>
                     </div>
-
-
-
                     {% endwith %}
                 </div>
             {% endfor %}
+            <!-- Кнопка формирования заказа -->
+            <a href="{% url 'order_create' %}" class="order_create_btn">Оформить заказ</a>
         </div>
         {% else %}
         <h5 class='cart_name'>Корзина пуста, к сожалению</h5>

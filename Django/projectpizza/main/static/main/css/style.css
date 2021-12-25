@@ -419,3 +419,9 @@
     text-decoration: none;
 }
 
+/* Order page */
+
+.order_point {
+    list-style-type: none;
+}
+

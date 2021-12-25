@@ -17,7 +17,7 @@ def order_create(request):
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
-            order = form.my_save(request=request)
+            order = form.my_save(request=request, cart=cart)
             for item in cart:
                 OrderItems.objects.create(
                     order=order,
@@ -26,7 +26,6 @@ def order_create(request):
                     quantity=item['quantity']
                 )
             cart.clear()
-
             return render(request, 'orders/orderCreated.html', {'order':order, 'menu': menu, 'title':'.MakeOrder'})
 
     else:

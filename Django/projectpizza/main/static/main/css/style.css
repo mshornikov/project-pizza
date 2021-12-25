@@ -403,14 +403,28 @@
     color: teal;
 }
 .form_label {
-    width: 150px;
+    min-width: 150px;
     font-style: italic;
-    margin: 20px;
+    margin-bottom: 20px;
+
+    text-align: start;
 }
 .submit_btn {
     margin: 40px 0 0 20px;
 }
-
+.btn_login {
+    background-color: cyan;
+}
+.reg_access_btn {
+    font-size: 20px;
+}
+/* Login page */
+.form_point {
+    margin-bottom: 10px;
+}
+.form-input_auth_login {
+    width: 100px;
+}
 /* Cart Content */
 .cart_name {
     font-style: italic;

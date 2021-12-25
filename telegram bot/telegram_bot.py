@@ -1,4 +1,5 @@
 import logging
+from database import signIn
 #основа
 from aiogram import Bot
 from aiogram.dispatcher import Dispatcher, FSMContext
@@ -20,6 +21,7 @@ from stringPizza import start1, start2, start3, miss
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 dic_id = dict()
+dict_log = dict()
 
 logging.basicConfig(filename="log_error_telegram.log", filemode='a', level=logging.ERROR, format = "%(asctime)s - %(levelname)s - %(funcName)s: %(lineno)d - %(message)s")
 
@@ -31,6 +33,8 @@ async def state_password(message: Message):
     #сразу для безопасности удаляем пароль, после проверяем: можем ли мы удалить прошлое сообщение бота?
     await bot.delete_message(message_id = msg_id, chat_id = msg_us_id)
     smth = dic_id[msg_us_id] 
+    flag = signIn(dict_log[msg_us_id], message.text)
+    del dict_log[msg_us_id]
     del dic_id[msg_us_id]
 
     try:
@@ -40,9 +44,13 @@ async def state_password(message: Message):
             try:
                 await bot.delete_message(message_id = i, chat_id = msg_us_id)
             except:
-                continue 
-            await message.answer(success_str_log, reply_markup = greet_post_login)
-            await state.set_state(TestStates.all()[1])
+                continue
+            if flag: 
+                await message.answer(success_str_log, reply_markup = greet_post_login)
+                await state.set_state(TestStates.all()[1])
+            else:               
+                await message.answer("НЕВЕРНО", reply_markup = greet)
+                await state.reset_state()
             break
 
         else:   
@@ -50,8 +58,12 @@ async def state_password(message: Message):
             await state.reset_state()
 
     else:
-        await message.answer(success_str_log, reply_markup = greet_post_login)
-        await state.set_state(TestStates.all()[1])
+        if flag:
+            await message.answer(success_str_log, reply_markup = greet_post_login)
+            await state.set_state(TestStates.all()[1])
+        else:
+            await message.answer("НЕВЕРНО", reply_markup = greet)
+            await state.reset_state()
 
 @dp.message_handler(state=TestStates.TEST_STATE_LOGIN)
 async def state_login(message: Message):
@@ -62,6 +74,7 @@ async def state_login(message: Message):
     await bot.delete_message(message_id = msg_id, chat_id = msg_us_id)
     smth = dic_id[msg_us_id] 
     dic_id[msg_us_id] = msg_id + 1
+    dict_log[msg_us_id] = message.text
 
     try:
         await bot.delete_message(message_id = smth, chat_id = msg_us_id)

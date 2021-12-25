@@ -1,0 +1,63 @@
+{% extends '../main/baseStructure.html' %}
+
+{% block content %}
+<!-- Обертка корзины -->
+<div class="cart">
+    <!-- Ограничитель -->
+    <div class="container">
+        {% with total_items=cart|length %}
+        {% if cart|length > 0 %}
+        <!-- Содержимое корзины -->
+        <div class="cart_inner">
+            <h5 class='cart_name'>Ваша корзина:</h5>
+            <p>
+                {{ total_items }} item{{ total_items|pluralize }},
+                ${{ cart.get_total_price }}
+            </p>
+            {% for item in cart %}
+                <!-- Представление одой позиции -->
+                <div class="cart_item">
+                    {% with product=item.product %}
+                    <!-- Фото -->
+                    <img src="{{ product.image.url }}" alt="Фото позиции">
+                    <div class="single_item_view">
+                        <!-- Названия пунктов -->
+                        <div class="item_information">
+                                <h5 class="cart_navPoint">Название</h5>
+                                <h5 class="cart_navPoint">Изменить</h5>
+                                <h5 class="cart_navPoint">Количество</h5>
+                                <h5 class="cart_navPoint">Цена</h5>
+                                <h5 class="cart_navPoint">Общая стоимость</h5>
+                        </div>
+                        <!-- Данные о товаре в корзине -->
+                        <div class="item_data">
+                            <h5 class="position">{{product.name}}</h5>
+                            <form action="{% url 'cart_add' product.id %}" method="post">
+                                {% csrf_token %}
+                                {{ item.update_quantity_form.quantity }}
+                                {{ item.update_quantity_form.update }}
+                                <input type="submit" value="Update">
+                            </form>
+                            <p class="position">{{item.quantity}}</p> <br>
+                            <p class="position">{{item.price}}</p> <br>
+                            <p class="position">{{item.total_price}}</p> 
+                        </div>
+                    </div>
+                    <!-- Управление товаром в корзине -->
+                    <div class="control_btns">
+                        <a href="{% url 'cart_remove' product.id%}" class='cart_del_btn'>Удалить</a>
+                    </div>
+
+
+
+                    {% endwith %}
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h5 class='cart_name'>Корзина пуста, к сожалению</h5>
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>
+{% endblock %}

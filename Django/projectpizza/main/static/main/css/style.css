@@ -375,14 +375,30 @@
 .profile_page_content {
     margin-top: 40px;
 }
-.btn {
+.rev_btn {
+    margin-top:40px;
+}
+.btn_reg {
+    background-color: #303030;
+    color: bisque;
+    text-decoration: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+
+    margin-right: 20px;
+}
+.btn_reg:hover {
+    background-color: burlywood;
+    color: teal;
+}
+.btn_auth {
     background-color: #303030;
     color: bisque;
     text-decoration: none;
     padding: 10px 40px;
     border-radius: 20px;
 }
-.btn:hover {
+.btn_auth:hover {
     background-color: burlywood;
     color: teal;
 }
@@ -444,12 +460,16 @@
 }
 
 .cart_del_btn {
-    margin-top: 100px;
+    margin: 40px 0 0 40px;
     margin-left: 40px;
     font-size: 20px;
-
+    background-color: chocolate;
+    padding: 5px 20px;
+    border-radius: 10px;
 }
-
+.control_btns {
+    padding-top: 40px;
+}
 /* Order page */
 
 .order_point {

@@ -11,6 +11,7 @@ from django.contrib.auth import logout, login
 from .models import *
 from .utils import DataMixin
 from cart.forms import CartAddProductForm
+from orders.models import Order
 
 menu = [
     {'title': "Главная", 'url': 'home'},
@@ -21,10 +22,12 @@ menu = [
 
 def mainPage(request):
     cart_product_form = CartAddProductForm()
+    user_orders = Order.objects.filter(user_id=request.user.id)
     context = {
         'menu':menu,
         'title':'.ProjectPizza',
         'cart_product_form':cart_product_form,
+        'orders': user_orders,
     }
     return render(request, 'main/mainPage.html',context=context)
 

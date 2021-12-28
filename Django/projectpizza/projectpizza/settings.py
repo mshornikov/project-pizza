@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -150,4 +151,5 @@ MEDIA_URL = '/media/'
 
 
 CART_SESSION_ID = 'cart'
+AUTH_USER_MODEL = 'users.CustomUser'
 

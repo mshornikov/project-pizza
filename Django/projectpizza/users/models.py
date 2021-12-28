@@ -44,7 +44,7 @@ class CustomUserManager(BaseUserManager):
 
 
 # Опрделение собственной модели пользователя с дополнительными полями:
-# Почта, день рождения, телефон. Уникальность пользователя определена полем Почта
+# Почта, день рождения, телефон. Уникальность пользователя определена полем
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, verbose_name='Почта')
     first_name = models.CharField(max_length=50, verbose_name='Имя')

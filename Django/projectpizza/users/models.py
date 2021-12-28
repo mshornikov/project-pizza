@@ -29,18 +29,19 @@ class CustomUserManager(BaseUserManager):
     
     def create_user(self, email, first_name, last_name, phone, password=None, **fields):
         fields.setdefault('is_staff', False)
-        fields.setdefault('is_supreuser', False)
+        fields.setdefault('is_superuser', False)
         return self._create_user(self, email, first_name, last_name, phone, password=None, **fields)
     
-    def create_superuser(self, email, first_name, last_name, phone, password, **fields):
+    def create_superuser(self, email, first_name, last_name, phone, password=None, **fields):
         fields.setdefault('is_staff', True)
-        fields.setdefault('is_supreuser', True)
+        fields.setdefault('is_superuser', True)
 
         if fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-        return self._create_user(self, email, first_name, last_name, phone, password, **fields)
+
+        return self._create_user(email, first_name, last_name, phone, password, **fields)
 
 
 # Опрделение собственной модели пользователя с дополнительными полями:

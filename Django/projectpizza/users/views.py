@@ -1,10 +1,11 @@
+from django.http import request
 from django.shortcuts import render, redirect
 from .utils import DataMixin
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from .forms import RegisterForm, UserLoginForm
 from django.urls import reverse_lazy
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 # Create your views here.
 
 class RegistrationView(DataMixin, CreateView):
@@ -16,6 +17,11 @@ class RegistrationView(DataMixin, CreateView):
         context = super().get_context_data(**kwargs)
         menu_context = self.get_user_context(title='.Register')
         return dict(list(context.items()) + list(menu_context.items()))
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('profile')
 
 class UserLoginView(DataMixin, LoginView):
     template_name ='users/loginPage.html'

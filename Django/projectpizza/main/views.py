@@ -67,7 +67,5 @@ def profilePage(request):
     }
     return render(request, 'main/profilePage.html', context=context)
 
-
-
 def pageNotFound(request, exception):
     return HttpResponseNotFound("Страница не найдена")

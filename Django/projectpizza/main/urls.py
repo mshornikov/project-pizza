@@ -6,7 +6,7 @@ from cart.views import cart_add, cart_remove
 from users.views import RegistrationView, UserLoginView, logout_user
 
 urlpatterns =[
-    path('', mainPage, name='home'),
+    path('', MainPageView.as_view(), name='home'),
     path('stock/', stockPage, name='stocks'),
     path('about/', aboutPage, name='about'),
     path('contacts/', contactsPage, name='contacts'),

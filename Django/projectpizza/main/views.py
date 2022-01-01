@@ -2,6 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http.response import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, request
+from django.utils.translation import templatize
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
@@ -21,7 +22,6 @@ menu = [
 ]
 
 class MainPageView(DataMixin, TemplateView):
-
     template_name = "main/mainPage.html"
 
     def get_context_data(self, **kwargs):
@@ -33,43 +33,42 @@ class MainPageView(DataMixin, TemplateView):
         print(cat_list)
         return context
 
-def stockPage(request):
-    context = {
-        'menu':menu,
-        'title':'.Stocks'
-    }
-    return render(request, 'main/stockPage.html', context=context)
+class StockPageView(DataMixin, TemplateView):
+    template_name = 'main/stockPage.html'
 
-def aboutPage(request):
-    context = {
-        'menu':menu,
-        'title':'.About'
-    }
-    return render(request, 'main/aboutPage.html', context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.Stocks'))
+        return context
 
-def contactsPage(request):
-    context = {
-        'menu':menu,
-        'title':'.Contacts'
-    }
-    return render(request, 'main/contactsPage.html', context=context)
+class AboutPageView(DataMixin, TemplateView):
+    template_name = 'main/aboutPage.html'
 
-def basketPage(request):
-    context = {
-        'menu':menu,
-        'title':'.Basket'
-    }
-    return render(request, 'main/basketPage.html', context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.About'))
+        return context
 
-def profilePage(request):
-    # форма пльзователя, либо регистрация, либо авторизация
-    user_id_orders = Order.objects.filter(user_id=request.user.id)
-    context = {
-        'menu':menu,
-        'title':'.Profile',
-        'orders':user_id_orders,
-    }
-    return render(request, 'main/profilePage.html', context=context)
+class ContactsPageView(DataMixin, TemplateView):
+    template_name = 'main/contactsPage.html'
 
-def pageNotFound(request, exception):
-    return HttpResponseNotFound("Страница не найдена")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.Contacts'))
+        return context 
+
+class ProfilePageView(DataMixin, TemplateView):
+    template_name = 'main/profilePage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.Profile'))
+        context['orders'] = Order.objects.filter(user_id=self.request.user.id)
+        return context 
+
+class PageNotFoundView(DataMixin, TemplateView):
+    template_name = 'main/404page.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.NotFound'))
+        return context 

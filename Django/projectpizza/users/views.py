@@ -36,6 +36,8 @@ class UserLoginView(DataMixin, LoginView):
         return reverse_lazy('profile')
 
     
+
+
 def logout_user(request):
     logout(request) 
     return redirect('login')

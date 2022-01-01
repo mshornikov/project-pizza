@@ -7,10 +7,10 @@ from users.views import RegistrationView, UserLoginView, logout_user
 
 urlpatterns =[
     path('', MainPageView.as_view(), name='home'),
-    path('stock/', stockPage, name='stocks'),
-    path('about/', aboutPage, name='about'),
-    path('contacts/', contactsPage, name='contacts'),
-    path('profile/', profilePage, name='profile'),
+    path('stock/', StockPageView.as_view(), name='stocks'),
+    path('about/', AboutPageView.as_view(), name='about'),
+    path('contacts/', ContactsPageView.as_view(), name='contacts'),
+    path('profile/', ProfilePageView.as_view(), name='profile'),
     path('profile/register', RegistrationView.as_view(), name='register'),
     path('profile/login', UserLoginView.as_view(),name='login'),
     path('profile/logout/', logout_user, name='logout'),

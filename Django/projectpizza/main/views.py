@@ -30,7 +30,6 @@ class MainPageView(DataMixin, TemplateView):
         cat_list = {product_category:Product.objects.filter(category=product_category) for product_category in ProductCategory.objects.all()}
         context['cat_list'] = cat_list
         context['cart_product_form'] = CartAddProductForm()
-        print(cat_list)
         return context
 
 class StockPageView(DataMixin, TemplateView):

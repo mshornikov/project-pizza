@@ -45,7 +45,11 @@
                     </div>
                     <!-- Управление товаром в корзине -->
                     <div class="control_btns">
-                        <a href="{% url 'cart_remove' product.id%}" class='cart_del_btn'>Удалить</a>
+                        <!-- <a href="{% url 'cart_remove' product.id%}" class='cart_del_btn'>Удалить</a> -->
+                        <form action="{% url 'cart_remove' product.id%}" method="post" >
+                            {% csrf_token %}
+                            <button class='cart_del_btn' type='submit'>Удалить</button>
+                        </form>
                     </div>
                     {% endwith %}
                 </div>

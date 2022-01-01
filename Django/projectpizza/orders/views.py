@@ -14,7 +14,7 @@ class OrderHandlerPage(DataMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_user_context(title='.About'))
+        context.update(self.get_user_context())
         return context
 
     def post(self, request, **kwargs):
@@ -31,7 +31,7 @@ class OrderHandlerPage(DataMixin, TemplateView):
                 )
             cart.clear()
             context = self.get_context_data()
-            context.update({'order_id':order.id, 'type':'post'})
+            context.update({'order_id':order.id, 'type':'post', 'title':'.OrderCreate'})
             return render(request, self.template_name, context=context)
 
         
@@ -39,5 +39,5 @@ class OrderHandlerPage(DataMixin, TemplateView):
         form = OrderCreateForm()
         cart = Cart(request)
         context = self.get_context_data()
-        context.update({'form':form, 'cart':cart, 'type':'get'})
+        context.update({'form':form, 'cart':cart, 'type':'get', 'title':'.MakeOrder'})
         return render(request, self.template_name, context=context)

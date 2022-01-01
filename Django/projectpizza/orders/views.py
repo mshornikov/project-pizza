@@ -1,20 +1,24 @@
+from django.http import request
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
+
 from cart.cart import Cart
 from .forms import OrderCreateForm
 from .models import OrderItems
+from main.utils import DataMixin
 
 # Create your views here.
-menu = [
-    {'title': "Главная", 'url': 'home'},
-    {'title': "Акции", 'url':'stocks'},
-    {'title': "Контакты", 'url':'contacts'},
-    {'title': "О нас", 'url':'about'},
-]
 
+class OrderHandlerPage(DataMixin, TemplateView):
+    template_name = 'orders/orderHandlerPage.html'
 
-def order_create(request):
-    cart = Cart(request)
-    if request.method == 'POST':
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.About'))
+        return context
+
+    def post(self, request, **kwargs):
+        cart = Cart(request)
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.my_save(request=request, cart=cart)
@@ -26,8 +30,14 @@ def order_create(request):
                     quantity=item['quantity']
                 )
             cart.clear()
-            return render(request, 'orders/orderCreated.html', {'order':order, 'menu': menu, 'title':'.MakeOrder'})
+            context = self.get_context_data()
+            context.update({'order_id':order.id, 'type':'post'})
+            return render(request, self.template_name, context=context)
 
-    else:
+        
+    def get(self, request, **kwargs):   
         form = OrderCreateForm()
-    return render(request, 'orders/orderCreate.html', {'cart':cart, 'form':form, 'menu': menu, 'title':'.OrderComplete'})
+        cart = Cart(request)
+        context = self.get_context_data()
+        context.update({'form':form, 'cart':cart, 'type':'get'})
+        return render(request, self.template_name, context=context)

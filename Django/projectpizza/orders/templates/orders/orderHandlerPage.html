@@ -2,10 +2,11 @@
 
 {% block content %}
 <div class="container">
+    {% if type == 'get' %}
     <div class="order_creation_inner">
         <h5 class='order_title'>Ваш заказ</h5>
         <div class="order_form">
-            <form action="." method="post" class="order-form">
+            <form method="post" class="order-form">
                 {% csrf_token %}
                 <!-- {{ form.as_p }} -->
                 {% for f in form %}
@@ -27,10 +28,13 @@
                 {% endfor %}
             </ul>
             <p class='total_order_cost'>Total: {{cart.get_total_price }} $</p>
-
         </div>
     </div>
-
+    {% else %}
+    <h1>Спасибо за доверие!</h1>
+    <p>Ваш заказ был успешно оформлен. Ваш номер заказа - 
+        <strong>{{ order_id }}</strong>.</p>
+    {% endif %}
 
 </div>
 {% endblock %}

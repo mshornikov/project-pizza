@@ -1,7 +1,7 @@
 from decimal import Decimal 
 from django.conf import settings
 from main.models import Product
-
+import requests
 class Cart(object):
     # создание пустой корзины, если ее нет в сессии
     # создание наполненной корзины, если в текущей сессии таковая нашлась

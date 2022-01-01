@@ -14,13 +14,6 @@ from .utils import DataMixin
 from cart.forms import CartAddProductForm
 from orders.models import Order
 
-menu = [
-    {'title': "Главная", 'url': 'home'},
-    {'title': "Акции", 'url':'stocks'},
-    {'title': "Контакты", 'url':'contacts'},
-    {'title': "О нас", 'url':'about'},
-]
-
 class MainPageView(DataMixin, TemplateView):
     template_name = "main/mainPage.html"
 

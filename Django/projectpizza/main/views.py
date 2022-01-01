@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.http.response import HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404

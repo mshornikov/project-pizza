@@ -7,7 +7,14 @@ from django.contrib.auth.views import LoginView
 from .forms import RegisterForm, UserLoginForm
 from django.urls import reverse_lazy
 from django.contrib.auth import logout, login
+
+from rest_framework import permissions
+from rest_framework.generics import CreateAPIView
+from .models import CustomUser
+from .serializers import CustomUserSerializer
+from django.contrib.auth import get_user_model
 # Create your views here.
+
 
 class RegistrationView(DataMixin, CreateView):
     template_name = 'users/registerPage.html'
@@ -42,3 +49,11 @@ class LogoutUserView(FormView):
         logout(request)
         return redirect('login')
 
+
+
+#<--------REST FRAMEWORK VIEWS-------->
+
+class CustomUserCreateView(CreateAPIView):
+    model = get_user_model()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = CustomUserSerializer

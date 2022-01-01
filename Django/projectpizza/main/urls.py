@@ -4,6 +4,7 @@ from django.urls.resolvers import URLPattern
 from .views import *
 from users.views import *
 from cart.views import CartAddItemView
+
 urlpatterns =[
     path('', MainPageView.as_view(), name='home'),
     path('stock/', StockPageView.as_view(), name='stocks'),
@@ -19,4 +20,5 @@ urlpatterns =[
     path('products/', ProductListView.as_view()),
     path('products/<int:pk>/', ProductDetailView.as_view()),
     path('categories/', CategoryListView.as_view()),
+    path('usercreation/', CustomUserCreateView.as_view())
 ]

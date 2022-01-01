@@ -1,5 +1,6 @@
 from django.http import request
 from django.shortcuts import render, redirect
+from django.views.generic.edit import FormView
 from .utils import DataMixin
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
@@ -36,8 +37,8 @@ class UserLoginView(DataMixin, LoginView):
         return reverse_lazy('profile')
 
     
+class LogoutUserView(FormView):
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('login')
 
-
-def logout_user(request):
-    logout(request) 
-    return redirect('login')

@@ -10,7 +10,12 @@
             <h5>{{user.first_name}}</h5>
             <h5>{{user.last_name}}</h5>
             <h5>{{user.email}}</h5>
-            <div class="profile_logout"><a href="{% url 'logout' %}" class='profile_logout_btn'>Выйти из профиля</a></div>
+            <div class="profile_logout">
+                <form action="{% url 'logout' %}" method="post" >
+                    {% csrf_token %}
+                    <button class='logout_btn' type='submit'>Выйти из профиля</button>
+                  </form>
+            </div>
         </div>
             <!-- Список всех заказов аккаунта -->
         <div class="profile_orders_history">

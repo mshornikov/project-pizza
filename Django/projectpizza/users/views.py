@@ -6,11 +6,6 @@ from django.contrib.auth.views import LoginView
 from .forms import RegisterForm, UserLoginForm
 from django.urls import reverse_lazy
 from django.contrib.auth import logout, login
-
-from rest_framework import permissions
-from rest_framework.generics import CreateAPIView
-from swagger_tools.serializers import CustomUserSerializer
-from django.contrib.auth import get_user_model
 # Create your views here.
 
 

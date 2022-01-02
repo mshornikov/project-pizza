@@ -7,6 +7,10 @@ from .cart import Cart
 from .forms import CartAddProductForm
 from main.utils import DataMixin
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import serializers, status
+from .serializers import CartDetailSerializer
 
 class CartDetailView(DataMixin, TemplateView):
     template_name = 'cart/detail.html'
@@ -45,4 +49,13 @@ class CartRemoveItemView(FormView):
         product = get_object_or_404(Product, id=product_id)
         cart.remove(product)
         return redirect('cart')
+
+# <--------REST FRAMWORK VIEWS-------->
+
+class CartDetailAPIView(APIView):
+    """Вывод содержимого корзины в данной сессии"""
+    def get(self, request, **kwargs):
+        cart = Cart(request)
+        serializer = CartDetailSerializer(cart)
+        return Response(serializer.data)
 

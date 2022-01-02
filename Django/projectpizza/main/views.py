@@ -79,6 +79,7 @@ class ProductListView(APIView):
     def get(self, request):
         product_list = Product.objects.all()
         serializer = ProductListSerializer(product_list, many=True)
+        print(request.session.session_key)
         return Response(serializer.data)
 
 class ProductDetailView(APIView):
@@ -93,4 +94,11 @@ class CategoryListView(APIView):
     def get(self, request):
         category_list = ProductCategory.objects.all()
         serializer = CategoryListSerializer(category_list, many=True)
+        return Response(serializer.data)
+
+class CategoryDetailView(APIView):
+    """Вывод всех товаров выбранной категории"""
+    def get(self, request, pk):
+        category = get_object_or_404(ProductCategory, id=pk)
+        serializer = CategoryDetailSerializer(category)
         return Response(serializer.data)

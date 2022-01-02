@@ -9,5 +9,7 @@ urlpatterns = [
     path('', CartDetailView.as_view() ,name='cart'),
     path('add/<int:product_id>', CartAddItemView.as_view(), name='cart_add'),
     path('del/<int:product_id>', CartRemoveItemView.as_view(), name='cart_remove'),
-    path('order/', OrderHandlerPage.as_view(), name='order_create')
+    path('order/', OrderHandlerPage.as_view(), name='order_create'),
+    # <--------REST FRAMWORK VIEWS-------->
+    path('cartdetail/', CartDetailAPIView.as_view()),
 ]

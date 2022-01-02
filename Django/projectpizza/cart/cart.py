@@ -7,6 +7,7 @@ class Cart(object):
     # создание наполненной корзины, если в текущей сессии таковая нашлась
     def __init__(self, request):
         self.session = request.session
+        self.session_id = request.session.session_key
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
             cart = self.session[settings.CART_SESSION_ID] = {}

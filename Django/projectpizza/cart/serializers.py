@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from main.models import Product
-from main.serializers import ProductDetailSerializer
+from main.serializers import ProductSerializer
 
 class CartDetailSerializer(serializers.Serializer):
     session_id = serializers.CharField(max_length = 200)
@@ -11,7 +11,7 @@ class CartDetailSerializer(serializers.Serializer):
         product_list = Product.objects.filter(id__in=cart_id_list)
         result_data = []
         for product in product_list:
-            temp = ProductDetailSerializer(product).data
+            temp = ProductSerializer(product).data
             temp['quantity'] = cart_object.cart[str(product.id)]['quantity']
             result_data.append(temp)
         return result_data 

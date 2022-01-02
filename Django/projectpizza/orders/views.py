@@ -2,10 +2,11 @@ from django.http import request
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import TemplateView
 from rest_framework import serializers
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import OrderDetailSerializer, OrderItemListSerializer, OrderListSerializer, OrderItemDetailSerializer
+from .serializers import OrderItemSerializer, OrderSerializer
 
 from cart.cart import Cart
 from .forms import OrderCreateForm
@@ -51,31 +52,15 @@ class OrderHandlerPage(DataMixin, TemplateView):
 #  <------------------------------------------>
 #  <-----------Rest Framework Views----------->
 
-class OrderListView(APIView):
+class OrderListAPIView(ListAPIView):
     """Вывод списка всех совершенных заказов"""
-    def get(self, request):
-        order_list = Order.objects.all()
-        serializer = OrderListSerializer(order_list, many=True)
-        return Response(serializer.data)
+    serializer_class = OrderSerializer
+    def get_queryset(self):
+        return Order.objects.all()
 
-class OrderDetailView(APIView):
-    """Вывод информации о конкретном заказе"""
-    def get(self, request, pk):
-        order = get_object_or_404(Order, id=pk)
-        serializer = OrderDetailSerializer(order)
-        return Response(serializer.data)
-
-class OrderItemsListView(APIView):
+class OrderItemsListAPIView(ListAPIView):
     """Вывод списка пунктов всех существующих заказов"""
-    def get(self, request):
-        order_item = OrderItems.objects.all()
-        serializer = OrderItemListSerializer(order_item, many=True)
-        return Response(serializer.data)
+    serializer_class = OrderItemSerializer
 
-class OrderItemsDetailView(APIView):
-    """Вывод списка пунктов всех существующих заказов"""
-    def get(self, request, pk):
-        #order_item = OrderItems.objects.get(id=pk)
-        order_item = get_object_or_404(OrderItems, id=pk)
-        serializer = OrderItemDetailSerializer(order_item)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return OrderItems.objects.all()

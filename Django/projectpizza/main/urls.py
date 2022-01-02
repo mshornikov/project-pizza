@@ -17,9 +17,7 @@ urlpatterns =[
     path('add/<int:product_id>', CartAddItemView.as_view(), name='cart_add_main'),
 
     # <-----REST FRAMEWORK VIEWS----->
-    path('products/', ProductListView.as_view()),
-    path('products/<int:pk>/', ProductDetailView.as_view()),
-    path('categories/', CategoryListView.as_view()),
-    path('categories/<int:pk>/', CategoryDetailView.as_view()),
+    path('products/', ProductListAPIView.as_view()),
+    path('categories/', CategoryListAPIView.as_view()),
     path('usercreation/', CustomUserCreateView.as_view())
 ]

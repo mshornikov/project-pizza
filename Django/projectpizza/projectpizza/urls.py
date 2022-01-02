@@ -21,7 +21,7 @@ from main.views import *
 from projectpizza import settings
 from .yasg import urlpatterns as swagger_urls
 
-from orders.views import OrderListView, OrderDetailView, OrderItemsDetailView, OrderItemsListView
+from orders.views import OrderListAPIView, OrderItemsListAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,10 +29,10 @@ urlpatterns = [
     path('basket/', include('cart.urls')),
     #path('api-auth/', include('rest_framework.urls')),
     # <------REST FRAMEWORK VIEWS------>
-    path('orders/', OrderListView.as_view()),
-    path('orders/<int:pk>/', OrderDetailView.as_view()),
-    path('orders/items/', OrderItemsListView.as_view()),
-    path('orders/items/<int:pk>/', OrderItemsDetailView.as_view()),
+    path('orders/', OrderListAPIView.as_view()),
+    # path('orders/<int:pk>/', OrderRetrieveAPIView.as_view()),
+    path('orders/items/', OrderItemsListAPIView.as_view()),
+    # path('orders/items/<int:pk>/', OrderItemsDetailView.as_view()),
 ]
 urlpatterns += swagger_urls
 

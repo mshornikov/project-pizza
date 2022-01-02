@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.views.generic.base import TemplateView
 from rest_framework import serializers
+from rest_framework.generics import ListAPIView
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -74,31 +75,19 @@ class PageNotFoundView(DataMixin, TemplateView):
 #  <------------------------------------------>
 #  <-----------Rest Framework Views----------->
 
-class ProductListView(APIView):
-    """Вывод списка товаров"""
-    def get(self, request):
-        product_list = Product.objects.all()
-        serializer = ProductListSerializer(product_list, many=True)
-        print(request.session.session_key)
-        return Response(serializer.data)
 
-class ProductDetailView(APIView):
-    """Характеристика одного товара"""
-    def get(self, request, pk):
-        product = get_object_or_404(Product, id=pk)
-        serializer = ProductDetailSerializer(product)
-        return Response(serializer.data)
 
-class CategoryListView(APIView):
-    """Вывод списка категорий товаров"""
-    def get(self, request):
-        category_list = ProductCategory.objects.all()
-        serializer = CategoryListSerializer(category_list, many=True)
-        return Response(serializer.data)
 
-class CategoryDetailView(APIView):
-    """Вывод всех товаров выбранной категории"""
-    def get(self, request, pk):
-        category = get_object_or_404(ProductCategory, id=pk)
-        serializer = CategoryDetailSerializer(category)
-        return Response(serializer.data)
+class ProductListAPIView(ListAPIView):
+    """Вывод списка всех существующих товаров"""
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        return Product.objects.all()
+
+class CategoryListAPIView(ListAPIView):
+    """Вывод списка всех существующих категорий"""
+    serializer_class=CategorySerializer
+
+    def get_queryset(self):
+        return ProductCategory.objects.all()

@@ -58,4 +58,24 @@ class CartDetailAPIView(APIView):
         cart = Cart(request)
         serializer = CartDetailSerializer(cart)
         return Response(serializer.data)
+    
+
+class CartAddAPIView(APIView):
+    """Добавление в корзину некоторого количества товаров"""
+    def post(self, request, pk, quant, **kwargs):
+        cart = Cart(request)
+        cart.add(get_object_or_404(Product, id=pk), quant)
+        serializer = CartDetailSerializer(cart) 
+        return Response(serializer.data)
+
+
+class CartRemoveAPIView(APIView):
+    """Удаление товара из корзины"""
+    def post(self, request, pk, **kwargs):
+        cart = Cart(request)
+        cart.remove(get_object_or_404(Product, id=pk))
+        serializer = CartDetailSerializer(cart) 
+        return Response(serializer.data)
+    
+
 

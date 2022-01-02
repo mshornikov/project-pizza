@@ -15,9 +15,4 @@ urlpatterns =[
     path('profile/login', UserLoginView.as_view(),name='login'),
     path('profile/logout/', LogoutUserView.as_view(), name='logout'),
     path('add/<int:product_id>', CartAddItemView.as_view(), name='cart_add_main'),
-
-    # <-----REST FRAMEWORK VIEWS----->
-    path('products/', ProductListAPIView.as_view()),
-    path('categories/', CategoryListAPIView.as_view()),
-    path('usercreation/', CustomUserCreateView.as_view())
 ]

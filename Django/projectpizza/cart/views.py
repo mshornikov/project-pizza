@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-from rest_framework.generics import ListAPIView
 from main.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
@@ -10,8 +9,7 @@ from main.utils import DataMixin
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import serializers, status
-from .serializers import CartSerializer
+from swagger_tools.serializers import CartSerializer
 
 class CartDetailView(DataMixin, TemplateView):
     template_name = 'cart/detail.html'
@@ -51,32 +49,6 @@ class CartRemoveItemView(FormView):
         cart.remove(product)
         return redirect('cart')
 
-# <--------REST FRAMWORK VIEWS-------->
 
-class CartDetailAPIView(APIView):
-    """Вывод содержимого корзины в данной сессии"""
-    def get(self, request, **kwargs):
-        cart = Cart(request)
-        serializer = CartSerializer(cart)
-        return Response(serializer.data)
-    
-
-class CartAddAPIView(APIView):
-    """Добавление заданного количества товара в корзину"""
-    def post(self, request, pk, quant, **kwargs):
-        cart = Cart(request)
-        cart.add(get_object_or_404(Product, id=pk), quant)
-        serializer = CartSerializer(cart) 
-        return Response(serializer.data)
-
-
-class CartRemoveAPIView(APIView):
-    """Удаление товара из корзины"""
-    def post(self, request, pk, **kwargs):
-        cart = Cart(request)
-        cart.remove(get_object_or_404(Product, id=pk))
-        serializer = CartSerializer(cart) 
-        return Response(serializer.data)
-    
 
 

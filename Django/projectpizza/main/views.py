@@ -1,19 +1,6 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm
-from django.http.response import HttpResponseNotFound
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseNotFound, request
-from django.utils.translation import templatize
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
-from django.contrib.auth.views import LoginView
 from django.views.generic.base import TemplateView
-from rest_framework import serializers
 from rest_framework.generics import ListAPIView
-
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializers import *
+from swagger_tools.serializers import ProductSerializer, CategorySerializer
 # Create your views here.
 from .models import *
 from .utils import DataMixin
@@ -72,22 +59,3 @@ class PageNotFoundView(DataMixin, TemplateView):
         return context 
 
 
-#  <------------------------------------------>
-#  <-----------Rest Framework Views----------->
-
-
-
-
-class ProductListAPIView(ListAPIView):
-    """Вывод списка всех существующих товаров"""
-    serializer_class = ProductSerializer
-
-    def get_queryset(self):
-        return Product.objects.all()
-
-class CategoryListAPIView(ListAPIView):
-    """Вывод списка всех существующих категорий"""
-    serializer_class=CategorySerializer
-
-    def get_queryset(self):
-        return ProductCategory.objects.all()

@@ -1,12 +1,7 @@
-from django.http import request
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import TemplateView
-from rest_framework import serializers
-from rest_framework.generics import ListAPIView, RetrieveAPIView
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .serializers import OrderItemSerializer, OrderSerializer
+from rest_framework.generics import ListAPIView
+from swagger_tools.serializers import OrderItemSerializer, OrderSerializer
 
 from cart.cart import Cart
 from .forms import OrderCreateForm
@@ -49,18 +44,3 @@ class OrderHandlerPage(DataMixin, TemplateView):
         return render(request, self.template_name, context=context)
 
 
-#  <------------------------------------------>
-#  <-----------Rest Framework Views----------->
-
-class OrderListAPIView(ListAPIView):
-    """Вывод списка всех совершенных заказов"""
-    serializer_class = OrderSerializer
-    def get_queryset(self):
-        return Order.objects.all()
-
-class OrderItemsListAPIView(ListAPIView):
-    """Вывод списка пунктов всех существующих заказов"""
-    serializer_class = OrderItemSerializer
-
-    def get_queryset(self):
-        return OrderItems.objects.all()

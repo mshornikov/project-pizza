@@ -19,22 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 from main.views import *
 from projectpizza import settings
-from .yasg import urlpatterns as swagger_urls
-
-from orders.views import OrderListAPIView, OrderItemsListAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('basket/', include('cart.urls')),
-    #path('api-auth/', include('rest_framework.urls')),
-    # <------REST FRAMEWORK VIEWS------>
-    path('orders/', OrderListAPIView.as_view()),
-    # path('orders/<int:pk>/', OrderRetrieveAPIView.as_view()),
-    path('orders/items/', OrderItemsListAPIView.as_view()),
-    # path('orders/items/<int:pk>/', OrderItemsDetailView.as_view()),
+    path('swagger_tools/', include('swagger_tools.urls'))
 ]
-urlpatterns += swagger_urls
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

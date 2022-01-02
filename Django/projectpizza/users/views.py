@@ -1,4 +1,3 @@
-from django.http import request
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from .utils import DataMixin
@@ -10,8 +9,7 @@ from django.contrib.auth import logout, login
 
 from rest_framework import permissions
 from rest_framework.generics import CreateAPIView
-from .models import CustomUser
-from .serializers import CustomUserSerializer
+from swagger_tools.serializers import CustomUserSerializer
 from django.contrib.auth import get_user_model
 # Create your views here.
 
@@ -49,11 +47,3 @@ class LogoutUserView(FormView):
         logout(request)
         return redirect('login')
 
-
-
-#<--------REST FRAMEWORK VIEWS-------->
-
-class CustomUserCreateView(CreateAPIView):
-    model = get_user_model()
-    permission_classes = [permissions.AllowAny]
-    serializer_class = CustomUserSerializer

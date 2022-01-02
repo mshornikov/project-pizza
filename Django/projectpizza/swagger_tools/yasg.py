@@ -1,4 +1,3 @@
-from typing import ChainMap
 from django.urls import path
 from rest_framework import permissions
 from drf_yasg import openapi

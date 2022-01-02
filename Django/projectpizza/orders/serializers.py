@@ -10,13 +10,6 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = "__all__"
 
-
-# class OrderItemSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = OrderItems
-#         fields = fields = "__all__"
-
     
 class OrderItemSerializer(serializers.ModelSerializer):
     total_point_price = serializers.SerializerMethodField('get_total_point_price')

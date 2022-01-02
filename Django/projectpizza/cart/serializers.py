@@ -2,7 +2,7 @@ from rest_framework import serializers
 from main.models import Product
 from main.serializers import ProductSerializer
 
-class CartDetailSerializer(serializers.Serializer):
+class CartSerializer(serializers.Serializer):
     session_id = serializers.CharField(max_length = 200)
     product_list = serializers.SerializerMethodField('get_product_list')
 

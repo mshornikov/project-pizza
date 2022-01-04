@@ -1,11 +1,8 @@
 from django.views.generic.base import TemplateView
-from rest_framework.generics import ListAPIView
-from swagger_tools.serializers import ProductSerializer, CategorySerializer
 # Create your views here.
 from .models import *
 from .utils import DataMixin
 from cart.forms import CartAddProductForm
-from orders.models import Order
 
 class MainPageView(DataMixin, TemplateView):
     template_name = "main/mainPage.html"
@@ -42,14 +39,7 @@ class ContactsPageView(DataMixin, TemplateView):
         context.update(self.get_user_context(title='.Contacts'))
         return context 
 
-class ProfilePageView(DataMixin, TemplateView):
-    template_name = 'main/profilePage.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(self.get_user_context(title='.Profile'))
-        context['orders'] = Order.objects.filter(user_id=self.request.user.id)
-        return context 
 
 class PageNotFoundView(DataMixin, TemplateView):
     template_name = 'main/404page.html'

@@ -7,9 +7,11 @@
             {% if request.user.is_authenticated %}
             <!-- Для авторизованного пользователя: -->
             <!-- Блок данных пользователя -->
-            <h5>{{user.first_name}}</h5>
-            <h5>{{user.last_name}}</h5>
-            <h5>{{user.email}}</h5>
+            <h5>Имя                     : {{user.first_name}}</h5>
+            <h5>Фамилия                 : {{user.last_name}}</h5>
+            <h5>Адрес электронной почты : {{user.email}}</h5>
+            <h5>Номер телефона          : {{user.phone}}</h5>
+            <h5>День рождения           : {{user.date_of_birth}}</h5>
             <div class="profile_logout">
                 <form action="{% url 'logout' %}" method="post" >
                     {% csrf_token %}
@@ -19,7 +21,7 @@
         </div>
             <!-- Список всех заказов аккаунта -->
         <div class="profile_orders_history">
-            <div class="profile_orders_title">Ваша история заказов</div>
+            <h5 class="profile_orders_title">Ваша история заказов</h5>
             <div class="orders_list">
                 {% for order in orders %} 
                     <div class="order_item">

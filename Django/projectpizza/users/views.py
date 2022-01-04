@@ -7,7 +7,8 @@ from .forms import RegisterForm, UserLoginForm
 from django.urls import reverse_lazy
 from django.contrib.auth import logout, login
 # Create your views here.
-
+from orders.models import Order
+from django.views.generic.base import TemplateView
 
 class RegistrationView(DataMixin, CreateView):
     template_name = 'users/registerPage.html'
@@ -42,3 +43,11 @@ class LogoutUserView(FormView):
         logout(request)
         return redirect('login')
 
+class ProfilePageView(DataMixin, TemplateView):
+    template_name = 'users/profilePage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.Profile'))
+        context['orders'] = Order.objects.filter(user_id=self.request.user.id)
+        return context 

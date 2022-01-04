@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
 from django.utils import timezone
-
+from django.core.validators import RegexValidator
 # Create your models here.
 
+phone_validator = RegexValidator(regex='[+7|8][8|9][0-9]{9}', message='Неподдерживаемый номер телефона пользователя (только вид (+7-8) (8-9)хх ххх хх хх)')
 
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
@@ -50,7 +51,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, verbose_name='Почта')
     first_name = models.CharField(max_length=50, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
-    phone = models.CharField(max_length=50, verbose_name='Номер телефона')
+    phone = models.CharField(max_length=50, validators=[phone_validator], verbose_name='Номер телефона')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='День рождения')
     is_staff = models.BooleanField(default=False, verbose_name='Право доступа')
     is_active = models.BooleanField(default=True, verbose_name='Активен')

@@ -192,7 +192,7 @@ def product(number, product) :
     cursor.execute(sql, str(product))
     res = cursor.fetchall()
     string = ""
-    number = int(number)
+    number = int(number) - 1
     if len(res) < number:
         return "Нету такого номера!"
     else:

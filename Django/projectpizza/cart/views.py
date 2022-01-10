@@ -5,7 +5,7 @@ from django.views.generic.edit import FormView
 from main.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
-from main.utils import DataMixin
+from projectpizza.utils import DataMixin
 
 from rest_framework.views import APIView
 from rest_framework.response import Response

@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 # Create your views here.
 from .models import *
-from .utils import DataMixin
+from projectpizza.utils import DataMixin
 from cart.forms import CartAddProductForm
 
 class MainPageView(DataMixin, TemplateView):

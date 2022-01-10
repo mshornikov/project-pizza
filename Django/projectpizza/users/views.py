@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
-from .utils import DataMixin
+from projectpizza.utils import DataMixin
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from .forms import RegisterForm, UserLoginForm

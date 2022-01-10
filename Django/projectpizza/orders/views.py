@@ -6,7 +6,7 @@ from swagger_tools.serializers import OrderItemSerializer, OrderSerializer
 from cart.cart import Cart
 from .forms import OrderCreateForm
 from .models import Order, OrderItems
-from main.utils import DataMixin
+from projectpizza.utils import DataMixin
 
 # Create your views here.
 

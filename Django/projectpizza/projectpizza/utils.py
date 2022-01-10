@@ -1,13 +1,9 @@
-
- 
 menu = [
-    {'title': "Главная", 'url': 'home'},
+    {'title': "Меню", 'url': 'home'},
     {'title': "Акции", 'url':'stocks'},
     {'title': "Контакты", 'url':'contacts'},
     {'title': "О нас", 'url':'about'},
 ]
-
-
 
 class DataMixin:
     def get_user_context(self, **kwargs):

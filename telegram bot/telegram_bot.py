@@ -154,12 +154,20 @@ async def state_acc_order(message: Message):
         await state.set_state(TestStates.all()[0])
         await message.answer(acc_string, reply_markup = greet_acc, parse_mode=ParseMode.MARKDOWN) 
         return
-
-    res = openOrders(message.text[1:], dict_user[message.from_user.id])
-    if res == ():
-        await message.answer("Ошибка, попробуйте позже", reply_markup = greet_acc)
-    else:
-        await message.answer(res, reply_markup = greet_order)
+    elif message.text[0] == "/":
+        res = openOrders(message.text[1:], dict_user[message.from_user.id])
+        if res == ():
+            await message.answer("Ошибка, попробуйте позже", reply_markup = greet_acc)
+        else:
+            await message.answer(res, reply_markup = greet_order)
+    elif message.text[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        res = openOrders(message.text, dict_user[message.from_user.id])
+        if res == ():
+            await message.answer("Ошибка, попробуйте позже", reply_markup = greet_acc)
+        else:
+            await message.answer(res, reply_markup = greet_order)
+    else :
+        await message.answer(miss,  reply_markup = greet_order)
 
 @dp.message_handler(state=TestStates.TEST_STATE_PROMO)
 async def state_acc_order(message: Message):
@@ -174,12 +182,20 @@ async def state_acc_order(message: Message):
         await state.set_state(TestStates.all()[0])
         await message.answer(acc_string, reply_markup = greet_acc, parse_mode=ParseMode.MARKDOWN) 
         return
-
-    res = openPromo(message.text[1:], dict_user[message.from_user.id])
-    if res == ():
-        await message.answer("Ошибка, попробуйте позже", reply_markup = greet_acc)
-    else:
-        await message.answer(res, reply_markup = greet_order)
+    elif message.text[0] == "/":
+        res = openPromo(message.text[1:], dict_user[message.from_user.id])
+        if res == ():
+            await message.answer("Ошибка, попробуйте позже", reply_markup = greet_acc)
+        else:
+            await message.answer(res, reply_markup = greet_order)
+    elif message.text[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        res = openPromo(message.text, dict_user[message.from_user.id])
+        if res == ():
+            await message.answer("Ошибка, попробуйте позже", reply_markup = greet_acc)
+        else:
+            await message.answer(res, reply_markup = greet_order)
+    else :
+        await message.answer(miss,  reply_markup = greet_order)
 
 @dp.message_handler(state=TestStates.TEST_STATE__MENU)
 async def state_acc_order(message: Message):
@@ -204,24 +220,46 @@ async def state_acc_order(message: Message):
         return
 
     #ТУТ НАДО ПРОВЕРКУ ПОСТАВИТЬ ЧТО ДАЛИ КОРЕКТНОЕ ЧИСЛО
-    res, flag = nextMenu(message.text[1:], dict_menu[message.from_user.id])
-    if res == ():
-        await message.answer("Ошибка, попробуйте позже", reply_markup = greet_menu)
-    elif res == "":
-        await message.answer("Неправильная позиция", reply_markup = greet_menu)
-    else:
-        if flag == -1:
-            greet_now = greet_product_menu_w_l
-            await state.set_state(TestStates.all()[8])
-        elif flag == 0:
-            greet_now = greet_product_menu
-            await state.set_state(TestStates.all()[7])
+    elif message.text[0] == "/":
+        res, flag = nextMenu(message.text[1:], dict_menu[message.from_user.id])
+        if res == ():
+            await message.answer("Ошибка, попробуйте позже", reply_markup = greet_menu)
+        elif res == "":
+            await message.answer("Неправильная позиция", reply_markup = greet_menu)
         else:
-            greet_now = greet_product_menu_w_n
-            await state.set_state(TestStates.all()[9])
+            if flag == -1:
+                greet_now = greet_product_menu_w_l
+                await state.set_state(TestStates.all()[8])
+            elif flag == 0:
+                greet_now = greet_product_menu
+                await state.set_state(TestStates.all()[7])
+            else:
+                greet_now = greet_product_menu_w_n
+                await state.set_state(TestStates.all()[9])
 
-        dict_menu[message.from_user.id] = [message.text[1:], dict_menu[message.from_user.id]]
-        await message.answer(res, reply_markup = greet_now)
+            dict_menu[message.from_user.id] = [message.text[1:], dict_menu[message.from_user.id]]
+            await message.answer(res, reply_markup = greet_now)
+    elif message.text[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        res, flag = nextMenu(message.text, dict_menu[message.from_user.id])
+        if res == ():
+            await message.answer("Ошибка, попробуйте позже", reply_markup = greet_menu)
+        elif res == "":
+            await message.answer("Неправильная позиция", reply_markup = greet_menu)
+        else:
+            if flag == -1:
+                greet_now = greet_product_menu_w_l
+                await state.set_state(TestStates.all()[8])
+            elif flag == 0:
+                greet_now = greet_product_menu
+                await state.set_state(TestStates.all()[7])
+            else:
+                greet_now = greet_product_menu_w_n
+                await state.set_state(TestStates.all()[9])
+
+            dict_menu[message.from_user.id] = [message.text[1:], dict_menu[message.from_user.id]]
+            await message.answer(res, reply_markup = greet_now)
+    else:
+        await message.answer(miss,  reply_markup = greet_menu)
 
 @dp.message_handler(state=TestStates.TEST_STATE__MENU_PRODUCT)
 async def state_acc_order(message: Message):
@@ -270,6 +308,21 @@ async def state_acc_order(message: Message):
     elif message.text[0] == "/":
         res = product(message.text[1:], dict_menu[message.from_user.id][0])
         await message.answer(res, reply_markup = greet_product_menu)
+    elif message.text[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        res = product(message.text, dict_menu[message.from_user.id][0])
+        await message.answer(res, reply_markup = greet_product_menu)
+    else:
+        res, flag = nextMenu(dict_menu[message.from_user.id][0], dict_menu[message.from_user.id][1])
+        if flag == -1:
+            greet_now = greet_product_menu_w_l
+            await state.set_state(TestStates.all()[8])
+        elif flag == 0:
+            greet_now = greet_product_menu
+            await state.set_state(TestStates.all()[7])
+        else:
+            greet_now = greet_product_menu_w_n
+            await state.set_state(TestStates.all()[9])
+        await message.answer(miss,  reply_markup = greet_now)
 
 @dp.message_handler(state=TestStates.TEST_STATE__MENU_PRODUCT_W_L)
 async def state_acc_order(message: Message):
@@ -314,8 +367,13 @@ async def state_acc_order(message: Message):
     elif message.text[0] == "/":
         res = product(message.text[1:], dict_menu[message.from_user.id][0])
         await message.answer(res, reply_markup = greet_product_menu_w_l)
+
+    elif message.text[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        res = product(message.text, dict_menu[message.from_user.id][0])
+        await message.answer(res, reply_markup = greet_product_menu_w_l)
     else:
-        await message.answer(miss,  reply_markup = greet_menu)
+        await message.answer(miss,  reply_markup = greet_product_menu_w_l)
+
 
 @dp.message_handler(state=TestStates.TEST_STATE__MENU_PRODUCT_W_N)
 async def state_acc_order(message: Message):
@@ -360,8 +418,12 @@ async def state_acc_order(message: Message):
     elif message.text[0] == "/":
         res = product(message.text[1:], dict_menu[message.from_user.id][0])
         await message.answer(res, reply_markup = greet_product_menu_w_n)
+
+    elif message.text[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        res = product(message.text, dict_menu[message.from_user.id][0])
+        await message.answer(res, reply_markup = greet_product_menu_w_n)
     else:
-        await message.answer(miss,  reply_markup = greet_menu)      
+        await message.answer(miss,  reply_markup = greet_product_menu_w_n)  
 
 @dp.message_handler(state='*')
 async def main(message: Message, state: FSMContext):

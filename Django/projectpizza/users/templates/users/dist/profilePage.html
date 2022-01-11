@@ -1,43 +1,45 @@
 {% extends '../main/baseStructure.html'%}
 
 {% block content %}
-<div class="container">
-    <div class="profile_page_content">
-        <div class="profile_info">
-            {% if request.user.is_authenticated %}
-            <!-- Для авторизованного пользователя: -->
-            <!-- Блок данных пользователя -->
-            <h5>Имя                     : {{user.first_name}}</h5>
-            <h5>Фамилия                 : {{user.last_name}}</h5>
-            <h5>Адрес электронной почты : {{user.email}}</h5>
-            <h5>Номер телефона          : {{user.phone}}</h5>
-            <h5>День рождения           : {{user.date_of_birth}}</h5>
-            <div class="profile_logout">
-                <form action="{% url 'logout' %}" method="post" >
-                    {% csrf_token %}
-                    <button class='logout_btn' type='submit'>Выйти из профиля</button>
-                </form>
-            </div>
-        </div>
-            <!-- Список всех заказов аккаунта -->
-        <div class="profile_orders_history">
-            <h5 class="profile_orders_title">Ваша история заказов</h5>
-            <div class="orders_list">
-                {% for order in orders %} 
-                    <div class="order_item">
-                        <span class="order_id">Номер заказа: {{order.id}}</span>
-                        <span class="order_total_cost">Сумма заказа: {{order.total_cost}}$</span>
-                    </div>
-                {% endfor%}
-            </div>
-        </div>
-        </div>
-        {% else %}
-            <!-- Для гостя -->
-            <a href="{% url 'register' %}" class="btn_reg">Регистрация</a>
-            <a href="{% url 'login' %}" class="btn_auth">Авторизация</a>
-        {% endif %} 
+
+{% if request.user.is_authenticated %}
+<div class="profile_info">
+    <!-- Для авторизованного пользователя: -->
+    <!-- Блок данных пользователя -->
+    <div class="title">Аккаунт</div>
+    <h5>Имя                     : {{user.first_name}}</h5>
+    <h5>Фамилия                 : {{user.last_name}}</h5>
+    <h5>Адрес электронной почты : {{user.email}}</h5>
+    <h5>Номер телефона          : {{user.phone}}</h5>
+    <h5>День рождения           : {{user.date_of_birth}}</h5>
+    <div class="profile_logout">
+        <form action="{% url 'logout' %}" method="post" >
+            {% csrf_token %}
+            <button class='logout_btn' type='submit'>Выйти из профиля</button>
+        </form>
     </div>
 </div>
+    <!-- Список всех заказов аккаунта -->
+<div class="profile_orders_history">
+    <h5 class="profile_orders_title">Ваша история заказов</h5>
+    <div class="orders_list">
+        {% for order in orders %} 
+            <div class="order_item">
+                <span class="order_id">Номер заказа: {{order.id}}</span>
+                <span class="order_total_cost">Сумма заказа: {{order.total_cost}}$</span>
+            </div>
+        {% endfor%}
+    </div>
+</div>
+</div>
+{% else %}
+    <!-- Для гостя -->
+
+<div class="register_buttons">
+    <a href="{% url 'register' %}" class="btn">Регистрация</a>
+    <a href="{% url 'login' %}" class="btn">Авторизация</a>
+</div>
+
+{% endif %} 
 
 {% endblock %}

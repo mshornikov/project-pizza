@@ -5,9 +5,9 @@ from swagger_tools.serializers import OrderItemSerializer, OrderSerializer
 
 from cart.cart import Cart
 from .forms import OrderCreateForm
-from .models import Order, OrderItems
+from .models import OrderItems
 from projectpizza.utils import DataMixin
-
+from stock.models import Stock
 # Create your views here.
 
 class OrderHandlerPage(DataMixin, TemplateView):
@@ -23,13 +23,15 @@ class OrderHandlerPage(DataMixin, TemplateView):
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.my_save(request=request, cart=cart)
-            for item in cart:
+            for dict in cart:
                 OrderItems.objects.create(
-                    order=order,
-                    product=item['product'],
-                    price=item['price'],
-                    quantity=item['quantity']
+                    order = order,
+                    product = dict['item']['product'],
+                    price = dict['item']['price'],
+                    quantity = dict['item']['quantity']
                 )
+                if dict['item']['stock_id'] != None:
+                    Stock.objects.get(id=dict['item']['stock_id']).delete()
             cart.clear()
             context = self.get_context_data()
             context.update({'order_id':order.id, 'type':'post', 'title':'.OrderCreate'})

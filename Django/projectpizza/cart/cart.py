@@ -18,17 +18,19 @@ class Cart(object):
     def add(self, product, quant):
         product_id = str(product.id)
         if product_id not in self.cart['default']:
-            self.cart['default'][product_id] = {'quantity': quant, 'price': product.cost}
+            self.cart['default'][product_id] = {'quantity': quant, 'price': product.cost, 'stock_id':None}
         else:
             self.cart['default'][product_id]['quantity'] += quant
+        print(self.cart['default'][product_id])
         self.save()
 
     # Добавить в корзину товар акции
     def stock_add(self, stock_object):
         product_id = str(stock_object.stock_product.id)
         if product_id not in self.cart['stock_cart']:
-            self.cart['stock_cart'][product_id] = {'quantity': 1, 'price': (1 - stock_object.stock_value/100) * stock_object.stock_product.cost}
+            self.cart['stock_cart'][product_id] = {'quantity': 1, 'price': (1 - stock_object.stock_value/100) * stock_object.stock_product.cost, 'stock_id':stock_object.id}
             self.save()
+        print(self.cart['stock_cart'][product_id])
 
     # Обновить корзину
     def save(self):

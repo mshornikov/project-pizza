@@ -1,12 +1,10 @@
 {% extends '../main/baseStructure.html'%}
 
 {% block content %}
-
-{% if request.user.is_authenticated %}
 <div class="profile_info">
+    {% if request.user.is_authenticated %}
     <!-- Для авторизованного пользователя: -->
     <!-- Блок данных пользователя -->
-    <div class="title">Аккаунт</div>
     <h5>Имя                     : {{user.first_name}}</h5>
     <h5>Фамилия                 : {{user.last_name}}</h5>
     <h5>Адрес электронной почты : {{user.email}}</h5>
@@ -34,12 +32,10 @@
 </div>
 {% else %}
     <!-- Для гостя -->
-
-<div class="register_buttons">
-    <a href="{% url 'register' %}" class="btn">Регистрация</a>
-    <a href="{% url 'login' %}" class="btn">Авторизация</a>
-</div>
-
+<div class="register_buttons"> 
+    <a href="{% url 'register' %}" class="btn_reg">Регистрация</a>
+    <a href="{% url 'login' %}" class="btn_auth">Авторизация</a>
+</div>  
 {% endif %} 
 
 {% endblock %}

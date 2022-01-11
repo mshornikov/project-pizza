@@ -7,8 +7,8 @@ urlpatterns =[
     path('register/', RegistrationView.as_view(), name='register'),
     path('login/', UserLoginView.as_view(),name='login'),
     path('logout/', LogoutUserView.as_view(), name='logout'),
-    path('password-reset/', PasswordResetView.as_view(template_name='users/passwordResetPage.html'), name='password-reset'),
-    path('reset_password_sent/', PasswordResetDoneView.as_view(template_name='users/passwordResetDonePage.html'), name ='password_reset_done'),
-    path('reset/<uidb64>/<token>', PasswordResetConfirmView.as_view(template_name='users/passwordResetConfirmPage.html'), name ='password_reset_confirm'),
-    path('reset_password_complete/', PasswordResetCompleteView.as_view(template_name='users/passwordResetCompletePage.html'), name ='password_reset_complete'),
+    path('password-reset/', CustomPasswordResetView.as_view(), name='password-reset'),
+    path('reset_password_sent/', CustomPasswordResetDoneView.as_view(), name ='password_reset_done'),
+    path('reset/<uidb64>/<token>', CustomPasswordResetConfirmView.as_view(), name ='password_reset_confirm'),
+    path('reset_password_complete/', CustomPasswordResetCompleteView.as_view(), name ='password_reset_complete'),
 ]

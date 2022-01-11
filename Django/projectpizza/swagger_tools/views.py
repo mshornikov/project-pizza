@@ -62,6 +62,14 @@ class OrderItemsListAPIView(ListAPIView):
 
 # <----CUSTOM USER---->
 class CustomUserCreateView(CreateAPIView):
+    """Создание пользователя"""
     model = get_user_model()
     permission_classes = [permissions.AllowAny]
     serializer_class = CustomUserSerializer
+
+# <----STOCK---->
+class StockListAPIView(ListAPIView):
+    """Вывод список всех акций пользователей"""
+    serializer_class = StockSerializer
+    def get_queryset(self):
+        return Stock.objects.all()

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'users.apps.UsersConfig',
+    'stock.apps.StockConfig',
     'drf_yasg',
     'rest_framework',
 ]

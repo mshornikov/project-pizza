@@ -9,6 +9,7 @@ from django.contrib.auth import logout, login
 # Create your views here.
 from orders.models import Order
 from django.views.generic.base import TemplateView
+from cart.cart import Cart
 
 class RegistrationView(DataMixin, CreateView):
     template_name = 'users/registerPage.html'
@@ -41,6 +42,7 @@ class UserLoginView(DataMixin, LoginView):
 class LogoutUserView(FormView):
     def post(self, request, *args, **kwargs):
         logout(request)
+        print(Cart(request).cart.keys())
         return redirect('login')
 
 class ProfilePageView(DataMixin, TemplateView):

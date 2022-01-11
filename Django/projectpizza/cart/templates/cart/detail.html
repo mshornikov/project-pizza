@@ -5,54 +5,70 @@
 <div class="cart">
     <!-- Ограничитель -->
     <div class="container">
-        {% with total_items=cart|length %}
-        {% if cart|length > 0 %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <form action="{% url 'stock_accept' %}" method='post'>
+            {% csrf_token%}
+            {{stock_form.as_p}}
+            <button type='sybmit'>Добавить товар</button>
+        </form>
+        {% if length > 0 %}
         <!-- Содержимое корзины -->
         <div class="cart_inner">
             <h5 class='cart_name'>Ваша корзина:</h5>
-            <p>
-                {{ total_items }} item{{ total_items|pluralize }},
-                ${{ cart.get_total_price }}
+            <p> 
+                {% with total_items=cart|length %}
+                <span class='total_items'>{{ total_items }} Товар(а),</span>
+                <span clsas='total_price'>{{ cart.get_total_price|floatformat:2 }} руб  </span>
+                {% endwith %}
             </p>
-            {% for item in cart %}
-                <!-- Представление одой позиции -->
-                <div class="cart_item">
-                    {% with product=item.product %}
-                    <!-- Фото -->
-                    <img src="{{ product.image.url }}" alt="Фото позиции">
-                    <div class="single_item_view">
-                        <!-- Названия пунктов -->
-                        <div class="item_information">
-                                <h5 class="cart_navPoint">Название</h5>
-                                <h5 class="cart_navPoint">Изменить</h5>
-                                <h5 class="cart_navPoint">Количество</h5>
-                                <h5 class="cart_navPoint">Цена</h5>
-                                <h5 class="cart_navPoint">Общая стоимость</h5>
+            {% for dict in cart %}
+                {% with item=dict.item %}
+                {% with type=dict.type %}
+                    <!-- Представление одой позиции -->
+                    <div class="cart_item">
+                        {% with product=item.product %}
+                        <!-- Фото -->
+                        <img src="{{ product.image.url }}" alt="Фото позиции">
+                        <div class="single_item_view">
+                            <!-- Названия пунктов -->
+                            <div class="item_information">
+                                    <h5 class="cart_navPoint">Название</h5>
+                                    <h5 class="cart_navPoint">Изменить</h5>
+                                    <h5 class="cart_navPoint">Количество</h5>
+                                    <h5 class="cart_navPoint">Цена</h5>
+                                    <h5 class="cart_navPoint">Общая стоимость</h5>
+                            </div>
+                            <!-- Данные о товаре в корзине -->
+                            <div class="item_data">
+                                <h5 class="position">{{product.name}}</h5>
+                                {% if type == 'default' %}
+                                <form action="{% url 'cart_add' product.id %}" method="post" class="position">
+                                    {% csrf_token %}
+                                    {{ item.update_quantity_form.quantity }}
+                                    {{ item.update_quantity_form.update }}
+                                    <input type="submit" value="Добавить">
+                                </form>
+                                {% else %}
+                                <span class='position'>Акционный товар</span>
+                                {% endif %}
+                                <p class="position">{{item.quantity}}</p> <br>
+                                <p class="position">{{item.price|floatformat:2 }}</p> <br>
+                                <p class="position">{{item.total_price|floatformat:2}}</p> 
+                            </div>
                         </div>
-                        <!-- Данные о товаре в корзине -->
-                        <div class="item_data">
-                            <h5 class="position">{{product.name}}</h5>
-                            <form action="{% url 'cart_add' product.id %}" method="post" class="position">
-                                {% csrf_token %}
-                                {{ item.update_quantity_form.quantity }}
-                                {{ item.update_quantity_form.update }}
-                                <input type="submit" value="Добавить">
-                            </form>
-                            <p class="position">{{item.quantity}}</p> <br>
-                            <p class="position">{{item.price}}</p> <br>
-                            <p class="position">{{item.total_price}}</p> 
-                        </div>
-                    </div>
-                    <!-- Управление товаром в корзине -->
-                    <div class="control_btns">
-                        <!-- <a href="{% url 'cart_remove' product.id%}" class='cart_del_btn'>Удалить</a> -->
-                        <form action="{% url 'cart_remove' product.id%}" method="post" >
+                        <!-- Управление товаром в корзине -->
+                        <form action="{% url 'cart_remove' product.id type %}" method='post'>
                             {% csrf_token %}
-                            <button class='cart_del_btn' type='submit'>Удалить</button>
+                            <button class='cart_del_btn'>Удалить</button>
                         </form>
+                        {% endwith %}
                     </div>
-                    {% endwith %}
-                </div>
+                {% endwith %}
+                {% endwith %}
             {% endfor %}
             <!-- Кнопка формирования заказа -->
             {% if request.user.is_authenticated %}
@@ -69,7 +85,6 @@
         {% else %}
         <h5 class='cart_name'>Корзина пуста, к сожалению</h5>
         {% endif %}
-        {% endwith %}
     </div>
 </div>
 {% endblock %}

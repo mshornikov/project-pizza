@@ -9,8 +9,6 @@
     color: #303030;
 }
 
-/*  Container */
-
 .container {
     position: relative;
     max-width: 100%;
@@ -53,7 +51,6 @@
     margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-
 }
 
 .logo {
@@ -62,7 +59,9 @@
     margin-right: 22px;
 }
 
-
+.navbar {
+    margin-top: auto;
+}
 .navPointLeft {
     margin-right: 20px;
 
@@ -102,11 +101,11 @@
 }
 
 .content {
-    min-height: calc(100vh - 297px);
+    min-height: calc(100vh - 375px);
     margin-top:40px;
     margin-left: 30px;
     margin-right: 30px;
-    margin-bottom:60px;
+    margin-bottom: 40px;
 }
 
 /* Footer */
@@ -223,6 +222,7 @@
     display: flex;
     flex-direction: row;
 }
+
 .social_link {
     color: #ffffff;
     margin-left: 20px;
@@ -268,6 +268,8 @@
     line-height: 29px;
     margin-bottom: 79px;
 }
+
+
 /* Pages Content */
     /* Main Page */
 
@@ -303,122 +305,6 @@
 .item_discription {
     margin-bottom: 30px;
 }   
-
-/* About */
-
-.about_text{
-    font-size: 18px;
-    margin-bottom: 67px;
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 25px;
-    display: flex;
-    align-items: flex-end;
-    letter-spacing: 0.02em;
-}
-
-.request {
-    margin: 20px;
-    font-size: 24px;
-}
-
-.work_find{
-    max-width: 100%;
-    display: flex;
-    justify-content: space-between;
-    width: 681px;
-    height: 69px;
-    align-items: center;
-
-
-    background: #FFFFFF;
-    box-shadow: 0px 18px 223px rgba(46, 51, 46, 0.06), 0px 11.6667px 130.6px rgba(46, 51, 46, 0.0455556), 0px 6.93333px 71.0296px rgba(46, 51, 46, 0.0364444), 0px 3.6px 36.2375px rgba(46, 51, 46, 0.03), 0px 1.46667px 18.1704px rgba(46, 51, 46, 0.0235556), 0px 0.333333px 8.77546px rgba(46, 51, 46, 0.0144444);
-
-    border-radius: 15px;
-
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 29px;
-
-    color: #303030;
-}
-
-.find_work_button {
-    padding: 10px 17.5px;
-    background-color: #2D9CDB;
-    text-decoration: none;
-    color: white;
-    border-radius: 20px;
-    display: block;
-    margin: 20px;
-
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 17px;
-}
-
-.find_work_button:hover {
-    background-color: #7FB7D7;
-    color:white;
-
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 17px;
-}
-
-/* Contacts */
-
-.contacts__inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.contacts_title {
-    font-size: 24px;
-    margin: 20px 0;
-}
-
-.adress_title {
-    font-size:20px;
-    margin-top: 20px;
-}
-
-.adress_text {
-    margin-bottom: 20px;
-}
-
-.worktime_title {
-    font-size: 20px;
-}
-
-.worktime_hours {
-    margin-bottom: 20px;
-}
-
-.phone_title {
-    font-size: 20px;
-}
-
-.phone_number {
-    margin-bottom:20px;
-}
-
-.feedback_title {
-    font-size: 20px;
-}
-
-.feedback_text {
-    margin-bottom: 20px;
-}
-
-.map {
-    margin: 40px 0;
-}
 
 /* Register */
 
@@ -553,4 +439,3 @@
     margin-right:20px;
     width: 150px;
 }
-

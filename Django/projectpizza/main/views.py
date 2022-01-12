@@ -9,7 +9,7 @@ class MainPageView(DataMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_user_context(title='.ProjectPizza'))
+        context.update(self.get_user_context(title='ProjectPizza'))
         cat_list = {product_category:Product.objects.filter(category=product_category) for product_category in ProductCategory.objects.all()}
         context['cat_list'] = cat_list
         context['cart_product_form'] = CartAddProductForm()
@@ -20,7 +20,7 @@ class StockPageView(DataMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_user_context(title='.Stocks'))
+        context.update(self.get_user_context(title='ProjectPizza'))
         return context
 
 class AboutPageView(DataMixin, TemplateView):
@@ -28,7 +28,7 @@ class AboutPageView(DataMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_user_context(title='.About'))
+        context.update(self.get_user_context(title='ProjectPizza'))
         return context
 
 class ContactsPageView(DataMixin, TemplateView):
@@ -36,10 +36,16 @@ class ContactsPageView(DataMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(self.get_user_context(title='.Contacts'))
+        context.update(self.get_user_context(title='ProjectPizza'))
         return context 
 
+class VacanciesPageView(DataMixin, TemplateView):
+    template_name = 'main/vacanciesPage.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='ProjectPizza'))
+        return context 
 
 class PageNotFoundView(DataMixin, TemplateView):
     template_name = 'main/404page.html'

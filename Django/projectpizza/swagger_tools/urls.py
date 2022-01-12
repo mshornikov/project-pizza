@@ -11,6 +11,7 @@ urlpatterns = [
     path('orders/', OrderListAPIView.as_view()),
     path('orders/items/', OrderItemsListAPIView.as_view()),
     path('usercreation/', CustomUserCreateView.as_view()),
+    path('stocks/', StockListAPIView.as_view()),
 ]
 
 urlpatterns += docs

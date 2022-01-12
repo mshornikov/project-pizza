@@ -7,7 +7,7 @@ from .models import Stock
 # Register your models here.
 
 class StockAdmin(admin.ModelAdmin):
-    list_display = ('id', 'stock_key', 'stock_product', 'stock_value')
-    search_fields = ('id', 'stock_key', 'stock_product', 'stock_value')
+    list_display = ('stock_key', 'stock_product', 'stock_value', 'stock_type' )
+    search_fields = ('stock_key', 'stock_product', 'stock_value',  'stock_type')
 
 admin.site.register(Stock, StockAdmin)

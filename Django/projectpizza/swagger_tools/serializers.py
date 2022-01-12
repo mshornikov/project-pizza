@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from main.models import *
 from orders.models import *
-
+from stock.models import *
 from django.contrib.auth import get_user_model
 
 from users.models import CustomUser
@@ -76,4 +76,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserModel
-        fields = ('email', 'first_name', 'last_name', 'phone', 'date_of_birth',  'password')
+        fields = ('email', 'first_name', 'last_name', 'phone', 'date_of_birth', 'password')
+
+# <----STOCK---->
+
+class StockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock
+        fields = "__all__"

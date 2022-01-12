@@ -1,8 +1,9 @@
+from re import template
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from projectpizza.utils import DataMixin
 from django.views.generic import CreateView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetCompleteView, PasswordResetConfirmView
 from .forms import RegisterForm, UserLoginForm
 from django.urls import reverse_lazy
 from django.contrib.auth import logout, login
@@ -52,4 +53,37 @@ class ProfilePageView(DataMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='.Profile'))
         context['orders'] = Order.objects.filter(user_id=self.request.user.id)
+        return context 
+
+class CustomPasswordResetView(DataMixin, PasswordResetView):
+    template_name = 'users/passwordResetPage.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.PasswordReset'))
+        return context 
+
+
+class CustomPasswordResetDoneView(DataMixin, PasswordResetDoneView):
+    template_name = 'users/passwordResetDonePage.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.PasswordReset'))
+        return context 
+
+class CustomPasswordResetCompleteView(DataMixin, PasswordResetCompleteView):
+    template_name = 'users/passwordResetCompletePage.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.PasswordReset'))
+        return context 
+
+class CustomPasswordResetConfirmView(DataMixin, PasswordResetConfirmView):
+    template_name = 'users/passwordResetConfirmPage.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_user_context(title='.PasswordReset'))
         return context 

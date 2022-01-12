@@ -1,19 +1,21 @@
 {% extends '../main/baseStructure.html'%}
 
 {% block content %}
-<div claas="container"> 
-    <!-- Форма авторизации -->
+<div class="title">Аккаунт</div>
+<!-- Форма авторизации -->
+<div class="form_col">
     <form method="post">
         {% csrf_token %}
         <div class="form-error">{{form.non_field_errors}}</div>
         {% for f in form %}
         <div class="form_point">
-            <p><label for="{{ f.id_for_label }}" class="form_label">{{f.label}}:</label>{{f}}</p>
+            <label for="{{ f.id_for_label }}" class="form_label">{{f.label}}:</label>{{f}}
             <div class="form-error">{{f.errors}}</div>
         </div>
         {% endfor %}
-        <button type='submit' class='reg_access_btn'>Войти</button>
-        <p class="reset_password_text">Забыли пароль? Не беда. Потратьте всего пару минут чтобы <a href="{% url 'password-reset'%}" class="password_reset_btn"><b>восстановить </b></a>доступ к профилю</p>
+        <div class="center_btn"><button type='submit' class='btn'>Войти</button> </div>
     </form>
+    
+    <p class="reset_password_text"> <a href="{% url 'password-reset'%}" class="password_reset_btn"><b>Не помню пароль </b></a></p>
 </div>
 {% endblock %}

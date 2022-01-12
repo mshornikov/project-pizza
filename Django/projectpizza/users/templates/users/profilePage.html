@@ -1,12 +1,12 @@
 {% extends '../main/baseStructure.html'%}
 
 {% block content %}
-
+<div class="title">Аккаунт</div>
 {% if request.user.is_authenticated %}
 <div class="profile_info">
     <!-- Для авторизованного пользователя: -->
     <!-- Блок данных пользователя -->
-    <div class="title">Аккаунт</div>
+    
     <h5>Имя                     : {{user.first_name}}</h5>
     <h5>Фамилия                 : {{user.last_name}}</h5>
     <h5>Адрес электронной почты : {{user.email}}</h5>

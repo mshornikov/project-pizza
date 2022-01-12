@@ -124,7 +124,7 @@
     align-items: center;
 }
 
-    /* Footer Left */
+/* Footer Left */
 .footer_left_side {
     display: flex;
     flex-direction: column;
@@ -191,7 +191,7 @@
     padding-bottom: 20px;
 }
 
-    /* Footer Right */
+/* Footer Right */
 .footer_right_side {
     display:flex;
     flex-direction: column;
@@ -248,8 +248,7 @@
     font-weight: bold;
     font-size: 20px;
     line-height: 24px;
-    }
-
+}
 .telegram {
     margin-top: 5px;
     width: 50px;
@@ -269,6 +268,7 @@
     line-height: 29px;
     margin-bottom: 79px;
 }
+
 
 
 /* Pages Content */
@@ -307,13 +307,7 @@
     margin-bottom: 30px;
 }   
 
-/* Login page */
-.form_point {
-    margin-bottom: 10px;
-}
-.form-input_auth_login {
-    width: 100px;
-}
+
 /* Cart Content */
 .cart_name {
     font-style: italic;

@@ -2,37 +2,39 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20%;
-    border: 0;
+    padding: 40px;
 }
 
-.rev_btn {
-    margin-top:40px;
-}
+
 .btn {
     background-color: #7FB7D7;
     color: #fff;
     text-decoration: none;
-    padding: 15px 30px;
-    border-radius: 20px;
-    border: 0;
+    padding: 15px 25px;
+    border-radius: 100px;
     margin-bottom: 10px;
-
-    font-weight: bold;
+    border: 0px;
     font-size: 18px;
     line-height: 17px;
+    cursor: pointer;
 }
 .btn:hover {
     background-color: #2D9CDB;
     color:#fff;
 }
-
+.rev_btn {
+    margin-top:40px;
+}
 .form_label {
-    min-width: 150px;
-    font-style: italic;
-    margin-bottom: 20px;
-
+    min-width: 170px;
+    margin-bottom: 15px;
+    
+    font-size: 18px;
     text-align: start;
+}
+
+.form_label:active {
+    border-color: blue;
 }
 .submit_btn {
     margin: 40px 0 0 20px;
@@ -40,6 +42,37 @@
 .btn_login {
     background-color: cyan;
 }
-.reg_access_btn {
-    font-size: 20px;
+
+/* Login page */
+.form_point {
+    display: flex;
+    font-style: bold;
+    margin-bottom: 10px;
+    align-items: baseline;
+    
+}
+.form-input_auth_login {
+    width: 100px;
+}
+
+input {
+    margin-left: 10px;
+    width: 287px;
+    height: 31px;
+    background: #F9F9F9;
+    border: 1px solid #7FB7D7;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.form_col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.center_btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

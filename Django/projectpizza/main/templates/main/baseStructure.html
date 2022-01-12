@@ -26,18 +26,26 @@
             <!-- Лого + навигатор -->
             <div class="header_left_side">
                 <!-- лого -->
-                <a href="/"class="logo"> /projectPizza </a>
+                <a href="{% url 'home' %}"class="logo"> /projectPizza </a>
                 <!-- навигатор -->
                 <div class="navbar">
                     {% for point in menu %}
-                    <a href="{% url point.url %}" class='navPointLeft'>{{ point.title }}</a>
+                    {% if point.title == selected_page %}
+                        <a href="{% url point.url %}" class='navPointLeft' id='selected_page'>{{ point.title }}</a>
+                    {% else %}
+                        <a href="{% url point.url %}" class='navPointLeft'>{{ point.title }}</a>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
             <!-- Корзина + Кабинет -->
             <div class="header_right_side">
                 <div class="basket_button">
-                    <a href="{% url 'cart' %}" class="navPointRight">Корзина</a>
+                    {% if is_selected %}
+                        <a href="{% url 'cart' %}" class="navPointRight" id='selected'>Корзина</a>
+                    {% else %}
+                        <a href="{% url 'cart' %}" class="navPointRight">Корзина</a>
+                    {% endif %}
                 </div>
                     <!-- кабинет -->
                 <div class="profile">

@@ -13,6 +13,7 @@ class CartDetailView(DataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='.CartDetail'))
+        context['is_selected'] = True
         return context
 
     def get(self, request, **kwargs):

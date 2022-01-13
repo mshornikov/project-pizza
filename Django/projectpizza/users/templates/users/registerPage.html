@@ -12,9 +12,9 @@
             <label class='form_label' for="{{ f.id_for_label}}">{{f.label}}:</label>{{f}}
             <div class="form_error">{{f.errors}}</div>
         </div>
+        {% endfor %}   
+        <button type="submit" class='btn'>Зарегистрироваться</button>    
     </form> 
-    {% endfor %}   
-    <button type="submit" class='btn'>Зарегистрироваться</button>    
 </div>
     
 

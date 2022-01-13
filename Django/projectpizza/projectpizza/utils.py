@@ -1,8 +1,10 @@
 menu = [
     {'title': "Меню", 'url': 'home'},
-    {'title': "Акции", 'url':'stocks'},
+    {'title': "Комбо", 'url':'stocks'},
     {'title': "Контакты", 'url':'contacts'},
     {'title': "О нас", 'url':'about'},
+    
+
 ]
 
 class DataMixin:

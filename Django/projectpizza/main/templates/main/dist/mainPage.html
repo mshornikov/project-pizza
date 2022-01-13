@@ -1,52 +1,45 @@
 {% extends 'main/baseStructure.html'%}
-{% load main_tags %}
 
 {% block content %}
 
-{% get_categories as cats %}
-
+<div class="title">Меню</div>
 <div class="container">
     <div class="cat_nav_bar">
-    {% for cat in cats %}
+    {% for cat in cat_list.keys %}
         <a href="#{{cat}}" class="cat_link">{{cat}}</a>
     {% endfor %}
     </div>  
 </div>
-
-{% for cat in cats %}
- 
+{% for cat, pr_list in cat_list.items %}
 <p id="{{cat}}" class="category_name">{{ cat }}</p>
 <div class ="product_scroll">
-{% get_product_on_category cat as productList%}
-{% for product in productList %}
-    <div class="item_container">
-        <div class="item_image">
-            {% if product.image %}
-            <img src="{{ product.image.url }}" alt="Нет">
-            {% endif %}
+    {% for product in pr_list %}
+        <div class="item_container">
+            <div class="item_image">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="Нет">
+                {% endif %}
+            </div>
+            <div class="item_content">
+                <div class="item_name">
+                    {{product.name}}
+                </div>
+                <div class="item_discription">
+                    {{ product.discription}}
+                </div>
+                <div class="item_cost">
+                    Цена: {{ product.cost}}₽
+                </div>
+                <div class="item_form">
+                    <form action="{% url 'cart_add_main' product.id %}" method='post'>
+                        {% csrf_token %}
+                        {{cart_product_form}}
+                        <button type='sybmit' class='add_btn_main'>Добавить</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="item_content">
-            <div class="item_name">
-                {{product.name}}
-            </div>
-            <div class="item_discription">
-                {{ product.discription}}
-            </div>
-            <div class="item_cost">
-                Cost: {{ product.cost}}$
-            </div>
-            <div class="item_form">
-                <form action="{% url 'cart_add_main' product.id %}" method='post'>
-                    {% csrf_token %}
-                    {{cart_product_form}}
-                    <button type='sybmit' class='add_btn_main'>Добавить</button>
-                </form>
-            </div>
-        </div>
-    </div>
-{% endfor %}
+    {% endfor %}
 </div>
-
-
 {% endfor %}
 {% endblock %}

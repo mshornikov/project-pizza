@@ -264,9 +264,9 @@
 }
 .title{
     font-weight: bold;
-    font-size: 24px;
+    font-size: 26px;
     line-height: 29px;
-    margin-bottom: 79px;
+    margin-bottom: 40px;
 }
 
 
@@ -373,18 +373,72 @@
 }
 
 /* Profile page */
+
 .profile_page_content {
-    margin-top: 40px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap
 }
 .profile_info {
-    margin-right:500px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 80px;
+    margin-bottom: 40px;
 }
+.info_title {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+.info_text {
+    font-weight: 500;
+    background: #F9F9F9;
+    border: 1px solid #7FB7D7;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+
 .profile_orders_title {
-    margin-bottom: 30px;
+    font-size: 20px;
+    margin-bottom: 40px;
 }
+
+.profile_info_title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
 .order_id {
     margin-right:20px;
     width: 150px;
+}
+
+.order_item {
+    background: #f9f9f9;
+    font-weight: 500;
+    padding: 7px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.profile_logout {
+    margin-top: 30px;
+}
+
+.small_btn {
+    background-color: #D9d9d9;
+    color: #303030;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+    border: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 17px;
+    cursor: pointer;
 }

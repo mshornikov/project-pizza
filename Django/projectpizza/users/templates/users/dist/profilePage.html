@@ -1,45 +1,52 @@
 {% extends '../main/baseStructure.html'%}
 
 {% block content %}
-
+<div class="title">Аккаунт</div>
 {% if request.user.is_authenticated %}
-<div class="profile_info">
-    <!-- Для авторизованного пользователя: -->
-    <!-- Блок данных пользователя -->
-    <div class="title">Аккаунт</div>
-    <h5>Имя                     : {{user.first_name}}</h5>
-    <h5>Фамилия                 : {{user.last_name}}</h5>
-    <h5>Адрес электронной почты : {{user.email}}</h5>
-    <h5>Номер телефона          : {{user.phone}}</h5>
-    <h5>День рождения           : {{user.date_of_birth}}</h5>
-    <div class="profile_logout">
-        <form action="{% url 'logout' %}" method="post" >
-            {% csrf_token %}
-            <button class='logout_btn' type='submit'>Выйти из профиля</button>
-        </form>
+<div class="profile_page_content">
+    <div class="profile_info">
+        <!-- Для авторизованного пользователя: -->
+        <!-- Блок данных пользователя -->
+        <h5 class="profile_info_title">Личный данные</h5>
+        <div class="info_title">Имя</div>
+        <div class="info_text"> {{user.first_name}} </div>
+        <div class="info_title">Фамилия</div>
+        <div class="info_text"> {{user.last_name}} </div>
+        <div class="info_title">Эл.почта</div>
+        <div class="info_text"> {{user.email}} </div>
+        <div class="info_title">Номер телефона</div>
+        <div class="info_text"> {{user.phone}} </div>
+        <div class="info_title">День рождения</div>
+        <div class="info_text"> {{user.date_of_birth}} </div>
+
+        <div class="profile_logout">
+            <form action="{% url 'logout' %}" method="post" >
+                {% csrf_token %}
+                <button class='small_btn' type='submit'>Выйти</button>
+            </form>
+        </div>
+    </div>
+        <!-- Список всех заказов аккаунта -->
+    <div class="profile_orders_history">
+        <h5 class="profile_orders_title">История заказов</h5>
+        <div class="orders_list">
+            {% for order in orders %} 
+                <div class="order_item">
+                    <span class="order_id">{{order.created}}</span>
+                    <span class="order_total_cost">Сумма заказа: {{order.total_cost}}₽</span>
+                </div>
+            {% endfor%}
+        </div>
+    </div>
+    </div>
+    {% else %}
+        <!-- Для гостя -->
+
+    <div class="register_buttons">
+        <a href="{% url 'register' %}" class="btn">Регистрация</a>
+        <a href="{% url 'login' %}" class="btn">Авторизация</a>
     </div>
 </div>
-    <!-- Список всех заказов аккаунта -->
-<div class="profile_orders_history">
-    <h5 class="profile_orders_title">Ваша история заказов</h5>
-    <div class="orders_list">
-        {% for order in orders %} 
-            <div class="order_item">
-                <span class="order_id">Номер заказа: {{order.id}}</span>
-                <span class="order_total_cost">Сумма заказа: {{order.total_cost}}$</span>
-            </div>
-        {% endfor%}
-    </div>
-</div>
-</div>
-{% else %}
-    <!-- Для гостя -->
-
-<div class="register_buttons">
-    <a href="{% url 'register' %}" class="btn">Регистрация</a>
-    <a href="{% url 'login' %}" class="btn">Авторизация</a>
-</div>
-
 {% endif %} 
 
 {% endblock %}

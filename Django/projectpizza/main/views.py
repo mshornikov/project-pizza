@@ -43,14 +43,6 @@ class ContactsPageView(DataMixin, TemplateView):
         context['selected_page'] = 'Контакты'
         return context 
 
-class VacanciesPageView(DataMixin, TemplateView):
-    template_name = 'main/vacanciesPage.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(self.get_user_context(title='ProjectPizza'))
-        return context 
-
 class PageNotFoundView(DataMixin, TemplateView):
     template_name = 'main/404page.html'
     def get_context_data(self, **kwargs):

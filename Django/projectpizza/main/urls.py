@@ -8,5 +8,6 @@ urlpatterns =[
     path('contacts/', ContactsPageView.as_view(), name='contacts'),
     path('vacancies/', include('vacancy.urls')),
     path('profile/', include('users.urls')),
-    path('add/<int:product_id>', CartAddItemView.as_view(), name='cart_add_main'),
+    path('', include('cart.urls')),
+    path('add/<int:product_id>', CartAddItemView.as_view(), name='cart_add_combo')
 ]

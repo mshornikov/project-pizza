@@ -47,7 +47,7 @@
                             <div class="item_data">
                                 <h5 class="position">{{product.name}}</h5>
                                 {% if type == 'default' %}
-                                <form action="{% url 'cart_add' product.id %}" method="post" class="position">
+                                <form action="{% url 'cart_add' product.id 'cart' %}" method="post" class="position">
                                     {% csrf_token %}
                                     {{ item.update_quantity_form.quantity }}
                                     {{ item.update_quantity_form.update }}

@@ -20,7 +20,7 @@ class CartDetailView(DataMixin, TemplateView):
         cart = Cart(request)
 
         for item in cart.cart['default'].values():
-            item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+            item['update_quantity_form'] = CartAddProductForm(initial={'quantity': 1, 'update': True})
 
         context = self.get_context_data()
         context['cart'] = cart
@@ -30,7 +30,7 @@ class CartDetailView(DataMixin, TemplateView):
         return render(request, self.template_name, context=context)
 
 class CartAddItemView(FormView):
-    def post(self, request, product_id, *args, **kwargs):
+    def post(self, request, product_id, from_page='cart', *args, **kwargs):
         cart = Cart(request)
         product = get_object_or_404(Product, id=product_id)
         form = CartAddProductForm(request.POST)
@@ -38,9 +38,7 @@ class CartAddItemView(FormView):
             cd = form.cleaned_data
             quant = cd['quantity']
             cart.add(product, quant)
-        if request.path.split('/')[1] == 'add':
-            return redirect('home')
-        return redirect('cart')
+        return redirect(from_page)
 
         
 class CartRemoveItemView(FormView):

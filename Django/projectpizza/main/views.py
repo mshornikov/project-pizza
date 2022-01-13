@@ -13,6 +13,7 @@ class MainPageView(DataMixin, TemplateView):
         cat_list = {product_category:Product.objects.filter(category=product_category) for product_category in ProductCategory.objects.all()}
         context['cat_list'] = cat_list
         context['cart_product_form'] = CartAddProductForm()
+        context['selected_page'] = 'Меню'
         return context
 
 class StockPageView(DataMixin, TemplateView):
@@ -21,6 +22,7 @@ class StockPageView(DataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='ProjectPizza'))
+        context['selected_page'] = 'Акции'
         return context
 
 class AboutPageView(DataMixin, TemplateView):
@@ -29,6 +31,7 @@ class AboutPageView(DataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='ProjectPizza'))
+        context['selected_page'] = 'О нас'
         return context
 
 class ContactsPageView(DataMixin, TemplateView):
@@ -37,6 +40,7 @@ class ContactsPageView(DataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='ProjectPizza'))
+        context['selected_page'] = 'Контакты'
         return context 
 
 class VacanciesPageView(DataMixin, TemplateView):

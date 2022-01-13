@@ -60,8 +60,13 @@
 }
 .navPointLeft {
     margin-right: 20px;
-
 }
+.navPointLeft#fselected_page {
+    margin-right: 20px;
+    text-decoration: underline;
+    color: red;
+}
+
 .navPointLeft:hover {
     color: #7FB7D7;
 }
@@ -79,6 +84,11 @@
 
 .navPointRight {
     margin-right: 20px;
+}
+.navPointRight#selected {  
+    margin-right: 20px;
+    text-decoration: underline;
+    color: red;
 }
 
 .navPointRight:hover {

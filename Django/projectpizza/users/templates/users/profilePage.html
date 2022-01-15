@@ -17,8 +17,11 @@
         <div class="info_title">Номер телефона</div>
         <div class="info_text"> {{user.phone}} </div>
         <div class="info_title">День рождения</div>
+        {% if user.date_of_birth %}
         <div class="info_text"> {{user.date_of_birth}} </div>
-
+        {% else %}
+        <div class="info_text"> Не указана </div>
+        {% endif %}
         <div class="profile_logout">
             <form action="{% url 'logout' %}" method="post" >
                 {% csrf_token %}

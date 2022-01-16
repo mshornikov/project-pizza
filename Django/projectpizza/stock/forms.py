@@ -10,9 +10,9 @@ class StockForm(forms.ModelForm):
         fields = ('stock_key',)
 
         widgets = {
-        'stock_key': TextInput(
-            attrs={
-            'class': 'stock_key_input',
-            'placeholder':'ХХХХХ-ХХХХХ',
-            })
+            'stock_key': TextInput(
+                attrs={
+                'class': 'stock_key_input',
+                'placeholder':'ХХХХХ-ХХХХХ',
+                })
         }

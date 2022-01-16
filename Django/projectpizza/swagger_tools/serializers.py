@@ -2,6 +2,7 @@ from rest_framework import serializers
 from main.models import *
 from orders.models import *
 from stock.models import *
+from vacancy.models import *
 from django.contrib.auth import get_user_model
 
 from users.models import CustomUser
@@ -79,8 +80,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ('email', 'first_name', 'last_name', 'phone', 'date_of_birth', 'password')
 
 # <----STOCK---->
-
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
+        fields = "__all__"
+
+# <----Vacancy---->
+class VacancySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vacancy
         fields = "__all__"

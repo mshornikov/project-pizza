@@ -1,0 +1,21 @@
+{% extends 'main/baseStructure.html'%}
+
+{% block content %}
+<div class="title"> Вакансии </div>
+{% if vacancies|length > 0 %}
+    {% for vacancy in vacancies %}
+        <div class="vacancy__item">
+            <!-- <img src="{{vacancy.image}}" alt="Фото" class="vacancy_image"> -->
+            <img src="{{ vacancy.image.url }}" alt="Фото" class="vacancy_image">
+            <div class="vacanci_content">
+                <div class="vacancy_title">Требуется:  {{vacancy.profession}}</div>
+                <div class="vacancy_discription">Описание:  {{vacancy.discription}}</div>
+                <div class="vacancy_salary">Заработная плата : {{vacancy.salary}}</div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>К сожалению, на данный момент мы не можем предложить вам ни одной вакансии :(</p>
+{% endif %}
+
+{% endblock %}

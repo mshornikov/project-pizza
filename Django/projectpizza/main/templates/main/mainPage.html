@@ -31,7 +31,7 @@
                     Цена: {{ product.cost}}₽
                 </div>
                 <div class="item_form">
-                    <form action="{% url 'cart_add_main' product.id %}" method='post'>
+                    <form action="{% url 'cart_add' product.id 'home' %}" method='post'>
                         {% csrf_token %}
                         {{cart_product_form}}
                         <button type='sybmit' class='add_btn_main'>Добавить</button>

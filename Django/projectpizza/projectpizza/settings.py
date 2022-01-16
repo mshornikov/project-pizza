@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'users.apps.UsersConfig',
     'stock.apps.StockConfig',
+    'vacancy.apps.VacancyConfig',
     'drf_yasg',
     'rest_framework',
 ]

@@ -73,3 +73,11 @@ class StockListAPIView(ListAPIView):
     serializer_class = StockSerializer
     def get_queryset(self):
         return Stock.objects.all()
+
+# <----Vacancy---->
+class VacancyListAPIView(ListAPIView):
+    """Вывод списка всех существующий вакансий"""
+    serializer_class = VacancySerializer
+
+    def get_queryset(self):
+        return Vacancy.objects.all()

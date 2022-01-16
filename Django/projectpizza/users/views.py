@@ -24,6 +24,7 @@ class RegistrationView(DataMixin, CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        print('og')
         login(self.request, user)
         return redirect('profile')
 

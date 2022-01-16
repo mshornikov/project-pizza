@@ -1,3 +1,5 @@
+from math import prod
+from unicodedata import category, name
 from django.views.generic.base import TemplateView
 # Create your views here.
 from .models import *
@@ -10,7 +12,12 @@ class MainPageView(DataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='ProjectPizza'))
-        cat_list = {product_category:Product.objects.filter(category=product_category) for product_category in ProductCategory.objects.all()}
+
+        cat_list = {}
+        for product_category in ProductCategory.objects.all():
+            if product_category.name != 'Комбо':
+                cat_list[product_category] = Product.objects.filter(category=product_category)
+
         context['cat_list'] = cat_list
         context['cart_product_form'] = CartAddProductForm()
         context['selected_page'] = 'Меню'
@@ -23,6 +30,9 @@ class StockPageView(DataMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='ProjectPizza'))
         context['selected_page'] = 'Акции'
+        cata = ProductCategory.objects.get(name='Комбо')
+        context['product_list'] = Product.objects.filter(category=cata)
+        context['cart_product_form'] = CartAddProductForm()
         return context
 
 class AboutPageView(DataMixin, TemplateView):
@@ -41,14 +51,6 @@ class ContactsPageView(DataMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='ProjectPizza'))
         context['selected_page'] = 'Контакты'
-        return context 
-
-class VacanciesPageView(DataMixin, TemplateView):
-    template_name = 'main/vacanciesPage.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(self.get_user_context(title='ProjectPizza'))
         return context 
 
 class PageNotFoundView(DataMixin, TemplateView):

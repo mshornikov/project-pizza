@@ -1,15 +1,24 @@
+from typing import Text
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, ReadOnlyPasswordHashField
 from django.contrib.auth.models import User
-from django.forms.models import ModelForm
+from django.forms import TextInput
 from .models import CustomUser
 
-class RegisterForm(forms.ModelForm):
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
 
+class RegisterForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'phone', 'date_of_birth', 'email', 'password')
+        
+        fields = ['first_name', 'last_name','phone', 'date_of_birth', 'email','password']
+        widgets = {
+            'first_name' : forms.TextInput(attrs={'placeholder':'Иван'}),
+            'last_name' : forms.TextInput(attrs={'placeholder':'Иванов'}),
+            'phone' : forms.TextInput(attrs={'placeholder':'+79876543210'}),
+            'date_of_birth' : forms.DateInput(attrs={'placeholder':'31.12.2000'}),
+            'email' : forms.EmailInput(attrs={'placeholder':'example@ex.ru'}),
+            'password' : forms.PasswordInput(attrs={'placeholder':'s0-Strong!_pass'}),
+        }
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -18,6 +27,15 @@ class RegisterForm(forms.ModelForm):
             user.save()
         return user
 
+class UserLoginForm(AuthenticationForm):
+    username = forms.EmailField(label='Почта', widget=forms.EmailInput(attrs={'placeholder':'example@ex.ru'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'placeholder':'s0-Strong!_pass'}))
+
+    class Meta:
+        model = User
+
+
+# <----FOR ADMIN---->
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Подтвердите пароль', widget=forms.PasswordInput)
@@ -50,8 +68,6 @@ class UserChangeForm(forms.ModelForm):
     def clean_password(self):
         return self.initial["password"]
 
-class UserLoginForm(AuthenticationForm):
-    
-    class Meta:
-        model = User
-        fields = ('email', 'password')
+
+        
+

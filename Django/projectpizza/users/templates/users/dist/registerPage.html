@@ -12,9 +12,12 @@
             <label class='form_label' for="{{ f.id_for_label}}">{{f.label}}</label>{{f}}
             <div class="form_error">{{f.errors}}</div>
         </div>
+        {% endfor %}
+        <div class="text_center">
+            <button type="submit" class='btn'>Зарегистрироваться</button>
+        </div>
     </form> 
-    {% endfor %}   
-    <button type="submit" class='btn'>Зарегистрироваться</button>    
+   <a href="/profile/login/" class="password_reset_btn"><b>Уже есть аккаунт?</b></a>
 </div>
     
 

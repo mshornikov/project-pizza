@@ -1,3 +1,17 @@
+.text_center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+}
+
+.welcom_phrase_reset_password {
+    font-size: 18px;
+}
+
+.text_reset_password {
+    text-align: center;
+}
 .register_buttons {
     display: flex;
     flex-direction: column;
@@ -5,12 +19,11 @@
     padding: 40px;
 }
 
-
 .btn {
     background-color: #7FB7D7;
     color: #fff;
     text-decoration: none;
-    padding: 10px 25px;
+    padding: 10px 20px;
     border-radius: 100px;
     margin-bottom: 10px;
     border: 0px;
@@ -40,6 +53,8 @@
 .btn_login {
     background-color: cyan;
 }
+
+
 
 /* Login page */
 .form_point {
@@ -72,4 +87,6 @@ input {
     align-items: center;
 }
 
-
+.text_btn {
+    margin-bottom: 10px;
+}

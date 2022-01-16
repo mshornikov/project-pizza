@@ -16,6 +16,7 @@
         <div class="center_btn"><button type='submit' class='btn'>Войти</button> </div>
     </form>
     
-    <p class="reset_password_text"> <a href="{% url 'password-reset'%}" class="password_reset_btn"><b>Не помню пароль </b></a></p>
+    <a href="{% url 'password-reset'%}" class="text_btn"><b>Не помню пароль </b></a>
+    <a href="/profile/register/" class="text_btn"><b>Нет аккаунта? </b></a>
 </div>
 {% endblock %}

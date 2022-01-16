@@ -18,19 +18,17 @@
     line-height: 17px;
     cursor: pointer;
 }
+
 .btn:hover {
-    background-color: #6b9ab6;
+    background-color: #43a0d6;
     color:#fff;
 }
 .rev_btn {
     margin-top:40px;
 }
 .form_label {
-    min-width: 170px;
-    margin-bottom: 15px;
-    
-    font-size: 18px;
-    text-align: start;
+    font-weight: bold;
+    margin-bottom: 6px;
 }
 
 .form_label:active {
@@ -45,18 +43,15 @@
 
 /* Login page */
 .form_point {
-    display: flex;
-    font-style: bold;
-    margin-bottom: 10px;    
-    align-items: baseline;
-    
+    margin-bottom: 10px;
+    display: flex;    
+    flex-direction: column;
 }
 .form-input_auth_login {
     width: 100px;
 }
 
 input {
-    margin-left: 10px;
     width: 287px;
     height: 31px;
     background: #F9F9F9;

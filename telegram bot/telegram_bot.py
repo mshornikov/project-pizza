@@ -438,7 +438,7 @@ async def main(message: Message, state: FSMContext):
         log_msg = log_msg + " text: " + message.text + "\n"
         f.write(log_msg)
 
-    if message.text == 'начать':
+    if message.text == '/start' :
         await message.answer(start1)
         await message.answer(start2)
         await message.answer(start3,  reply_markup = greet_now)

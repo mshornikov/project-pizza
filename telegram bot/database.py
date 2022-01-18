@@ -193,7 +193,7 @@ def product(number, product) :
     res = cursor.fetchall()
     string = ""
     number = int(number) - 1
-    if len(res) < number:
+    if len(res) < number or number < 0:
         return "Нету такого номера!"
     else:
         res = res[number]
@@ -205,4 +205,3 @@ def product(number, product) :
         for i in res:
             string = string + i
         return string
-

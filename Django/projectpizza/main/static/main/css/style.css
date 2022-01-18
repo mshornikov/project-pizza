@@ -63,8 +63,8 @@
 }
 .navPointLeft#fselected_page {
     margin-right: 20px;
-    text-decoration: underline;
-    color: red;
+    text-decoration: none;
+    color: #7FB7D7;
 }
 
 .navPointLeft:hover {
@@ -87,8 +87,8 @@
 }
 .navPointRight#selected {  
     margin-right: 20px;
-    text-decoration: underline;
-    color: red;
+    text-decoration: none;
+    color: #7FB7D7;
 }
 
 .navPointRight:hover {
@@ -209,7 +209,7 @@
     font-weight: bold;
     font-size: 20px;
     line-height: 24px;
-    padding-top: 45px;
+    padding-top: 100px;
     padding-bottom: 20px;
 }
 
@@ -284,9 +284,24 @@
 /* Pages Content */
     /* Main Page */
 
+.cat_link {
+    background-color: #D9d9d9;
+    color: #303030;
+    text-decoration: none;
+    border: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 17px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 100px;
+    padding: 6px 12px 7px 12px;
+    margin-right: 5px;
+}
+
 .category_name {
-    font-style: italic;
-    font-size: 30px;
+    font-size: 20px;
+    font-weight: bold;
     margin: 30px 0;
 }
 .product_scroll {
@@ -307,7 +322,6 @@
     min-width: 250px;
 }
 .item_name {
-    font-style: italic;
     font-size: 20px;
     font-weight: bolder;
 
@@ -316,11 +330,21 @@
 .item_discription {
     margin-bottom: 30px;
 }   
-
-
+.total_items {
+    font-size: 16px;
+    font-weight: 700;
+}
+.amount {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+}
 /* Cart Content */
 .cart_name {
-    font-size: 30px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: normal;
     margin: 30px 0;
 }
 
@@ -328,6 +352,7 @@
     display:flex;
     flex-direction: row;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .single_item_view {
@@ -345,6 +370,7 @@
 .item_data {
     display: flex;
     flex-direction: row;
+    align-items: baseline
 }
 
 .cart_navPoint {
@@ -353,8 +379,10 @@
 
 .position {
     width: 150px;
-
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
 }
 
 .cart_add_btn {
@@ -377,9 +405,17 @@
     padding-top: 40px;
 }
 /* Order page */
+.order_info {
+    margin-bottom: 20px;
+}
 
 .order_point {
     list-style-type: none;
+    margin-bottom: 5px;
+}
+
+label {
+    margin-right: 10px;
 }
 
 .text-center {
@@ -451,7 +487,6 @@
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 100px;
-    margin-bottom: 10px;
     border: 0px;
     font-size: 14px;
     font-weight: bold;
@@ -461,4 +496,71 @@
 
 .small_btn:hover {
     background-color: #c0c0c0;  
+}
+
+select#id_quantity {
+    border: 0;
+    border-radius: 100px 0px 0px 100px;
+    padding: 6px 0px 7px 8px;
+    background-color: #D9d9d9   ;   
+}
+input.small_btn {
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    border: 0px;
+    border-radius: 0px 100px 100px 0px;
+    padding: 6px 12px 6px 12px;
+}
+
+.add_btn {
+    background-color: #D9d9d9;
+    color: #303030;
+    text-decoration: none;
+    border: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 17px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 0px 100px 100px 0px;
+    padding: 6px 12px 7px 12px;
+}
+
+.promocodes {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.order_title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.vacancy_item {
+    width: 407px;
+    height: 231px;
+
+    padding: 20px;
+
+    background: #FFFFFF;
+    box-shadow: 20px 20px 100px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+}
+
+.vacancy_title {
+    font-size: 24px;
+    line-height: 29px;
+    font-weight: 700;
+}
+
+.vacancy_discription {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.vacancy_salary {
+    font-size: 18px;
+    margin-bottom: 6px;
 }

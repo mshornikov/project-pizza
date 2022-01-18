@@ -3,7 +3,38 @@
 {% block content %}
 <div class="title"> Комбо </div>
 <div class="stocks_inner">
-    <p>К сожалению, на данный момент мы не можем предложить вам ни одного комбо :(</p>
+    <div class ="product_scroll">
+        {% for product in product_list %}
+            <div class="item_container">
+                <div class="item_image">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="Нет">
+                    {% endif %}
+                </div>
+                <div class="item_content">
+                    <div class="item_name">
+                        {{product.name}}
+                    </div>
+                    <div class="item_discription">
+                        {{ product.discription}}
+                    </div>
+                    <div class="item_cost">
+                        Цена: {{ product.cost}}₽
+                    </div>
+                    <div class="item_form">
+                        <form action="{% url 'cart_add' product.id 'stocks' %}" method='post'>
+                            {% csrf_token %}
+                            <div class="amount"> 
+                                {{cart_product_form}}
+                                <button type='sybmit' class='add_btn'>Добавить</button>
+                            </div>
+ 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

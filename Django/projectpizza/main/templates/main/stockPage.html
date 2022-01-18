@@ -24,8 +24,11 @@
                     <div class="item_form">
                         <form action="{% url 'cart_add' product.id 'stocks' %}" method='post'>
                             {% csrf_token %}
-                            {{cart_product_form}}
-                            <button type='sybmit' class='add_btn_main'>Добавить</button>
+                            <div class="amount"> 
+                                {{cart_product_form}}
+                                <button type='sybmit' class='add_btn'>Добавить</button>
+                            </div>
+ 
                         </form>
                     </div>
                 </div>

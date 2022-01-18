@@ -10,7 +10,7 @@ class Order(models.Model):
     first_name = models.CharField(max_length=50, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     email = models.EmailField(verbose_name='Почта')
-    address = models.CharField(max_length=300, verbose_name='Адресс')
+    address = models.CharField(max_length=300, verbose_name='Адрес')
     city = models.CharField(max_length=50, verbose_name='Город')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     total_cost = models.DecimalField(default=0, max_digits=10, decimal_places=2, verbose_name='Сумма заказа')

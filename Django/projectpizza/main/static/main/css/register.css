@@ -4,7 +4,11 @@
     align-items: center;
     font-size: 16px;
 }
-
+.point {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+}
 .welcom_phrase_reset_password {
     font-size: 18px;
 }
@@ -37,7 +41,7 @@
     color:#fff;
 }
 .rev_btn {
-    margin-top:40px;
+    margin-top:30px;
 }
 .form_label {
     font-weight: bold;
@@ -90,3 +94,5 @@ input {
 .text_btn {
     margin-bottom: 10px;
 }
+
+    

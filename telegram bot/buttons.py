@@ -20,3 +20,4 @@ greet_order = ReplyKeyboardMarkup(resize_keyboard=True).add(button_help).add(but
 greet_product_menu = ReplyKeyboardMarkup(resize_keyboard=True).add(button_help).add(button_menu).add(button_next).add(button_last)
 greet_product_menu_w_l = ReplyKeyboardMarkup(resize_keyboard=True).add(button_help).add(button_menu).add(button_next)
 greet_product_menu_w_n = ReplyKeyboardMarkup(resize_keyboard=True).add(button_help).add(button_menu).add(button_last)
+greet_product_menu_w_n_l = ReplyKeyboardMarkup(resize_keyboard=True).add(button_help).add(button_menu)

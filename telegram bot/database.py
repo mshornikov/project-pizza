@@ -1,6 +1,6 @@
 import psycopg2 as db
 import logging
-from hashlib import sha256
+from hashlib import sha1
 
 def signIn(login, password):
     logging.basicConfig(filename="log_error_telegram.log", filemode='a', level=logging.ERROR, format = "%(asctime)s - %(levelname)s - %(funcName)s: %(lineno)d - %(message)s")
@@ -9,13 +9,13 @@ def signIn(login, password):
                         password="1234",
                         host="localhost",
                         port="5432",
-                        database="postgres")
+                        database="pizzaproject")
     except:
         return ()
     
     cursor = con.cursor()
-    hash_object = sha256(password.encode())
-    hash_object = hash_object.hexdigest()
+    hash_object = sha1(password.encode())
+    hash_object = "sha1$$" +hash_object.hexdigest()
     sql = "SELECT * FROM users_customuser WHERE email = %s AND password = %s"
     cursor.execute(sql, [login, hash_object])
     res = cursor.fetchone()
@@ -32,7 +32,7 @@ def orders(user):
                         password="1234",
                         host="localhost",
                         port="5432",
-                        database="postgres")
+                        database="pizzaproject")
     except:
         return ()
 
@@ -56,7 +56,7 @@ def openOrders(number, user):
                         password="1234",
                         host="localhost",
                         port="5432",
-                        database="postgres")
+                        database="pizzaproject")
     except:
         return ()
     cursor = con.cursor()
@@ -85,12 +85,12 @@ def promo(user):
                         password="1234",
                         host="localhost",
                         port="5432",
-                        database="postgres")
+                        database="pizzaproject")
     except:
         return ()
 
     cursor = con.cursor()
-    sql = "SELECT * FROM promo WHERE user_id = %s"
+    sql = "SELECT * FROM stock_stock WHERE user_id_id = %s"
     cursor.execute(sql, [user])
     res = cursor.fetchall()
     cursor.close()
@@ -98,7 +98,7 @@ def promo(user):
     if res != []:
         string = ""
         for i in res: 
-            string = string + "Акция номер /" + str(i[0]) + "\n"
+            string = string + "Акция номер /" + str(i[1]) + "\n"
         return string
     else:
         return -1
@@ -109,20 +109,21 @@ def openPromo(number, user):
                         password="1234",
                         host="localhost",
                         port="5432",
-                        database="postgres")
+                        database="pizzaproject")
     except:
         return ()
     cursor = con.cursor()
-    sql = "SELECT * FROM promo WHERE id = %s AND user_id = %s"
+    sql = "SELECT * FROM stock_stock WHERE stock_key = %s AND user_id_id = %s"
     cursor.execute(sql, [str(number), user])
     res = cursor.fetchone()
     if res == None:
         return "Неверный номер!"
     string =""
     sql = "SELECT * FROM main_product WHERE id = %s"
-    cursor.execute(sql, str(res[2]))
+    cursor.execute(sql, str(res[5]))
     name = cursor.fetchone()
-    string = string + "Акция номер /" + str(res[0]) + "\n" + "На \"" + name[1] + "\"" + "\n" + "Cкидка " + str(res[3]) + "%" + "\n"  + "До " + str(res[4])
+    date =  str(res[4])[0:11]
+    string = string + "Акция номер /" + str(res[1]) + "\n" + "На \"" + name[1] + "\"" + "\n" + "Cкидка " + str(res[2]) + "%" + "\n"  + "До " + date
     cursor.close()
     con.close()
     return string
@@ -133,7 +134,7 @@ def menu():
                         password="1234",
                         host="localhost",
                         port="5432",
-                        database="postgres")
+                        database="pizzaproject")
     except:
         return ()
 
@@ -154,7 +155,7 @@ def nextMenu(product, page):
                         password="1234",
                         host="localhost",
                         port="5432",
-                        database="postgres")
+                        database="pizzaproject")
     except:
         return ()
     cursor = con.cursor()
@@ -162,15 +163,20 @@ def nextMenu(product, page):
     cursor.execute(sql, str(product))
     res = cursor.fetchall()
     string = ""
-    #flag -1 отключаем левый переход, 0 нормальное состояние, 1 отключаем правый переход
+    #flag -1 отключаем левый переход, 0 нормальное состояние, 1 отключаем правый переход, 2 без переходов
     if len(res) < page*4+5:
-        len_end = len(res)
-        flag = 1
+        if page == 0:
+            flag = 2
+            len_end =  len(res)
+        else:
+            len_end = len(res)
+            flag = 1
+    elif page == 0:
+        len_end = page*4+4
+        flag = -1
     else:
         len_end = page*4+4
         flag = 0
-    if page == 0:
-        flag = -1
     len_start = page*4
     for i in range (len_start, len_end):
         string = string + "/" + str(i+1) + " " + res[i][1] +  "\n"
@@ -184,7 +190,7 @@ def product(number, product) :
                         password="1234",
                         host="localhost",
                         port="5432",
-                        database="postgres")
+                        database="pizzaproject")
     except:
         return ()
     cursor = con.cursor()
@@ -193,7 +199,7 @@ def product(number, product) :
     res = cursor.fetchall()
     string = ""
     number = int(number) - 1
-    if len(res) < number or number < 0:
+    if len(res) <= number or number < 0:
         return "Нету такого номера!"
     else:
         res = res[number]

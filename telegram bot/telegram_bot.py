@@ -15,7 +15,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage #состояния
 #файловый импорт
 from config import TOKEN
 from states import TestStates
-from buttons import greet, greet_menu, greet_post_login, greet_acc, greet_order, greet_product_menu, greet_product_menu_w_l, greet_product_menu_w_n
+from buttons import greet, greet_menu, greet_post_login, greet_acc, greet_order, greet_product_menu, greet_product_menu_w_l, greet_product_menu_w_n, greet_product_menu_w_n_l
 from stringPizza import success_str_log, fail_str_log, password_str, help_string, login_string, acc_string
 from stringPizza import start1, start2, start3, miss
 
@@ -233,6 +233,9 @@ async def state_acc_order(message: Message):
             elif flag == 0:
                 greet_now = greet_product_menu
                 await state.set_state(TestStates.all()[7])
+            elif flag == 2:
+                greet_now = greet_product_menu_w_n_l
+                await state.set_state(TestStates.all()[10])
             else:
                 greet_now = greet_product_menu_w_n
                 await state.set_state(TestStates.all()[9])
@@ -252,6 +255,9 @@ async def state_acc_order(message: Message):
             elif flag == 0:
                 greet_now = greet_product_menu
                 await state.set_state(TestStates.all()[7])
+            elif flag == 2:
+                greet_now = greet_product_menu_w_n_l
+                await state.set_state(TestStates.all()[10])
             else:
                 greet_now = greet_product_menu_w_n
                 await state.set_state(TestStates.all()[9])
@@ -299,6 +305,9 @@ async def state_acc_order(message: Message):
             elif flag == 0:
                 greet_now = greet_product_menu
                 await state.set_state(TestStates.all()[7])
+            elif flag == 2:
+                greet_now = greet_product_menu_w_n_l
+                await state.set_state(TestStates.all()[10])
             else:
                 greet_now = greet_product_menu_w_n
                 await state.set_state(TestStates.all()[9])
@@ -319,6 +328,9 @@ async def state_acc_order(message: Message):
         elif flag == 0:
             greet_now = greet_product_menu
             await state.set_state(TestStates.all()[7])
+        elif flag == 2:
+            greet_now = greet_product_menu_w_n_l
+            await state.set_state(TestStates.all()[10])
         else:
             greet_now = greet_product_menu_w_n
             await state.set_state(TestStates.all()[9])
@@ -358,6 +370,9 @@ async def state_acc_order(message: Message):
             elif flag == 0:
                 greet_now = greet_product_menu
                 await state.set_state(TestStates.all()[7])
+            elif flag == 2:
+                greet_now = greet_product_menu_w_n_l
+                await state.set_state(TestStates.all()[10])
             else:
                 greet_now = greet_product_menu_w_n
                 await state.set_state(TestStates.all()[9])
@@ -409,6 +424,9 @@ async def state_acc_order(message: Message):
             elif flag == 0:
                 greet_now = greet_product_menu
                 await state.set_state(TestStates.all()[7])
+            elif flag == 2:
+                greet_now = greet_product_menu_w_n_l
+                await state.set_state(TestStates.all()[10])
             else:
                 greet_now = greet_product_menu_w_n
                 await state.set_state(TestStates.all()[9])
@@ -424,6 +442,38 @@ async def state_acc_order(message: Message):
         await message.answer(res, reply_markup = greet_product_menu_w_n)
     else:
         await message.answer(miss,  reply_markup = greet_product_menu_w_n)  
+
+@dp.message_handler(state=TestStates.TEST_STATE__MENU_PRODUCT_W_N_L)
+async def state_acc_order(message: Message):
+    state = dp.current_state()
+    if message.text == 'помощь':
+        if dict_user.get(message.from_user.id) == None:
+            await state.reset_state()
+            await message.answer(help_string,  reply_markup = greet, parse_mode=ParseMode.MARKDOWN)
+        else:
+            await state.set_state(TestStates.all()[2])
+            await message.answer(help_string,  reply_markup = greet_post_login, parse_mode=ParseMode.MARKDOWN)
+        return
+
+    elif  message.text == 'меню':
+        string = menu()
+        if string == ():
+            await message.answer("Ошибка, попробуйте позже",  reply_markup = greet_menu)
+            return
+        dict_menu[message.from_user.id] = 0
+        await state.set_state(TestStates.all()[6])
+        await message.answer(string,  reply_markup = greet_menu) 
+        return
+
+    elif message.text[0] == "/":
+        res = product(message.text[1:], dict_menu[message.from_user.id][0])
+        await message.answer(res, reply_markup = greet_product_menu_w_n_l)
+
+    elif message.text[0] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        res = product(message.text, dict_menu[message.from_user.id][0])
+        await message.answer(res, reply_markup = greet_product_menu_w_n_l)
+    else:
+        await message.answer(miss,  reply_markup = greet_product_menu_w_n_l)
 
 @dp.message_handler(state='*')
 async def main(message: Message, state: FSMContext):

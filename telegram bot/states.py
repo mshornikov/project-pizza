@@ -12,3 +12,4 @@ class TestStates(Helper):
     TEST_STATE__MENU_PRODUCT = Item()
     TEST_STATE__MENU_PRODUCT_W_L = Item()
     TEST_STATE__MENU_PRODUCT_W_N = Item()
+    TEST_STATE__MENU_PRODUCT_W_N_L = Item()

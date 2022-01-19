@@ -1,5 +1,7 @@
 import psycopg2 as db
 import logging
+import datetime
+import random
 from hashlib import sha1
 
 def signIn(login, password):
@@ -122,11 +124,82 @@ def openPromo(number, user):
     sql = "SELECT * FROM main_product WHERE id = %s"
     cursor.execute(sql, str(res[5]))
     name = cursor.fetchone()
-    date =  str(res[4])[0:11]
-    string = string + "Акция номер /" + str(res[1]) + "\n" + "На \"" + name[1] + "\"" + "\n" + "Cкидка " + str(res[2]) + "%" + "\n"  + "До " + date
+    date =  str(res[4])[0:10]
+    string = string + "Акция номер /" + str(res[1]) + "\n" + str(res[3])+ "\n" + "На \"" + name[1] + "\"" + "\n" + "Cкидка " + str(res[2]) + "%" + "\n"  + "До " + date
     cursor.close()
     con.close()
     return string
+
+def createPromo(user):
+    try:
+        con = db.connect(user="postgres",
+                        password="1234",
+                        host="localhost",
+                        port="5432",
+                        database="pizzaproject")
+    except:
+        return ()
+
+    cursor = con.cursor()
+    sql = "SELECT * FROM stock_stock WHERE stock_type = %s AND user_id_id = %s"
+    cursor.execute(sql, ["Еженедельная акция", user])
+    res = cursor.fetchone()
+    if res != None:
+        stock_key = res[1]
+        ide = res[0]
+        res = res[4]
+        date = datetime.date(res.year, res.month, res.day)
+        today = datetime.date.today()
+        res = today - date
+        res = res.days
+        date = datetime.date(today.year, today.month, today.day+7)
+        if res > 7:
+            sql = "SELECT * FROM stock_stock WHERE stock_key = %s "
+            cursor.execute(sql, [stock_key])
+            while  cursor.fetchone() != None:
+                stock_key = random.randrange(0, 10000000000)
+                stock_key = str(stock_key).zfill(10)
+            stock_value = random.randrange(10, 26)
+            sql = "SELECT * FROM main_product "
+            cursor.execute(sql) 
+            l = len(cursor.fetchall())
+            stock_product_id = random.randrange(0, l)
+            sql = "UPDATE stock_stock SET  stock_key=%s , stock_value=%s , active_intil =%s , stock_product_id = %s , user_id_id = %s WHERE id=%s"
+            cursor.execute(sql, [stock_key, stock_value, date, stock_product_id, user, ide])
+            con.commit()
+            cursor.close()
+            con.close()
+            return "Акция создана! Посмотрите ее скорее!!"
+        else:
+            return "Еще рано!!"
+    else:
+        stock_key = random.randrange(0, 10000000000)
+        stock_key = str(stock_key).zfill(10)
+        while  cursor.fetchone() != None:
+            stock_key = random.randrange(0, 10000000000)
+            stock_key = str(stock_key).zfill(10) 
+
+        stock_value = random.randrange(10, 26)  
+
+        sql = "SELECT * FROM main_product "
+        cursor.execute(sql) 
+        l = len(cursor.fetchall())
+        stock_product_id = random.randrange(0, l) 
+
+        today = datetime.date.today()    
+        date = datetime.date(today.year, today.month, today.day+7)
+
+        sql = "SELECT * FROM stock_stock "
+        cursor.execute(sql)
+        res = cursor.fetchall()
+        ide = res[-1][0] + 1
+
+        sql = "INSERT INTO stock_stock (stock_key, stock_value, active_intil, stock_product_id, user_id_id, id, stock_type) VALUES  (%s , %s , %s ,  %s , %s,  %s,  %s)"
+        cursor.execute(sql, [stock_key, stock_value, date, stock_product_id, user, ide, "Еженедельная акция"])
+        con.commit()
+        cursor.close()
+        con.close()
+        return "Акция создана! Посмотрите ее скорее!!"
 
 def menu():
     try:

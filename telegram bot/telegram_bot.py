@@ -1,5 +1,5 @@
 import logging
-from database import signIn, orders, openOrders, promo, openPromo, menu, nextMenu, product
+from database import signIn, orders, openOrders, promo, openPromo, menu, nextMenu, product, createPromo
 from joke import joke
 #основа
 from aiogram import Bot
@@ -15,7 +15,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage #состояния
 #файловый импорт
 from config import TOKEN
 from states import TestStates
-from buttons import greet, greet_menu, greet_post_login, greet_acc, greet_order, greet_product_menu, greet_product_menu_w_l, greet_product_menu_w_n, greet_product_menu_w_n_l
+from buttons import greet, greet_menu, greet_post_login, greet_acc, greet_order, greet_product_menu, greet_promo, greet_product_menu_w_l, greet_product_menu_w_n, greet_product_menu_w_n_l
 from stringPizza import success_str_log, fail_str_log, password_str, help_string, login_string, acc_string
 from stringPizza import start1, start2, start3, miss
 
@@ -133,10 +133,11 @@ async def state_acc(message: Message):
         if res == ():
             await message.answer("Ошибка, попробуйте позже", reply_markup = greet_acc)
         elif res == -1:
-            await message.answer("Акции закончились(((", reply_markup = greet_acc)
+            await message.answer("Акции закончились(((", reply_markup = greet_promo)
+            await state.set_state(TestStates.all()[5])
         else:
             await state.set_state(TestStates.all()[5])
-            await message.answer(res, reply_markup = greet_order)
+            await message.answer(res, reply_markup = greet_promo)
     else:
         await message.answer(miss,  reply_markup = greet_acc)
 
@@ -182,6 +183,10 @@ async def state_acc_order(message: Message):
         await state.set_state(TestStates.all()[0])
         await message.answer(acc_string, reply_markup = greet_acc, parse_mode=ParseMode.MARKDOWN) 
         return
+    elif message.text == "создать акцию":
+        res  = createPromo(dict_user[message.from_user.id])
+        await message.answer(res,  reply_markup = greet_promo)
+
     elif message.text[0] == "/":
         res = openPromo(message.text[1:], dict_user[message.from_user.id])
         if res == ():

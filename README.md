@@ -11,7 +11,7 @@
 
 Ссылка на бота в Телеграме:  https://t.me/admiralKucha_bot
 
-Имя бот в Телеграме: admiralKucha_bot
+Имя бот в Телеграме: @admiralKucha_bot
 
 # Команды бота
 

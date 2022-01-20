@@ -1,0 +1,20 @@
+{% extends 'main/baseStructure.html'%}
+
+{% block content %}
+<div class="title"> Вакансии </div>
+{% if vacancies|length > 0 %}
+    {% for vacancy in vacancies %}
+        <div class="vacancy_item">
+            <div class="vacanci_content">
+                
+                <div class="vacancy_title">{{vacancy.profession}}</div>
+                <div class="vacancy_discription">{{vacancy.discription}}</div>
+                <div class="vacancy_salary">Заработная плата: {{vacancy.salary}}</div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p style="text-align: center;">К сожалению, на данный момент мы не можем предложить вам ни одной вакансии :(</p>
+{% endif %}
+
+{% endblock %}

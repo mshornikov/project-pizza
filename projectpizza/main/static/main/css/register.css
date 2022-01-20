@@ -1,0 +1,98 @@
+.text_center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+}
+.point {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+}
+.welcom_phrase_reset_password {
+    font-size: 18px;
+}
+
+.text_reset_password {
+    text-align: center;
+}
+.register_buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.btn {
+    background-color: #7FB7D7;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+    border: 0px;
+    font-size: 18px;
+    line-height: 17px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #43a0d6;
+    color:#fff;
+}
+.rev_btn {
+    margin-top:30px;
+}
+.form_label {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.form_label:active {
+    border-color: blue;
+}
+.submit_btn {
+    margin: 40px 0 0 20px;
+}
+.btn_login {
+    background-color: cyan;
+}
+
+
+
+/* Login page */
+.form_point {
+    margin-bottom: 10px;
+    display: flex;    
+    flex-direction: column;
+}
+.form-input_auth_login {
+    width: 100px;
+}
+
+input {
+    width: 287px;
+    height: 31px;
+    background: #F9F9F9;
+    border: 1px solid #7FB7D7;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.form_col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.center_btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text_btn {
+    margin-bottom: 10px;
+}
+
+    

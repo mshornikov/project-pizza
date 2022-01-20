@@ -1,0 +1,45 @@
+{% extends '../main/baseStructure.html' %}
+
+{% block content %}
+    {% if type == 'get' %}
+    <div class="title">Корзина</div>
+    <div class="order_creation_inner">
+        <h5 class='order_title'>Ваш заказ</h5>
+        <div class="order_info">
+            <ul class='order_list'>
+                {% for dict in cart %}
+                {% with item=dict.item %}
+                <li class="order_point">
+                    <span class="point_info"> • {{ item.product.name }}: Количество - {{ item.quantity }}x </span>
+                    <span class='total_point_cost'> Итог: {{ item.total_price }} </span>
+                </li>
+                {% endwith %}
+                    {% endfor %}
+            </ul>
+            <p class='total_order_cost'>Всего:  <b>{{cart.get_total_price }}руб  </b></p>
+        </div>
+        <div class="order_form">
+            <form method="post" class="order-form">
+                {% csrf_token %}
+                <!-- {{ form.as_p }} -->
+                {% for f in form %}
+                <div class="form_point">
+                    <label for="{{ f.id_for_label }}" class="form_label">{{f.label}}:</label>{{f}}
+                    <div class="form-error">{{f.errors}}</div>
+                </div>
+                {% endfor %}
+                <button type='submit' class='btn'>Оформить</button>
+            </form>
+        </div>
+
+    </div>
+    {% else %}
+    <div class="title">Корзина</div>
+    <div class="text-center"> 
+        <h1>Спасибо за доверие!</h1>
+        <p>Ваш заказ был успешно оформлен. </p> 
+        </br>
+        <p> Ваш номер заказа – <strong>{{ order_id }}</strong>.</p>
+    </div>
+    {% endif %}
+{% endblock %}

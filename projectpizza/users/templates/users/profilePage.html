@@ -1,0 +1,55 @@
+{% extends '../main/baseStructure.html'%}
+
+{% block content %}
+<div class="title">Аккаунт</div>
+{% if request.user.is_authenticated %}
+<div class="profile_page_content">
+    <div class="profile_info">
+        <!-- Для авторизованного пользователя: -->
+        <!-- Блок данных пользователя -->
+        <h5 class="profile_info_title">Личный данные</h5>
+        <div class="info_title">Имя</div>
+        <div class="info_text"> {{user.first_name}} </div>
+        <div class="info_title">Фамилия</div>
+        <div class="info_text"> {{user.last_name}} </div>
+        <div class="info_title">Эл.почта</div>
+        <div class="info_text"> {{user.email}} </div>
+        <div class="info_title">Номер телефона</div>
+        <div class="info_text"> {{user.phone}} </div>
+        <div class="info_title">День рождения</div>
+        {% if user.date_of_birth %}
+        <div class="info_text"> {{user.date_of_birth}} </div>
+        {% else %}
+        <div class="info_text"> Не указана </div>
+        {% endif %}
+        <div class="profile_logout">
+            <form action="{% url 'logout' %}" method="post" >
+                {% csrf_token %}
+                <button class='small_btn' type='submit'>Выйти</button>
+            </form>
+        </div>
+    </div>
+        <!-- Список всех заказов аккаунта -->
+    <div class="profile_orders_history">
+        <h5 class="profile_orders_title">История заказов</h5>
+        <div class="orders_list">
+            {% for order in orders %} 
+                <div class="order_item">
+                    <span class="order_id">{{order.created}}</span>
+                    <span class="order_total_cost">Сумма заказа: {{order.total_cost}}₽</span>
+                </div>
+            {% endfor%}
+        </div>
+    </div>
+    </div>
+    {% else %}
+        <!-- Для гостя -->
+
+    <div class="register_buttons">
+        <a href="{% url 'register' %}" class="btn">Регистрация</a>
+        <a href="{% url 'login' %}" class="btn">Авторизация</a>
+    </div>
+</div>
+{% endif %} 
+
+{% endblock %}

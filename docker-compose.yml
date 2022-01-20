@@ -1,0 +1,53 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:13.3
+    container_name: postgres
+    networks:
+      - postgres-compose-network
+    environment:
+      POSTGRES_DB: "pizzaproject"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    restart: always
+    ports:
+      - "5432:5432"
+
+  site:
+   container_name: site
+   ports:
+      - "8000:8000"   
+   depends_on:
+      - "db" 
+   build:
+      context: ./
+      dockerfile: Dockerfile
+   command: bash -c "python projectpizza/manage.py makemigrations && python projectpizza/manage.py migrate && python projectpizza/manage.py runserver 0.0.0.0:8000" 
+   networks:
+     - postgres-compose-network
+   healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+   environment:
+     POSTGRES_HOST: "db"
+
+  bot:
+      ports:
+       - "7000:7000"
+      depends_on:
+        - "db"
+    
+      build:
+        context: ./
+        dockerfile: Dockerfilebot
+      command: bash -c "python telegram_bot/telegram_bot.py"
+      networks:
+       - postgres-compose-network
+
+
+networks:
+  postgres-compose-network:
+    driver: bridge

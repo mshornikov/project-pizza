@@ -1,0 +1,6 @@
+FROM python:3.9.4
+ENV PYTHONUNBUFFERED 1
+
+COPY . .
+WORKDIR .
+RUN pip install -r req.txt

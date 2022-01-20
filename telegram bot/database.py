@@ -163,7 +163,7 @@ def createPromo(user):
             sql = "SELECT * FROM main_product "
             cursor.execute(sql) 
             l = len(cursor.fetchall())
-            stock_product_id = random.randrange(0, l)
+            stock_product_id = random.randrange(1, 1+l)
             sql = "UPDATE stock_stock SET  stock_key=%s , stock_value=%s , active_intil =%s , stock_product_id = %s , user_id_id = %s WHERE id=%s"
             cursor.execute(sql, [stock_key, stock_value, date, stock_product_id, user, ide])
             con.commit()
@@ -184,7 +184,7 @@ def createPromo(user):
         sql = "SELECT * FROM main_product "
         cursor.execute(sql) 
         l = len(cursor.fetchall())
-        stock_product_id = random.randrange(0, l) 
+        stock_product_id = random.randrange(1, l+1) 
 
         today = datetime.date.today()    
         date = datetime.date(today.year, today.month, today.day+7)
@@ -192,7 +192,10 @@ def createPromo(user):
         sql = "SELECT * FROM stock_stock "
         cursor.execute(sql)
         res = cursor.fetchall()
-        ide = res[-1][0] + 1
+        if res != []:
+            ide = res[-1][0] + 1
+        else: 
+            ide = 0
 
         sql = "INSERT INTO stock_stock (stock_key, stock_value, active_intil, stock_product_id, user_id_id, id, stock_type) VALUES  (%s , %s , %s ,  %s , %s,  %s,  %s)"
         cursor.execute(sql, [stock_key, stock_value, date, stock_product_id, user, ide, "Еженедельная акция"])

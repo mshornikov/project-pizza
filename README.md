@@ -11,6 +11,8 @@
 # Домены
 Сайт: http://localhost:8000/
 
+Доступ к swagger: http://localhost:8000/swagger_tools/swagger
+
 Админка сайта: http://localhost:8000/admin
 
 Ссылка на бота в Телеграме:  https://t.me/admiralKucha_bot

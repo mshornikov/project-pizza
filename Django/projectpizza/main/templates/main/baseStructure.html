@@ -26,18 +26,25 @@
             <!-- Лого + навигатор -->
             <div class="header_left_side">
                 <!-- лого -->
-                <a href="{% url 'home' %}"class="logo"> /projectPizza </a>
+                <div class="navbar_item">
+                    <a href="{% url 'home' %}"class="logo"> /projectPizza </a>
+                    <div class="line"> </div>
+                </div>
+
                 <!-- навигатор -->
                 <div class="navbar">
                     {% for point in menu %}
                     {% if point.title == selected_page %}
-                        <div style="display: flex; flex-direction: column;"> 
-                            <a href="{% url point.url %}" class='navPointLeft' id='selected'>{{ point.title }}</a>
-                            <hr width="10px" color="#7FB7D7"/>
-                        </div>
-                        
+                    <div class="navbar_item">
+                        <a href="{% url point.url %}" class="navPointLeft" id="selected">{{ point.title }}</a>
+                        <div class="line" id="selected"> </div>
+                    </div>
                     {% else %}
-                        <a href="{% url point.url %}" class='navPointLeft'>{{ point.title }}</a>
+                    <div class="navbar_item">
+                        <a href="{% url point.url %}" class="navPointLeft">{{ point.title }}</a>
+                        <div class="line"> </div>
+
+                    </div>
                     {% endif %}
                     {% endfor %}
                 </div>
@@ -46,15 +53,31 @@
             <div class="header_right_side">
                 <div class="basket_button">
                     {% if is_selected %}
+                    <div class="navbar_item">
                         <a href="{% url 'cart' %}" class="navPointRight" id='selected'>Корзина</a>
+                        <div class="line" id="selected"> </div>
+                    </div>
                     {% else %}
+                    <div class="navbar_item">
                         <a href="{% url 'cart' %}" class="navPointRight">Корзина</a>
+                        <div class="line"> </div>
+                    </div>
                     {% endif %}
                 </div>
                     <!-- кабинет -->
-                <div class="profile">
-                    <a href="{% url 'profile' %}"><img class="profile_logo" src= "{% static 'main/images/profile_off.svg'%}"  alt="Профиль"></a>
-                </div>
+                    {% if account_page %}
+                    <div class="navbar_item">
+                        <a href="{% url 'profile' %}" class="navPointRight" id='selected'>Аккаунт</a>
+                        <div class="line" id="selected"> </div>
+                    </div>
+                    {% else %}
+                    <div class="navbar_item">
+                        <a href="{% url 'profile' %}" class="navPointRight">Аккаунт</a>
+                        <div class="line"> </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- <a href="{% url 'profile' %}"><img class="profile_logo" src= "{% static 'main/images/profile_off.svg'%}"  alt="Профиль"></a> -->
             </div>
         </div>
     </div>

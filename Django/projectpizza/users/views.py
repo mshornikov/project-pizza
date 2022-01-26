@@ -16,10 +16,12 @@ class RegistrationView(DataMixin, CreateView):
     template_name = 'users/registerPage.html'
     form_class = RegisterForm
     success_url = reverse_lazy('home')
+    
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         menu_context = self.get_user_context(title='.Register')
+        context['account_page'] = True
         return dict(list(context.items()) + list(menu_context.items()))
 
     def form_valid(self, form):
@@ -35,6 +37,7 @@ class UserLoginView(DataMixin, LoginView):
     def get_context_data(self, *, ogject_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         menu_context = self.get_user_context(title='.Authorization')
+        context['account_page'] = True
         return dict(list(context.items()) + list(menu_context.items()))
 
     def get_success_url(self):
@@ -54,6 +57,7 @@ class ProfilePageView(DataMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='.Profile'))
         context['orders'] = Order.objects.filter(user_id=self.request.user.id)
+        context['account_page'] = True
         return context 
 
 class CustomPasswordResetView(DataMixin, PasswordResetView):
@@ -62,6 +66,7 @@ class CustomPasswordResetView(DataMixin, PasswordResetView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='.PasswordReset'))
+        context['account_page'] = True
         return context 
 
 
@@ -71,6 +76,7 @@ class CustomPasswordResetDoneView(DataMixin, PasswordResetDoneView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='.PasswordReset'))
+        context['account_page'] = True
         return context 
 
 class CustomPasswordResetCompleteView(DataMixin, PasswordResetCompleteView):
@@ -79,6 +85,7 @@ class CustomPasswordResetCompleteView(DataMixin, PasswordResetCompleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='.PasswordReset'))
+        context['account_page'] = True
         return context 
 
 class CustomPasswordResetConfirmView(DataMixin, PasswordResetConfirmView):
@@ -87,4 +94,5 @@ class CustomPasswordResetConfirmView(DataMixin, PasswordResetConfirmView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='.PasswordReset'))
+        context['account_page'] = True
         return context 

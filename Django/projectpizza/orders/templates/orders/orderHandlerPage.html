@@ -11,12 +11,12 @@
                 {% with item=dict.item %}
                 <li class="order_point">
                     <span class="point_info"> • {{ item.product.name }}: Количество - {{ item.quantity }}x </span>
-                    <span class='total_point_cost'> Итог: {{ item.total_price }} </span>
+                    <span class='total_point_cost'> Итог: {{ item.total_price|floatformat:2 }} </span>
                 </li>
                 {% endwith %}
                     {% endfor %}
             </ul>
-            <p class='total_order_cost'>Всего:  <b>{{cart.get_total_price }}руб  </b></p>
+            <p class='total_order_cost'>Всего:  <b>{{cart.get_total_price|floatformat:2 }}руб  </b></p>
         </div>
         <div class="order_form">
             <form method="post" class="order-form">

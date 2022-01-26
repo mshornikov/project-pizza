@@ -29,9 +29,13 @@ class StockPageView(DataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_user_context(title='ProjectPizza'))
-        context['selected_page'] = 'Акции'
-        cata = ProductCategory.objects.get(name='Комбо')
-        context['product_list'] = Product.objects.filter(category=cata)
+        context['selected_page'] = 'Комбо'
+        try:
+            
+            cata = ProductCategory.objects.get(name='Комбо')
+            context['product_list'] = Product.objects.filter(category=cata)
+        except:
+            pass
         context['cart_product_form'] = CartAddProductForm()
         return context
 

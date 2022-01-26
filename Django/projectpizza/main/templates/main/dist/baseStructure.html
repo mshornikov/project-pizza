@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{% static 'main/css/contacts.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'main/css/about.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'main/css/register.css'%}" rel="stylesheet"> 
-    <link rel="stylesheet" href="{% static 'main/css/vacancy.css'%}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
@@ -32,7 +31,11 @@
                 <div class="navbar">
                     {% for point in menu %}
                     {% if point.title == selected_page %}
-                        <a href="{% url point.url %}" class='navPointLeft' id='selected_page'>{{ point.title }}</a>
+                        <div style="display: flex; flex-direction: column;"> 
+                            <a href="{% url point.url %}" class='navPointLeft' id='selected'>{{ point.title }}</a>
+                            <hr width="10px" color="#7FB7D7"/>
+                        </div>
+                        
                     {% else %}
                         <a href="{% url point.url %}" class='navPointLeft'>{{ point.title }}</a>
                     {% endif %}

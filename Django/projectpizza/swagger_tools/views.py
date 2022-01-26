@@ -5,8 +5,10 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from django.shortcuts import get_object_or_404
 
-from cart.cart import Cart
+from django.utils.timezone import now
 
+from cart.cart import Cart
+from stock.models import Stock
 # <----SESSION CART---->
 class CartDetailAPIView(APIView):
     """Вывод содержимого корзины в данной сессии"""
@@ -23,11 +25,32 @@ class CartAddAPIView(APIView):
         serializer = CartSerializer(cart) 
         return Response(serializer.data)
 
+class CartAddStockAPIView(APIView):
+    """Добавление в корзину акционного товара"""
+    def post(self, request, key, **kwargs):
+        cart = Cart(request)
+        serializer = CartSerializer(cart)
+        response = Response()
+        try:
+            stock = Stock.objects.get(stock_key=key)
+            if (stock.user_id.id == request.user.id):
+                if stock.active_intil > now() :
+                    cart.stock_add(stock)
+                    return Response(serializer.data)
+                else:
+                    return response(data={'message':"Неверный ключ"})
+            else:
+                return response(data={'message':"На данный момент нет акции с таким кодом"})
+        except:
+            return response(data={'message':"Неверный формат ввода :("})
+
 class CartRemoveAPIView(APIView):
     """Удаление товара из корзины"""
-    def post(self, request, pk, **kwargs):
+    def post(self, request, pk, type, **kwargs):
+        if type not in ['default', 'stock_cart']:
+            return Response(data={'message':'Неверный формат адреса'})
         cart = Cart(request)
-        cart.remove(get_object_or_404(Product, id=pk))
+        cart.remove(get_object_or_404(Product, id=pk), type)
         serializer = CartSerializer(cart) 
         return Response(serializer.data)
 

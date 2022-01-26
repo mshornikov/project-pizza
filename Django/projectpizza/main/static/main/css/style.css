@@ -52,7 +52,10 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
+.navbar {
+    display: flex;
+    flex-direction: row;
+}
 .logo {
     margin-top: auto;
     margin-bottom: auto;
@@ -61,20 +64,13 @@
 .navPointLeft {
     margin-right: 20px;
 }
-.navPointLeft#fselected_page {
-    margin-right: 20px;
+.navPointLeft#selected{
     text-decoration: none;
     color: #7FB7D7;
 }
-
 .navPointLeft:hover {
     color: #7FB7D7;
 }
-
-.navPointLeft:active {
-    color: #303030;
-}
-
     /* Header Right */
 .header_right_side {
     /* margin-left: calc((100vw - 200px)/ 2); */
@@ -540,7 +536,6 @@ input.small_btn {
 
 .vacancy_item {
     width: 407px;
-    height: 231px;
 
     padding: 20px;
 
@@ -553,11 +548,12 @@ input.small_btn {
     font-size: 24px;
     line-height: 29px;
     font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .vacancy_discription {
     font-size: 18px;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
 }
 
 .vacancy_salary {

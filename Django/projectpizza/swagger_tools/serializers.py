@@ -8,20 +8,7 @@ from django.contrib.auth import get_user_model
 from users.models import CustomUser
 
 # <----SESSION CART---->
-class CartSerializer(serializers.Serializer):
-    session_id = serializers.CharField(max_length = 200)
-    product_list = serializers.SerializerMethodField('get_product_list')
 
-    def get_product_list(self, cart_object):
-        cart_id_list = [int(id) for id in cart_object.cart.keys()]
-        product_list = Product.objects.filter(id__in=cart_id_list)
-        result_data = []
-        for product in product_list:
-            temp = ProductSerializer(product).data
-            temp['quantity'] = cart_object.cart[str(product.id)]['quantity']
-            result_data.append(temp)
-        return result_data 
-    
 
 # <----PRODUCT AND CATEGORY---->
 class ProductOnCartDetailSerializer(serializers.ModelSerializer):
@@ -44,6 +31,48 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductCategory
         fields = ('name',)
+
+class StockProductOnCartDetailSerializer(serializers.ModelSerializer):
+
+    def get_product_quantity(self, product_object):
+        pass
+
+    class Meta:
+        model = Product
+        fields = ('name', 'discription', 'cost')
+
+class CartSerializer(serializers.Serializer):
+    session_id = serializers.CharField(max_length = 200)
+    product_list = serializers.SerializerMethodField('get_product_list')
+
+# def get_product_list(self, cart_object):
+# cart_id_list = [int(id) for id in cart_object.cart.keys()]
+# product_list = Product.objects.filter(id__in=cart_id_list)
+# result_data = []
+# for product in product_list:
+# temp = ProductSerializer(product).data
+# temp['quantity'] = cart_object.cart[str(product.id)]['quantity']
+# result_data.append(temp)
+# return result_data
+    def get_product_list(self, cart_object):
+        result_data = {'default':[], 'stock_cart':[]}
+        default_cart_ids = [int(id) for id in cart_object.cart['default'].keys()]
+        stock_cart_ids = [int(id) for id in cart_object.cart['stock_cart'].keys()]
+
+        default_product_list = Product.objects.filter(id__in=default_cart_ids)
+        stock_cart_product_list = Product.objects.filter(id__in=stock_cart_ids)
+
+        for product in default_product_list:
+            temp = ProductSerializer(product).data
+            temp['quantity'] = cart_object.cart['default'][str(product.id)]['quantity']
+            result_data['default'].append(temp)
+
+        for product in stock_cart_product_list:
+            temp = StockProductOnCartDetailSerializer(product).data
+            temp['quantity'] = 1
+            result_data['stock_cart'].append(temp)
+
+        return result_data
 
 
 # <----ORDER AND ORDERITEMS---->

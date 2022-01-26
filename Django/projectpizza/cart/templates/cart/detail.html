@@ -6,12 +6,20 @@
 <div class="cart">
     <!-- Ограничитель -->
     <div class="container">
+       
         {% for message in messages %}
             <div class="message {{ message.tags }}">
                 {{ message }}
             </div>
         {% endfor %}
-
+        <form action="{% url 'stock_accept' %}" method='post' style="margin-bottom: 20px;">
+            {% csrf_token%}
+            <div class="amount"> 
+                {{stock_form.as_p}}
+                <button type='sybmit' class="small_btn" style="margin-left: 10px;">Добавить товар</button>
+            </div>
+        </form>
+        
         {% if length > 0 %}
         <!-- Содержимое корзины -->
         <div class="cart_inner">
@@ -71,14 +79,6 @@
                 {% endwith %}
                 {% endwith %}
             {% endfor %}
-            <form action="{% url 'stock_accept' %}" method='post' style="margin-bottom: 20px;">
-                {% csrf_token%}
-                <div class="amount"> 
-                    {{stock_form.as_p}}
-                    <button type='sybmit' class="small_btn" style="margin-left: 10px;">Добавить товар</button>
-                </div>
-
-            </form>
             <!-- Кнопка формирования заказа -->
             {% if request.user.is_authenticated %}
                 <p style="margin-bottom: 40px;">Обратите внимание, оплата принимается только наличными, по адресу доставки заказа</p>

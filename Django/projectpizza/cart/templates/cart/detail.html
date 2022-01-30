@@ -7,18 +7,7 @@
     <!-- Ограничитель -->
     <div class="container">
        
-        {% for message in messages %}
-            <div class="message {{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-        <form action="{% url 'stock_accept' %}" method='post' style="margin-bottom: 20px;">
-            {% csrf_token%}
-            <div class="amount"> 
-                {{stock_form.as_p}}
-                <button type='sybmit' class="small_btn" style="margin-left: 10px;">Добавить товар</button>
-            </div>
-        </form>
+
         
         {% if length > 0 %}
         <!-- Содержимое корзины -->
@@ -79,6 +68,24 @@
                 {% endwith %}
                 {% endwith %}
             {% endfor %}
+
+            <h5 class="subtitle"> Введите промокод</h5>
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+                
+            </div>
+            <br/>
+            {% endfor %}
+            <form action="{% url 'stock_accept' %}" method='post' style="margin-bottom: 20px;">
+                {% csrf_token%}
+                <div class="amount"> 
+                    {{stock_form.as_p}}
+                    <button type='sybmit' class="small_btn" style="margin-left: 10px;">Добавить товар</button>
+                </div>
+            </form>
+
+
             <!-- Кнопка формирования заказа -->
             {% if request.user.is_authenticated %}
                 <p style="margin-bottom: 40px;">Обратите внимание, оплата принимается только наличными, по адресу доставки заказа</p>
@@ -91,6 +98,7 @@
                     <a href="{% url 'login' %}" class="btn">Авторизация</a>
                 </div>  
             {% endif %}
+           
         </div>
         {% else %}
         <h5 class="cart_name">Корзина пуста, к сожалению</h5>

@@ -131,7 +131,6 @@ a#selected {
 .stocks_inner {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 /* Footer */
@@ -314,6 +313,10 @@ a#selected {
     margin-right: 5px;
 }
 
+.cat_link:hover {
+    background-color: #c0c0c0;  
+}
+
 .category_name {
     font-size: 20px;
     font-weight: bold;
@@ -327,10 +330,10 @@ a#selected {
     justify-content: space-between;
 }
 .item_container {
-    min-width: 600px;
-    max-width: 600px;
+    max-width: 590px;
     display: flex;
     flex-direction: row;
+    margin: 0px 20px 20px 0px;
 }
 .item_image {
     height: 250px;
@@ -343,8 +346,12 @@ a#selected {
     margin-bottom: 30px;
 }
 .item_discription {
-    margin-bottom: 30px;
-}   
+    margin-bottom: 20px;
+}  
+.item_cost {
+    margin-bottom: 10px;
+}
+
 .total_items {
     font-size: 16px;
     font-weight: 700;
@@ -514,10 +521,17 @@ label {
 }
 
 select#id_quantity {
+    font-weight: bold;
+
     border: 0;
     border-radius: 100px 0px 0px 100px;
-    padding: 6px 0px 7px 8px;
+    padding: 7px 0px 7px 8px;
     background-color: #D9d9d9   ;   
+}
+
+select#id_quantity:hover {
+    background-color: #c0c0c0;  
+
 }
 input.small_btn {
     width: auto;
@@ -525,7 +539,7 @@ input.small_btn {
     font-size: 14px;
     border: 0px;
     border-radius: 0px 100px 100px 0px;
-    padding: 6px 12px 6px 12px;
+    padding: 8px 12px 8px 12px;
 }
 
 .add_btn {
@@ -539,7 +553,11 @@ input.small_btn {
     cursor: pointer;
     font-size: 14px;
     border-radius: 0px 100px 100px 0px;
-    padding: 6px 12px 7px 12px;
+    padding: 8px 12px 8px 12px;
+}
+
+.add_btn:hover {
+    background-color: #c0c0c0;  
 }
 
 .promocodes {
@@ -553,11 +571,24 @@ input.small_btn {
     margin-bottom: 10px;
 }
 
+.subtitle {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.vacancy_table {
+    display: flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .vacancy_item {
-    width: 407px;
+    width: 346px;
 
     padding: 20px;
-
+    margin: 0px 20px 20px 0px;
+    
     background: #FFFFFF;
     box-shadow: 20px 20px 100px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
@@ -571,11 +602,11 @@ input.small_btn {
 }
 
 .vacancy_discription {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 10px;
 }
 
 .vacancy_salary {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 6px;
 }

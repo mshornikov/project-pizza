@@ -4,6 +4,7 @@
 <div class="title"> Комбо </div>
 <div class="stocks_inner">
     <div class ="product_scroll">
+        {% if product_list|length %}
         {% for product in product_list %}
             <div class="item_container">
                 <div class="item_image">
@@ -19,7 +20,7 @@
                         {{ product.discription}}
                     </div>
                     <div class="item_cost">
-                        Цена: {{ product.cost}}₽
+                        Цена: <b>{{ product.cost}}₽</b>
                     </div>
                     <div class="item_form">
                         <form action="{% url 'cart_add' product.id 'stocks' %}" method='post'>
@@ -34,6 +35,9 @@
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+            <div class="text-center"> Нет ни одного товара </div>
+        {% endif %}
     </div>
 </div>
 
